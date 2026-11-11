@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仙 XIAN · 一香一石，腕底东方</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='18' y='18' width='64' height='64' rx='10' fill='%23963024'/><text x='50' y='68' font-size='48' text-anchor='middle' fill='%23F2EBDD' font-family='serif'>仙</text></svg>">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #F2EBDD;          /* 牙白 */
+    --bg-soft: #F6EFE3;     /* 素绢 */
+    --paper: #FBF6EE;       /* 宣纸白 */
+    --mist-green: #E7EEE6;  /* 石绿雾 */
+    --mist-apricot: #F4E7D8;/* 杏雾 */
+    --ink: #2E241D;         /* 玄褐 */
+    --ink-soft: #5E5147;    /* 沉香 */
+    --muted: #8A7A6C;       /* 烟灰 */
+    --cinnabar: #963024;    /* 朱砂 */
+    --red-text: #96503C;
+    --gold: #C9A961;        /* 赭金 */
+    --green: #4A7C59;       /* 石绿 */
+    --green-deep: #4A6A56;  /* 松绿 */
+    --apricot: #D99A6C;     /* 杏橙 */
+    --weak: rgb(120,96,80);
+    --line: rgba(46,36,29,0.14);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif SC', 'Songti SC', serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ===== 导航 ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px clamp(20px, 5vw, 48px);
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background .35s, box-shadow .35s, padding .35s;
+  }
+  nav.scrolled { background: rgba(242,235,221,0.92); box-shadow: 0 1px 0 var(--line); padding: 12px clamp(20px,5vw,48px); }
+  .nav-logo img { height: 30px; width: auto; }
+  .nav-links { display: flex; gap: clamp(18px, 3vw, 36px); font-size: 13px; color: var(--ink-soft); }
+  .nav-links a { position: relative; padding: 4px 0; }
+  .nav-links a::after { content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background: var(--cinnabar); transition: width .3s; }
+  .nav-links a:hover { color: var(--cinnabar); }
+  .nav-links a:hover::after { width: 100%; }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* ===== 首屏 Hero ===== */
+  .hero { position: relative; background: var(--bg); display: flex; justify-content: center; }
+  .hero img.hero-img { width: 100%; max-width: 720px; height: auto; object-fit: contain; }
+  .hero .scroll-hint {
+    position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+    z-index: 3; color: var(--weak); font-size: 12px; letter-spacing: .3em;
+    writing-mode: vertical-rl; opacity: .7;
+  }
+
+  /* ===== 通用屏 ===== */
+  section { position: relative; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: clamp(64px, 10vw, 110px) clamp(22px, 5vw, 40px); }
+  .eyebrow { color: var(--cinnabar); font-size: 13px; letter-spacing: .32em; margin-bottom: 18px; }
+  .sec-title { font-size: clamp(26px, 3.4vw, 36px); font-weight: 500; letter-spacing: .08em; line-height: 1.5; }
+  .sec-sub { color: var(--muted); font-size: 15px; margin-top: 14px; max-width: 560px; }
+
+  /* ===== 故事屏 ===== */
+  .story .wrap { max-width: 720px; }
+  .story .slogan { font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; letter-spacing: .14em; margin-bottom: 30px; }
+  .story-text p { color: var(--ink-soft); margin-bottom: 18px; font-size: 14.5px; }
+  .story-text p.lead { color: var(--ink); font-size: 15.5px; }
+
+  /* ===== 简介屏 ===== */
+  .about { text-align: center; border-top: 1px solid var(--line); }
+  .about .wrap { max-width: 760px; }
+  .about p { color: var(--ink-soft); font-size: 15px; margin-bottom: 16px; }
+  .about p strong { color: var(--ink); font-weight: 500; }
+
+  /* ===== 产品四层 ===== */
+  .layer { padding-top: clamp(50px, 7vw, 80px); }
+  .layer + .layer { border-top: 1px solid var(--line); }
+  .layer-head { margin-bottom: clamp(28px, 4vw, 44px); }
+  .layer-num { color: var(--gold); font-size: 12px; letter-spacing: .3em; margin-bottom: 12px; }
+  .layer-head h2 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 500; letter-spacing: .08em; }
+  .layer-head p { color: var(--muted); font-size: 14px; margin-top: 12px; max-width: 620px; }
+  .tag-line { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--green-deep); letter-spacing: .08em; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 22px; } }
+
+  .card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+    padding: 24px 20px; display: flex; flex-direction: column; gap: 10px;
+    transition: border-color .3s, transform .3s;
+  }
+  .card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .card .dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(46,36,29,0.18); }
+  .card .name { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
+  .card .immortal { font-size: 13px; color: var(--cinnabar); letter-spacing: .12em; }
+  .card .meta { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+  .card .meta b { font-weight: 400; color: var(--muted); }
+  .card .persona { font-size: 13.5px; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 2px; }
+  .card .ingredients { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* 盲盒 / 私订 大卡 */
+  .feature-panel { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: clamp(28px,5vw,48px); }
+  .feature-panel .panel-title { font-size: 18px; font-weight: 500; letter-spacing: .1em; margin-bottom: 14px; }
+  .feature-panel p { color: var(--ink-soft); font-size: 14.5px; max-width: 620px; }
+  .btn {
+    display: inline-block; margin-top: 22px; padding: 12px 30px; border: 1px solid var(--cinnabar);
+    color: var(--cinnabar); letter-spacing: .14em; font-size: 14px; border-radius: 999px;
+    background: transparent; cursor: pointer; transition: background .3s, color .3s; font-family: inherit;
+  }
+  .btn:hover { background: var(--cinnabar); color: var(--bg); }
+
+  /* 盲盒测试 */
+  .quiz { margin-top: 28px; display: none; }
+  .quiz.open { display: block; }
+  .quiz-step { margin-bottom: 26px; }
+  .quiz-step h3 { font-size: 16px; font-weight: 500; margin-bottom: 14px; }
+  .quiz-opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 768px) { .quiz-opts { grid-template-columns: repeat(4, 1fr); } }
+  .quiz-opt {
+    border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px;
+    padding: 14px 16px; font-size: 14px; cursor: pointer; text-align: left; font-family: inherit;
+    transition: border-color .25s, background .25s; color: var(--ink-soft);
+  }
+  .quiz-opt:hover { border-color: var(--gold); }
+  .quiz-opt.sel { border-color: var(--cinnabar); background: #F6E9E4; color: var(--cinnabar); }
+  .quiz-result { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 24px; display: none; }
+  .quiz-result.show { display: block; }
+  .quiz-result .r-name { font-size: 22px; font-weight: 500; letter-spacing: .1em; }
+  .quiz-result .r-sub { color: var(--muted); font-size: 13px; margin: 6px 0 12px; }
+  .quiz-result p { font-size: 15px; color: var(--ink-soft); }
+  .quiz-result .r-note { margin-top: 12px; font-size: 12px; color: var(--muted); }
+  .quiz-progress { font-size: 13px; color: var(--muted); margin-bottom: 10px; letter-spacing: .1em; }
+
+  /* ===== 三大匠心 ===== */
+  .craft { border-top: 1px solid var(--line); }
+  .craft .craft-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 36px; }
+  @media (min-width: 768px) { .craft .craft-grid { grid-template-columns: repeat(3, 1fr); } }
+  .craft-card { border-top: 2px solid var(--gold); padding: 26px 22px; }
+  .craft-card h3 { font-size: 16.5px; font-weight: 500; letter-spacing: .08em; margin-bottom: 12px; }
+  .craft-card p { font-size: 14px; color: var(--ink-soft); }
+
+  /* ===== 愿景屏 ===== */
+  .vision { border-top: 1px solid var(--line); }
+  .vision .wrap { text-align: center; }
+  .vision h2 { font-size: clamp(22px,3vw,30px); font-weight: 500; letter-spacing: .1em; margin-bottom: 18px; }
+  .vision p { color: var(--ink-soft); max-width: 560px; margin: 0 auto 14px; font-size: 15px; }
+
+  /* ===== 佩戴保养 ===== */
+  .care { border-top: 1px solid var(--line); }
+  .care-list { display: grid; grid-template-columns: 1fr; gap: 12px 32px; margin-top: 28px; }
+  @media (min-width: 768px) { .care-list { grid-template-columns: repeat(2, 1fr); } }
+  .care-list li { list-style: none; font-size: 14px; color: var(--ink-soft); padding-left: 18px; position: relative; }
+  .care-list li::before { content:''; position:absolute; left:0; top:11px; width:6px; height:6px; border-radius:50%; background: var(--gold); }
+
+  /* ===== 页尾 ===== */
+  footer { background: var(--ink); color: var(--bg); padding: 56px clamp(22px,5vw,40px) 36px; }
+  .footer-inner { max-width: 1080px; margin: 0 auto; }
+  .footer-brand { font-size: 22px; letter-spacing: .2em; margin-bottom: 10px; }
+  .footer-brand span { color: var(--gold); font-size: 14px; letter-spacing: .3em; margin-left: 8px; }
+  .footer-note { color: rgba(242,235,221,0.55); font-size: 13px; margin-top: 18px; line-height: 1.9; }
+  .footer-contact { margin-top: 22px; display: flex; gap: 28px; flex-wrap: wrap; font-size: 14px; color: rgba(242,235,221,0.8); }
+  .footer-contact a { border-bottom: 1px solid rgba(242,235,221,0.3); padding-bottom: 2px; }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-bottom { margin-top: 34px; padding-top: 20px; border-top: 1px solid rgba(242,235,221,0.12); font-size: 12px; color: rgba(242,235,221,0.45); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#top"><img src="https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/SRxybskXhoyVPfxS2tacV3p2nWX" alt="仙 XIAN"></a>
+  <div class="nav-links">
+    <a href="#story">故事</a>
+    <a href="#plain">素串</a>
+    <a href="#series">七境</a>
+    <a href="#blindbox">心愿盲盒</a>
+    <a href="#bespoke">私订</a>
+  </div>
+</nav>
+
+<!-- ===== 首屏 Hero ===== -->
+<section class="hero" id="top">
+  <img class="hero-img" src="https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/VQpHbvru3oD8bBxmjEocsrmKnMg" alt="仙 XIAN 头图">
+  <div class="scroll-hint" aria-hidden="true">向下</div>
+</section>
+
+<!-- ===== 品牌故事 / 初心 ===== -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="slogan">一香一石，腕底东方</div>
+    <div class="story-text">
+      <div class="eyebrow">给喧嚣生活，留一抹东方清静</div>
+      <p class="lead">在节奏很快的日常里，我们常常觉得提不起劲。向外找寻许久，想要的那份安静，其实可以随身携带。</p>
+      <p>品牌的初心，源于一次与古法合香的相遇。我们想：如果把古法合香凝练出的草本气息，与天然晶石的色泽纹理合在一起，做成一件日常腕间的轻巧首饰，会是怎样？</p>
+      <p>于是，便有了这些腕间清仙。</p>
+      <p>我们不制造焦虑，只提供一点触手可及的东方气息。希望你在通勤路上、工位间隙低头时，闻到一缕淡淡的东方香韵，触到晶石的微凉，这串小东西陪着你，慢慢松弛下来。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 品牌简介 ===== -->
+<section class="about">
+  <div class="wrap">
+    <p>我们是根植于东方美学的现代首饰品牌。</p>
+    <p>以古法冷凝合香为核心，搭配天然晶石，把古老的香道文化转译为符合当代审美的腕间饰物，让东方气质成为日常穿搭的一部分。</p>
+  </div>
+</section>
+
+<!-- ===== 产品四层 ===== -->
+
+<!-- 01 素串 -->
+<section class="layer" id="plain">
+  <div class="wrap">
+    <div class="layer-head">
+      <div class="layer-num">01 · 素串</div>
+      <h2>纯合香珠，一串草木气息</h2>
+      <p>不缀晶石，只以古法合香成珠。七款古法方名沿用，气味与成分客观列标，佩戴时只就气息、手感与日常场景而言。</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="name">黑龙涎</div>
+        <div class="meta"><b>气味气质</b> · 沉暗厚重</div>
+        <div class="ingredients">龙涎香、檀香、沉香、乳香、甘松、丁香等</div>
+      </div>
+      <div class="card">
+        <div class="name">白龙涎</div>
+        <div class="meta"><b>气味气质</b> · 清透浅色</div>
+        <div class="ingredients">香材同上，浅色调和</div>
+      </div>
+      <div class="card">
+        <div class="name">木樨香</div>
+        <div class="meta"><b>气味气质</b> · 桂香暖甜</div>
+        <div class="ingredients">桂花、檀香、沉香、安息香、丁香等</div>
+      </div>
+      <div class="card">
+        <div class="name">山泉白茶方</div>
+        <div class="meta"><b>气味气质</b> · 清凉茶意</div>
+        <div class="ingredients">檀香、艾草、安吉白茶、栗花、香茅</div>
+      </div>
+      <div class="card">
+        <div class="name">宫中帐中香</div>
+        <div class="meta"><b>气味气质</b> · 幽室暖香，层次分明</div>
+        <div class="ingredients">榅桲、沉香、檀香、藿香、白芷、辛夷、石菖蒲等</div>
+      </div>
+      <div class="card">
+        <div class="name">梦灵香</div>
+        <div class="meta"><b>气味气质</b> · 暖柔松弛</div>
+        <div class="ingredients">薰衣草、沉香、檀香、茯神、远志、酸枣仁、夜交藤、安息香</div>
+      </div>
+      <div class="card">
+        <div class="name">花蕊夫人</div>
+        <div class="meta"><b>气味气质</b> · 玫瑰藏红，华贵微烟</div>
+        <div class="ingredients">玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 设计款 · 七境 -->
+<section class="layer" id="series">
+  <div class="wrap">
+    <div class="layer-head">
+      <div class="layer-num">02 · 设计款</div>
+      <h2>系列 01 · 七境</h2>
+      <p>合香珠与天然晶石相配，七只仙各居一境。晶石只就色泽、纹理与气质相衬；后续系列将陆续上新。</p>
+      <span class="tag-line">七境为设计款之下的首个系列，不等同于设计款本身</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="dot" style="background:#2B2622"></div>
+        <div class="name">玄岫</div>
+        <div class="immortal">岩仙</div>
+        <div class="meta"><b>香方</b> 黑龙涎 · <b>晶石</b> 黑碧玺</div>
+        <div class="persona">居于深岩之下的仙，不急不躁，身形如山壁；沉静内敛，笃定有分量。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#E6E3DC"></div>
+        <div class="name">月涧</div>
+        <div class="immortal">云仙</div>
+        <div class="meta"><b>香方</b> 白龙涎 · <b>晶石</b> 白水晶</div>
+        <div class="persona">山间流动的云，来去自在，不要求你回应；清淡通透，疏离而温和。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#D9B45A"></div>
+        <div class="name">桂庭</div>
+        <div class="immortal">桂仙</div>
+        <div class="meta"><b>香方</b> 木樨香 · <b>晶石</b> 黄水晶</div>
+        <div class="persona">桂花开满庭院的仙，见谁都留一盏茶；温暖爽朗，有人情味。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#5E8C6A"></div>
+        <div class="name">山晓</div>
+        <div class="immortal">茶仙</div>
+        <div class="meta"><b>香方</b> 山泉白茶 · <b>晶石</b> 绿幽灵</div>
+        <div class="persona">晨雾里煮茶的仙，山刚醒，空气是青的；清爽清醒，干净利落。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#7A6A96"></div>
+        <div class="name">幽帷</div>
+        <div class="immortal">书仙</div>
+        <div class="meta"><b>香方</b> 帐中香 · <b>晶石</b> 紫水晶</div>
+        <div class="persona">守着一屋书卷的仙，帘子半垂，只待相投的人；安静细腻，独处型。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#CFD2D8"></div>
+        <div class="name">枕云</div>
+        <div class="immortal">月仙</div>
+        <div class="meta"><b>香方</b> 梦灵香 · <b>晶石</b> 月光石</div>
+        <div class="persona">守着月色的仙，教你把今天先搁下；柔和松弛，善于放下。</div>
+      </div>
+      <div class="card">
+        <div class="dot" style="background:#E6B7B4"></div>
+        <div class="name">芳尘</div>
+        <div class="immortal">桃仙</div>
+        <div class="meta"><b>香方</b> 花蕊夫人 · <b>晶石</b> 粉晶</div>
+        <div class="persona">春日桃花开透的仙，出场自带光；明丽舒展，有存在感。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 心愿盲盒 -->
+<section class="layer" id="blindbox">
+  <div class="wrap">
+    <div class="layer-head">
+      <div class="layer-num">03 · 心愿盲盒</div>
+      <h2>盲盒，不盲从</h2>
+      <p>几问气味与氛围，捕捉你的喜好，为你搭配合心意的香与石。不预设款式，把惊喜留给未知，跳出常规搭配，只为一场意外的相逢。</p>
+    </div>
+    <div class="feature-panel">
+      <div class="panel-title">测一测，你的心愿偏向哪一种</div>
+      <button class="btn" id="quiz-open">开始偏好测试</button>
+
+      <div class="quiz" id="quiz">
+        <div class="quiz-progress" id="quiz-progress"></div>
+        <div id="quiz-body"></div>
+        <div class="quiz-result" id="quiz-result">
+          <div class="r-name" id="r-name"></div>
+          <div class="r-sub" id="r-sub"></div>
+          <p id="r-desc"></p>
+          <div class="r-note" id="r-note"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 私订 -->
+<section class="layer" id="bespoke">
+  <div class="wrap">
+    <div class="layer-head">
+      <div class="layer-num">04 · 私订</div>
+      <h2>一对一定制，从倾听开始</h2>
+      <p>万物皆有其性，香与石亦是如此。</p>
+    </div>
+    <div class="feature-panel">
+      <div class="panel-title">为你量身配一串</div>
+      <p>我们拒绝流水线式的复刻。定制之初，先倾听你的状态与日常偏好，以你的独特气质为轴，从古法香方与天然晶石中，进行一对一的甄选与搭配。</p>
+      <button class="btn" data-toast="私订咨询入口待上线，敬请期待">预约私订咨询</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 三大匠心 ===== -->
+<section class="craft" id="craft">
+  <div class="wrap">
+    <div class="layer-head" style="margin-bottom:0">
+      <div class="layer-num">匠心</div>
+      <p>匠心传承 · 传统古法合香</p>
+      <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
+    </div>
+    <div class="craft-grid">
+      <div class="craft-card">
+        <h3>循古法合香，还原草木本真</h3>
+        <p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、有层次的香韵。</p>
+      </div>
+      <div class="craft-card">
+        <h3>温和亲肤，纯净植物本源</h3>
+        <p>贴身之物，先求稳妥。精选天然香材与植物纤维，搭配天然原石晶石，日常贴肤佩戴。</p>
+      </div>
+      <div class="craft-card">
+        <h3>手工打磨，温润如肌肤相亲</h3>
+        <p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，日常佩戴轻盈自在。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 品牌愿景 ===== -->
+<section class="vision">
+  <div class="wrap">
+    <h2>不止于腕间，更在于心间</h2>
+    <p>往后，我们希望跳出一串首饰的边界，做一个都市里安放闲情的角落。</p>
+    <p>不定期举办东方气味沙龙、调香手作等新中式雅集，邀你在忙碌里，留出一段属于自己的清静时光。</p>
+  </div>
+</section>
+
+<!-- ===== 佩戴保养 ===== -->
+<section class="care">
+  <div class="wrap">
+    <div class="layer-head" style="margin-bottom:0">
+      <div class="layer-num">保养</div>
+      <h2>日常佩戴与收纳</h2>
+    </div>
+    <ul class="care-list">
+      <li>净手后佩戴，保持珠体干燥。</li>
+      <li>洗手、洗浴、出汗多时取下，忌水忌汗。</li>
+      <li>远离高温与暴晒，避免香气散失、珠体开裂。</li>
+      <li>单独存放，避免与其他饰品混放摩擦。</li>
+      <li>以指腹轻捻保养，勿用力搓揉。</li>
+      <li>天然香材与晶石各有差异，以实物与材料说明为准。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 页尾 ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">仙 <span>XIAN</span></div>
+    <div class="footer-contact">
+      <a href="javascript:void(0)" data-toast="微信咨询入口待上线，敬请期待">微信咨询</a>
+      <a href="mailto:hello@example.com">邮箱咨询</a>
+    </div>
+    <div class="footer-note">
+      合香珠 × 晶石手串 · 腕间饰物。香为珠体自带气息，不单售香料、线香、香牌、香包、香丸。<br>
+      天然香材与晶石各有差异，以实物与材料说明为准；身体不适即停，不以佩戴替代诊疗。
+    </div>
+    <div class="footer-bottom">
+      <span>仙 XIAN · EASTERN SPIRIT ON THE WRIST</span>
+      <span>© 2026 仙 XIAN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 导航滚动状态
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  // 占位反馈（无真实渠道）
+  document.querySelectorAll('[data-toast]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      alert(el.getAttribute('data-toast'));
+    });
+  });
+
+  // ===== 心愿盲盒 · 偏好测试（非运势解读；结果为通用偏好方向，不绑定具体款式） =====
+  var QUIZ = {
+    directions: {
+      calm:  { name: '沉静笃定', desc: '偏好沉厚气息与深稳色泽，我们会为你选一串分量感足、气质内敛的搭配。' },
+      clear: { name: '清透温和', desc: '偏好清透草木与浅净色泽，我们会为你选一串清淡通透、气质柔和的搭配。' },
+      warm:  { name: '温暖明朗', desc: '偏好暖甜气息与明亮色泽，我们会为你选一串爽朗、有人情味的搭配。' },
+      fresh: { name: '清爽利落', desc: '偏好茶意清凉与青绿质感，我们会为你选一串干净清爽的搭配。' },
+      quiet: { name: '安静内敛', desc: '偏好幽细气息与深郁色泽，我们会为你选一串适合独处、细腻安静的搭配。' },
+      soft:  { name: '松弛自在', desc: '偏好暖柔气息与月白质感，我们会为你选一串柔和松弛的搭配。' },
+      bright:{ name: '明丽舒展', desc: '偏好明丽气息与柔粉霞光，我们会为你选一串舒展、有存在感的搭配。' }
+    },
+    questions: [
+      { q: '你更偏向哪种气味？', opts: [['沉厚木质', 'calm'], ['清透草木', 'clear'], ['暖甜花香', 'warm'], ['茶意清凉', 'fresh']] },
+      { q: '你更偏爱哪种颜色质感？', opts: [['深墨沉稳', 'calm'], ['白净通透', 'clear'], ['暖金明亮', 'warm'], ['青绿清爽', 'fresh']] },
+      { q: '这串珠子最常戴在什么场景？', opts: [['通勤办公', 'fresh'], ['独处阅读', 'quiet'], ['出行访友', 'warm'], ['晨昏闲坐', 'soft']] },
+      { q: '你想要它衬出怎样的氛围？', opts: [['笃定安静', 'calm'], ['松弛自在', 'soft'], ['温和热闹', 'warm'], ['明丽舒展', 'bright']] }
+    ]
+  };
+  var quizOpen = document.getElementById('quiz-open');
+  var quiz = document.getElementById('quiz');
+  var quizBody = document.getElementById('quiz-body');
+  var quizProgress = document.getElementById('quiz-progress');
+  var quizResult = document.getElementById('quiz-result');
+  var qi = 0, scores = {};
+
+  function renderQ() {
+    var item = QUIZ.questions[qi];
+    quizProgress.textContent = '第 ' + (qi + 1) + ' / ' + QUIZ.questions.length + ' 题';
+    quizBody.innerHTML = '';
+    var step = document.createElement('div');
+    step.className = 'quiz-step';
+    var h = document.createElement('h3');
+    h.textContent = item.q;
+    step.appendChild(h);
+    var opts = document.createElement('div');
+    opts.className = 'quiz-opts';
+    item.opts.forEach(function (o) {
+      var b = document.createElement('button');
+      b.className = 'quiz-opt';
+      b.textContent = o[0];
+      b.addEventListener('click', function () {
+        scores[o[1]] = (scores[o[1]] || 0) + 1;
+        qi++;
+        if (qi < QUIZ.questions.length) { renderQ(); } else { showResult(); }
+      });
+      opts.appendChild(b);
+    });
+    step.appendChild(opts);
+    quizBody.appendChild(step);
+  }
+
+  function showResult() {
+    quizBody.innerHTML = '';
+    quizProgress.textContent = '';
+    var best = null, bestScore = -1;
+    Object.keys(QUIZ.directions).forEach(function (k) {
+      var s = scores[k] || 0;
+      if (s > bestScore) { bestScore = s; best = k; }
+    });
+    var r = QUIZ.directions[best];
+    document.getElementById('r-name').textContent = r.name;
+    document.getElementById('r-sub').textContent = '你的偏好方向';
+    document.getElementById('r-desc').textContent = r.desc;
+    document.getElementById('r-note').textContent = '本测试仅作偏好参考；为你搭配的具体款式以实际收到为准，留有惊喜。';
+    quizResult.classList.add('show');
+  }
+
+  quizOpen.addEventListener('click', function () {
+    quiz.classList.add('open');
+    qi = 0; scores = {};
+    quizResult.classList.remove('show');
+    renderQ();
+    quiz.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>
