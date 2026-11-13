@@ -518,6 +518,45 @@
     html { scroll-behavior: auto; }
     * { transition: none !important; }
   }
+
+  /* ===== 导航 · 手机端汉堡菜单（小屏收起，子目录点开） ===== */
+  .nav-toggle { display: none; }
+  .nav-panel { display: none; }
+  @media (max-width: 680px) {
+    .site-nav { flex-wrap: wrap; }
+    .nav-links { display: none; }
+    .nav-products-mobile { display: none !important; }
+    .site-nav .nav-toggle {
+      display: inline-flex; background: none; border: 1px solid var(--line); border-radius: 2px;
+      width: 44px; height: 44px; cursor: pointer; align-items: center; justify-content: center;
+      flex-direction: column; gap: 5px; flex: none;
+    }
+    .nav-toggle span { display: block; width: 20px; height: 1.5px; background: var(--ink); }
+    .nav-panel {
+      width: 100%; padding: 6px 0 10px; border-top: 1px dashed var(--line); margin-top: 8px;
+    }
+    .nav-panel.open { display: block; }
+    .nav-panel .np-link {
+      display: block; padding: 12px 2px; font-size: 15px; letter-spacing: .1em; color: var(--ink-soft);
+    }
+    .nav-panel .np-group-btn {
+      display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+      background: none; border: none; cursor: pointer; padding: 12px 2px;
+      font-size: 15px; letter-spacing: .1em; color: var(--ink-soft); font-family: inherit;
+    }
+    .nav-panel .np-group-btn .caret {
+      width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 5px solid var(--brown-soft); transition: transform .25s;
+    }
+    .nav-panel .np-group-btn[aria-expanded="true"] .caret { transform: rotate(180deg); }
+    .nav-panel .np-sub { display: none; padding: 2px 0 6px 14px; border-left: 1px solid var(--line); margin-left: 4px; }
+    .nav-panel .np-sub.open { display: block; }
+    .nav-panel .np-sub a {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+      padding: 10px 2px; font-size: 14px; color: var(--ink-soft); letter-spacing: .06em;
+    }
+    .nav-panel .np-sub .nm-tag { font-size: 11px; letter-spacing: .2em; color: var(--brown-soft); white-space: nowrap; }
+  }
 </style>
 </head>
 <body>
@@ -546,18 +585,23 @@
       </div>
     </div>
   </div>
-  <div class="nav-products-mobile">
-    <span class="npm-label">产品</span>
-    <a href="#plain">素串</a>
-    <a href="#incense">线香</a>
-    <a href="#series">设计款 · 七境</a>
-    <a href="#blindbox">心愿盲盒</a>
-    <a href="#bespoke">私订</a>
-  </div>
-  <div class="nav-products-mobile">
-    <span class="npm-label">仙日常</span>
-    <a href="#daily-catalog">香文化 · 把香事讲给你听</a>
-    <a href="#daily-new">上新预告</a>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel"><span></span><span></span><span></span></button>
+  <div class="nav-panel" id="nav-panel">
+    <a class="np-link" href="#concept">认识仙</a>
+    <button class="np-group-btn" type="button" aria-expanded="false" data-np="np-sub-products">产品<span class="caret" aria-hidden="true"></span></button>
+    <div class="np-sub" id="np-sub-products">
+      <a href="#plain">素串<span class="nm-tag">纯合香珠</span></a>
+      <a href="#incense">线香<span class="nm-tag">案头的香</span></a>
+      <a href="#series">设计款<span class="nm-tag">系列 01 · 七境</span></a>
+      <a href="#blindbox">心愿盲盒<span class="nm-tag">先测再串</span></a>
+      <a href="#bespoke">私订<span class="nm-tag">一对一</span></a>
+    </div>
+    <a class="np-link" href="#story">品牌故事</a>
+    <button class="np-group-btn" type="button" aria-expanded="false" data-np="np-sub-daily">仙日常<span class="caret" aria-hidden="true"></span></button>
+    <div class="np-sub" id="np-sub-daily">
+      <a href="#daily-catalog">香文化<span class="nm-tag">把香事讲给你听</span></a>
+      <a href="#daily-new">上新预告<span class="nm-tag">新品先在这里</span></a>
+    </div>
   </div>
 </nav>
 
@@ -1272,6 +1316,32 @@
   document.addEventListener('keydown', function (ev) {
     if (ev.key === 'Escape') { closeDrops(null); }
   });
+
+  // ===== 导航 · 手机端汉堡菜单 =====
+  var navToggle = document.getElementById('nav-toggle');
+  var navPanel = document.getElementById('nav-panel');
+  if (navToggle && navPanel) {
+    navToggle.addEventListener('click', function () {
+      var open = !navPanel.classList.contains('open');
+      navPanel.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+    });
+    navPanel.querySelectorAll('.np-group-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var sub = document.getElementById(btn.getAttribute('data-np'));
+        var open = !sub.classList.contains('open');
+        sub.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    navPanel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navPanel.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // ===== 珠串示意图（按香色 / 晶石色绘制，产品图到位后替换） =====
   function shade(hex, amt) {
