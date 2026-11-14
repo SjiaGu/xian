@@ -24,6 +24,7 @@
     --brown-deep: #5E4630;
     --brown-soft: #B49B7C;
     --brass: #AE8C5F; /* 哑光古铜，只作细线，不作大面 */
+    --gold-matte: #B3A284; /* 退色旧金：往灰、往浅里收的暗金哑光，只给七境卡框 */
     --sage: #8A9A85;
     --footer-bg: #4C3A28;
     --line: rgba(58,46,34,0.13);
@@ -45,6 +46,7 @@
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; }
   section[id], div[id] { scroll-margin-top: 72px; }
+
 
   /* ===== 站点导航：只留自有 logo ===== */
   .site-nav {
@@ -203,6 +205,15 @@
   .layer-head h2 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 500; letter-spacing: .08em; }
   .layer-head p { color: var(--ink-soft); font-size: 14.5px; margin-top: 12px; max-width: 640px; }
   .tag-line { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--brown-deep); letter-spacing: .08em; }
+  /* 七境广告语（第三十一版立，第三十二版收字号）：从已删的长介绍里单独救回的一句，
+     立在标题正下方、作整个文字区的首行，单独成行，其下接「设计灵感」一段。
+     第三十二版按全站标尺收小：只比正文（14.5px）略大一档，
+     不再与板块大标题（21–27px）抢层级，读着是一句引子。 */
+  .series-slogan {
+    margin-top: 12px;
+    font-size: clamp(15px, 1.9vw, 16px); font-weight: 500;
+    letter-spacing: .1em; line-height: 1.7; color: var(--ink);
+  }
   .photo-note { display: inline-block; margin-top: 14px; margin-left: 10px; font-size: 12.5px; color: var(--muted); border: 1px dashed var(--line); padding: 3px 12px; }
 
   .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
@@ -241,6 +252,74 @@
   .series-banner { margin-bottom: 26px; }
   .series-banner img { width: 100%; height: clamp(230px, 34vw, 360px); object-fit: cover; object-position: center 42%; border-radius: 4px; }
   .series-banner figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
+
+  /* ===== 七境：文字在上、色带在下，与产品图分开又呼应 =====
+     节首顺序（第三十三版定）：标题 → 广告语 → 「设计灵感」一段 —— 文字全部集中在上方，
+     组成一个完整的文字区；七境的代表色排成一带矿物色，移到文字下方、紧贴七张产品卡之上，
+     七色与下面七张画的色调直接呼应 —— 头图是头图，色带只作文字与图片之间的引子。
+     色块配色（第二十六版）：不用艳色，整带走中国传统矿物色 —— 赭黄、玄黛、石青、石绿、藕荷、蛤粉、芙蓉，
+     都是矿石研粉的色：饱和压低、统一带一层灰，摆在一起如一排旧颜料，古雅沉静；每块上标矿物色名。
+     七张意境图全部回到产品卡，七卡统一：暖白画芯 + 一条退色旧金哑光细框（单框；粗细与颜色第二十七版再收）。 */
+  #series .layer-head { margin-bottom: clamp(16px, 2.4vw, 22px); }
+  .series-origin { margin-bottom: clamp(18px, 2.6vw, 24px); }
+  .origin-colors { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
+  @media (min-width: 720px) { .origin-colors { grid-template-columns: repeat(7, 1fr); } }
+  .origin-swatch {
+    background: var(--c); color: var(--tc, var(--ink));
+    min-height: 92px; padding: 14px 12px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 2px;
+  }
+  @media (min-width: 720px) { .origin-swatch { min-height: 132px; } }
+  .origin-swatch .os-pig { font-size: 11px; letter-spacing: .3em; opacity: .72; margin-bottom: 5px; }
+  .origin-swatch .os-name { font-size: 15px; font-weight: 500; letter-spacing: .22em; }
+  .origin-swatch .os-sub { font-size: 11.5px; letter-spacing: .12em; opacity: .82; }
+  .origin-text {
+    background: var(--bg-soft); border: 1px solid var(--line); border-bottom: none;
+    padding: clamp(18px, 2.6vw, 24px) clamp(20px, 3.4vw, 32px);
+  }
+  /* 左对齐与逐句分行（第二十九版定）：正文四句逐句分行定格，不再整段回流，
+     桌面端不会再把「自己」甩到单独一行；句末短语用 .nobr 整段绑定，
+     手机端窄幅回行时也只会整词换行、不落孤字。
+     字号与疏密（第三十二版收）：上一版「设计灵感」做到 18–21px、正文 15.5px/行距 1.95，
+     比全站正文（14–14.5px）大出一截，又松又跳，与整站不协调 —— 这一版全部回到全站标尺：
+     小标题收成 15px 上下的小节题（仍比正文明确一档、后接的旧金细线同步收短），
+     正文与全站正文同为 14.5px、行距收到 1.8，盒内留白同步收紧，整块贴回页面。 */
+  .origin-text .ot-single { max-width: 640px; text-align: left; }
+  .origin-text .ot-tag {
+    display: flex; align-items: center; gap: 10px;
+    font-size: clamp(14.5px, 1.8vw, 15.5px); font-weight: 500;
+    letter-spacing: .18em; color: var(--brown-deep); margin-bottom: 10px;
+  }
+  .origin-text .ot-tag::after { content: ''; height: 1px; width: 36px; background: var(--gold-matte); flex: none; }
+  .origin-text .ot-single .ot-line { font-size: 14.5px; line-height: 1.8; letter-spacing: .03em; color: var(--ink-soft); }
+  .origin-text .ot-single .ot-line.lead { color: var(--ink); }
+  @media (max-width: 560px) {
+    .origin-text .ot-single .ot-line { font-size: 14px; letter-spacing: .02em; }
+  }
+  .origin-text h3 { font-size: 17px; font-weight: 500; letter-spacing: .12em; margin-bottom: 8px; }
+  .origin-text p { font-size: 14px; color: var(--ink-soft); }
+  /* 七境产品卡（第二十四版起）：七卡统一，整幅意境图入框（2:3 原比例，不裁切）。
+     框只留一条 + 暖白画芯，图上不再压内细线，卡身外框也撤掉 —— 全卡只有这一条框线。
+     框的粗细与颜色（第二十七版再收）：图是雾白淡色，2.5px 的饱和古铜线会先跳出来抢图 ——
+     线收细到约 1.25px，颜色退成往灰、往浅里收的旧金哑光，并给一条极淡的明暗渐变作金属质地
+     （哑光、不反光，不是亮金）；投影同步放轻放淡，让框退到图后面去。
+     卡片文字（第三十一版定格）：境名·仙名 / 香方 / 晶石 / 香气气质 / 成分 五行，
+     再加每卡一句两行仙小传 —— 成分是顾客要查的硬信息（幽帷帐中香、芳尘花蕊夫人
+     的成分全站只有卡片里有），小传是每位仙的定稿两行版，两者均为明确保留项；
+     标题下与设计灵感重复的那段长介绍已删，整节散文只留头部「设计灵感」一段。 */
+  #realm-grid .card:last-child { grid-column: auto; }
+  @media (min-width: 560px) and (max-width: 959px) { #realm-grid .card:last-child { grid-column: 1 / -1; justify-self: center; width: calc(50% - 9px); } }
+  @media (min-width: 960px) { #realm-grid .card:last-child { grid-column: 2 / 3; } }
+  .realm-card.has-art { padding: 14px 14px 4px; gap: 0; border: none; }
+  .realm-card.has-art:hover { border: none; }
+  .realm-art { background: var(--paper); padding: 10px; border: 1.25px solid var(--gold-matte); border-image: linear-gradient(158deg, #C3B294 0%, #B3A284 52%, #A6987C 100%) 1; box-shadow: 0 14px 26px -24px rgba(76,58,40,0.32); }
+  .realm-art img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+  .realm-body { padding: 18px 6px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .realm-body .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
+  .realm-body .name .name-immortal { font-size: 13.5px; font-weight: 400; color: var(--brown); letter-spacing: .14em; }
+  .realm-body .name .name-dot { color: var(--muted); font-weight: 300; margin: 0 2px; }
+  .realm-body .meta { text-align: left; }
+  .realm-body .persona { text-align: center; }
 
   /* ===== 盲盒横幅图 ===== */
   .blind-banner { margin-bottom: 30px; }
@@ -422,18 +501,63 @@
   /* ===== 产品下拉（导航） ===== */
   #nav-drop .nav-menu { min-width: 232px; }
 
-  /* ===== 导航 · 手机端产品行（小屏不靠下拉，五项常显可点） ===== */
+  /* ===== 导航 · 手机端汉堡与下拉面板（≤680px：顶栏只留 logo + 汉堡，
+     四项收进面板，「产品 / 仙日常」在面板内是可展开的子目录） ===== */
   .nav-products-mobile { display: none; }
+  .site-nav .nav-toggle { display: none; }
+  .nav-panel { display: none; }
   @media (max-width: 680px) {
-    .site-nav { flex-wrap: wrap; }
-    .nav-links .nav-drop { display: none; }
-    .nav-products-mobile {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 2px 20px;
-      width: 100%; padding-top: 2px; font-size: 13.5px; color: var(--ink-soft);
+    .nav-links { display: none; }
+    .nav-products-mobile { display: none; }
+    .site-nav .nav-toggle {
+      display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      width: 44px; height: 44px; flex: none;
+      background: none; border: none; cursor: pointer; padding: 0;
     }
-    .nav-products-mobile .npm-label { font-size: 11px; letter-spacing: .3em; color: var(--brown-soft); }
-    .nav-products-mobile a { padding: 7px 0; min-height: 36px; display: inline-flex; align-items: center; }
-    .nav-products-mobile a:hover { color: var(--brown-deep); }
+    .site-nav .nav-toggle .tl {
+      display: block; width: 22px; height: 1.5px; background: var(--ink-soft);
+      transition: transform .25s, opacity .25s;
+    }
+    .site-nav.nav-open .nav-toggle .tl:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-nav.nav-open .nav-toggle .tl:nth-child(2) { opacity: 0; }
+    .site-nav.nav-open .nav-toggle .tl:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .site-nav .nav-panel {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 110;
+      background: var(--paper); border-bottom: 1px solid var(--line);
+      box-shadow: 0 24px 32px -24px rgba(76,58,40,0.35);
+      padding: 4px clamp(20px, 5vw, 48px) 12px;
+    }
+    .site-nav.nav-open .nav-panel { display: block; }
+    .nav-panel .np-row { border-top: 1px dashed var(--line); }
+    .nav-panel .np-row:first-child { border-top: none; }
+    .nav-panel a.np-link {
+      display: flex; align-items: center; min-height: 48px; padding: 10px 2px;
+      font-size: 15px; color: var(--ink-soft); letter-spacing: .08em;
+    }
+    .nav-panel a.np-link:hover { color: var(--brown-deep); }
+    .np-group-btn {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 48px; padding: 10px 2px;
+      font-size: 15px; color: var(--ink-soft); letter-spacing: .08em;
+    }
+    .np-group-btn:hover, .np-group.open .np-group-btn { color: var(--brown-deep); }
+    .np-group-btn .caret {
+      width: 0; height: 0; flex: none;
+      border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 5px solid var(--brown-soft);
+      transition: transform .25s;
+    }
+    .np-group.open .np-group-btn .caret { transform: rotate(180deg); }
+    .np-sub { display: none; padding: 0 0 10px 14px; }
+    .np-group.open .np-sub { display: block; }
+    .np-sub a {
+      display: flex; justify-content: space-between; align-items: center; gap: 18px;
+      padding: 8px 2px; min-height: 40px;
+      font-size: 14px; color: var(--ink-soft); letter-spacing: .06em;
+    }
+    .np-sub a:hover { color: var(--brown-deep); }
+    .np-sub .nm-tag { font-size: 11px; letter-spacing: .2em; color: var(--brown-soft); white-space: nowrap; }
   }
 
   /* ===== 线香 ===== */
@@ -518,48 +642,13 @@
     html { scroll-behavior: auto; }
     * { transition: none !important; }
   }
-
-  /* ===== 导航 · 手机端汉堡菜单（小屏收起，子目录点开） ===== */
-  .nav-toggle { display: none; }
-  .nav-panel { display: none; }
-  @media (max-width: 680px) {
-    .site-nav { flex-wrap: wrap; }
-    .nav-links { display: none; }
-    .nav-products-mobile { display: none !important; }
-    .site-nav .nav-toggle {
-      display: inline-flex; background: none; border: 1px solid var(--line); border-radius: 2px;
-      width: 44px; height: 44px; cursor: pointer; align-items: center; justify-content: center;
-      flex-direction: column; gap: 5px; flex: none;
-    }
-    .nav-toggle span { display: block; width: 20px; height: 1.5px; background: var(--ink); }
-    .nav-panel {
-      width: 100%; padding: 6px 0 10px; border-top: 1px dashed var(--line); margin-top: 8px;
-    }
-    .nav-panel.open { display: block; }
-    .nav-panel .np-link {
-      display: block; padding: 12px 2px; font-size: 15px; letter-spacing: .1em; color: var(--ink-soft);
-    }
-    .nav-panel .np-group-btn {
-      display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
-      background: none; border: none; cursor: pointer; padding: 12px 2px;
-      font-size: 15px; letter-spacing: .1em; color: var(--ink-soft); font-family: inherit;
-    }
-    .nav-panel .np-group-btn .caret {
-      width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent;
-      border-top: 5px solid var(--brown-soft); transition: transform .25s;
-    }
-    .nav-panel .np-group-btn[aria-expanded="true"] .caret { transform: rotate(180deg); }
-    .nav-panel .np-sub { display: none; padding: 2px 0 6px 14px; border-left: 1px solid var(--line); margin-left: 4px; }
-    .nav-panel .np-sub.open { display: block; }
-    .nav-panel .np-sub a {
-      display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
-      padding: 10px 2px; font-size: 14px; color: var(--ink-soft); letter-spacing: .06em;
-    }
-    .nav-panel .np-sub .nm-tag { font-size: 11px; letter-spacing: .2em; color: var(--brown-soft); white-space: nowrap; }
-  }
 </style>
 </head>
 <body>
+
+
+
+
 
 <!-- ===== 站点导航 ===== -->
 <nav class="site-nav">
@@ -585,22 +674,30 @@
       </div>
     </div>
   </div>
-  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel">
+    <span class="tl" aria-hidden="true"></span>
+    <span class="tl" aria-hidden="true"></span>
+    <span class="tl" aria-hidden="true"></span>
+  </button>
   <div class="nav-panel" id="nav-panel">
-    <a class="np-link" href="#concept">认识仙</a>
-    <button class="np-group-btn" type="button" aria-expanded="false" data-np="np-sub-products">产品<span class="caret" aria-hidden="true"></span></button>
-    <div class="np-sub" id="np-sub-products">
-      <a href="#plain">素串<span class="nm-tag">纯合香珠</span></a>
-      <a href="#incense">线香<span class="nm-tag">案头的香</span></a>
-      <a href="#series">设计款<span class="nm-tag">系列 01 · 七境</span></a>
-      <a href="#blindbox">心愿盲盒<span class="nm-tag">先测再串</span></a>
-      <a href="#bespoke">私订<span class="nm-tag">一对一</span></a>
+    <div class="np-row"><a class="np-link" href="#concept">认识仙</a></div>
+    <div class="np-row np-group">
+      <button class="np-group-btn" type="button" aria-expanded="false">产品<span class="caret" aria-hidden="true"></span></button>
+      <div class="np-sub">
+        <a href="#plain">素串<span class="nm-tag">纯合香珠</span></a>
+        <a href="#incense">线香<span class="nm-tag">案头的香</span></a>
+        <a href="#series">设计款<span class="nm-tag">系列 01 · 七境</span></a>
+        <a href="#blindbox">心愿盲盒<span class="nm-tag">先测再串</span></a>
+        <a href="#bespoke">私订<span class="nm-tag">一对一</span></a>
+      </div>
     </div>
-    <a class="np-link" href="#story">品牌故事</a>
-    <button class="np-group-btn" type="button" aria-expanded="false" data-np="np-sub-daily">仙日常<span class="caret" aria-hidden="true"></span></button>
-    <div class="np-sub" id="np-sub-daily">
-      <a href="#daily-catalog">香文化<span class="nm-tag">把香事讲给你听</span></a>
-      <a href="#daily-new">上新预告<span class="nm-tag">新品先在这里</span></a>
+    <div class="np-row"><a class="np-link" href="#story">品牌故事</a></div>
+    <div class="np-row np-group">
+      <button class="np-group-btn" type="button" aria-expanded="false">仙日常<span class="caret" aria-hidden="true"></span></button>
+      <div class="np-sub">
+        <a href="#daily-catalog">香文化<span class="nm-tag">把香事讲给你听</span></a>
+        <a href="#daily-new">上新预告<span class="nm-tag">新品先在这里</span></a>
+      </div>
     </div>
   </div>
 </nav>
@@ -758,13 +855,29 @@
     <div class="layer-head">
       <div class="layer-num">贰 · 设计款</div>
       <h2>系列 01 · 七境</h2>
-      <p>合香珠与天然晶石相配，七只仙各居一境。晶石不作标本陈列 —— 只取它临光时的样子：透、润、虹彩，和在地底慢慢生长留下的纹理。香与石相配，取的是气质相衬 —— 挑境，先挑<span class="nobr">此刻的心境</span>。</p>
+      <p class="series-slogan">合香珠与天然晶石相配，七位仙各居一境。</p>
       <span class="tag-line">七境是设计款之下的首个系列，后续系列将陆续上新</span><span class="photo-note">产品实拍图拍摄中，陆续替换</span>
     </div>
-    <figure class="series-banner">
-      <img src="images/realm-mood.webp" alt="晨光薄雾中，七颗不同色泽的天然晶球临水而列，光穿过晶球在水面折出虹彩与光晕" loading="lazy">
-      <figcaption>七石临水，晨光过处，虹彩自生 · 意向图</figcaption>
-    </figure>
+    <div class="series-origin">
+      <div class="origin-text">
+        <div class="ot-single">
+          <div class="ot-tag">设计灵感</div>
+          <p class="ot-line lead">人有两面：一面朝向世人，一面<span class="nobr">朝向自己</span>。</p>
+          <p class="ot-line">仙，是朝向世人的那面，立在光里，<span class="nobr">带香而行</span>；</p>
+          <p class="ot-line">兽，是朝向自己的那面，隐在雾里，<span class="nobr">安静守护</span>。</p>
+          <p class="ot-line">戴上它：仙陪你去见世界，兽陪你<span class="nobr">回到自己</span>。</p>
+        </div>
+      </div>
+      <div class="origin-colors" role="img" aria-label="七境七色，中国传统矿物色：桂庭赭黄、玄岫玄黛、月涧石青、山晓石绿、幽帷藕荷、枕云蛤粉、芳尘芙蓉">
+        <div class="origin-swatch" style="--c:#B49B72"><span class="os-pig">赭黄</span><span class="os-name">桂庭</span><span class="os-sub">黄水晶</span></div>
+        <div class="origin-swatch" style="--c:#4C463F;--tc:#F1EAE0"><span class="os-pig">玄黛</span><span class="os-name">玄岫</span><span class="os-sub">黑碧玺</span></div>
+        <div class="origin-swatch" style="--c:#9FB0B3"><span class="os-pig">石青</span><span class="os-name">月涧</span><span class="os-sub">月光石</span></div>
+        <div class="origin-swatch" style="--c:#86967E"><span class="os-pig">石绿</span><span class="os-name">山晓</span><span class="os-sub">绿幽灵</span></div>
+        <div class="origin-swatch" style="--c:#8E8694"><span class="os-pig">藕荷</span><span class="os-name">幽帷</span><span class="os-sub">紫水晶</span></div>
+        <div class="origin-swatch" style="--c:#E7DECB"><span class="os-pig">蛤粉</span><span class="os-name">枕云</span><span class="os-sub">白水晶</span></div>
+        <div class="origin-swatch" style="--c:#E3C6BE"><span class="os-pig">芙蓉</span><span class="os-name">芳尘</span><span class="os-sub">粉晶</span></div>
+      </div>
+    </div>
     <div class="grid" id="realm-grid"></div>
   </div>
 </section>
@@ -1146,7 +1259,7 @@
       <p>唐代有了金属的香球，开合之间装着香料，佩在身上，走动时香气若有似无。陆游记过京城的景象：贵家女子袖中自持小香球，车马驰过，“香烟如云，数里不绝”。</p>
       <p>再往后，香被做成了珠子。宋代的香谱里有成方的香珠做法，范成大写过岭南女子把香珠与琉璃珠同串而戴。香从“装在囊里”，变成“直接做成佩饰本身”。这是香珠最动人的地方：它既是香，又是饰，不用额外带一件东西。</p>
       <figure class="art-fig">
-        <img src="images/art4-hands-ball.webp" alt="摊开的旧书旁，一双手一手提着镂空的古铜香球，一手让一串珠子滑过指间，米白、玫瑰粉、艾绿、蜜珀、摩卡色的合香珠与白水晶相间" loading="lazy">
+        <img src="images/art4-hands-ball.webp" alt="摊开的旧书旁，一双东方女性的手：一手提着镂空的古铜香球，一手让一串纯色合香珠滑过指间，米白、玫瑰粉、艾绿、蜜珀、摩卡配白水晶，哑光细腻" loading="lazy">
         <figcaption>从香球到珠串：香从悬在衣侧，慢慢走到戴在腕间</figcaption>
       </figure>
       <h3>叁 · 十八子：腕上的一串定式</h3>
@@ -1317,29 +1430,36 @@
     if (ev.key === 'Escape') { closeDrops(null); }
   });
 
-  // ===== 导航 · 手机端汉堡菜单 =====
+  // ===== 导航 · 手机端汉堡面板（子目录点开才展开，点链接后面板收起） =====
+  var siteNav = document.querySelector('.site-nav');
   var navToggle = document.getElementById('nav-toggle');
   var navPanel = document.getElementById('nav-panel');
+  function setPanel(open) {
+    siteNav.classList.toggle('nav-open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+  }
   if (navToggle && navPanel) {
-    navToggle.addEventListener('click', function () {
-      var open = !navPanel.classList.contains('open');
-      navPanel.classList.toggle('open', open);
-      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+    navToggle.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      setPanel(!siteNav.classList.contains('nav-open'));
     });
-    navPanel.querySelectorAll('.np-group-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var sub = document.getElementById(btn.getAttribute('data-np'));
-        var open = !sub.classList.contains('open');
-        sub.classList.toggle('open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navPanel.querySelectorAll('.np-group').forEach(function (g) {
+      var gBtn = g.querySelector('.np-group-btn');
+      gBtn.addEventListener('click', function () {
+        var open = !g.classList.contains('open');
+        g.classList.toggle('open', open);
+        gBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
     navPanel.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        navPanel.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
+      a.addEventListener('click', function () { setPanel(false); });
+    });
+    document.addEventListener('click', function (ev) {
+      if (siteNav.classList.contains('nav-open') && !siteNav.contains(ev.target)) { setPanel(false); }
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') { setPanel(false); }
     });
   }
 
@@ -1378,13 +1498,13 @@
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
-    { name: '玄岫', immortal: '岩仙', scent: '黑龙涎', crystal: '黑碧玺', cc: '#33302C', persona: '居于深岩之下的仙，不急不躁，身形如山壁；沉静内敛，笃定有分量。' },
-    { name: '月涧', immortal: '云仙', scent: '白龙涎', crystal: '白水晶', cc: '#E9E5DB', persona: '山间流动的云，来去自在，不要求你回应；清淡通透，疏离而温和。' },
-    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#D9B45A', persona: '桂花开满庭院的仙，见谁都留一盏茶；温暖爽朗，有人情味。' },
-    { name: '山晓', immortal: '茶仙', scent: '山泉白茶', crystal: '绿幽灵', cc: '#5E8C6A', persona: '晨雾里煮茶的仙，山刚醒，空气是青的；清爽清醒，干净利落。' },
-    { name: '幽帷', immortal: '书仙', scent: '帐中香', crystal: '紫水晶', cc: '#7A6A96', persona: '守着一屋书卷的仙，帘子半垂，只待相投的人；安静细腻，独处型。' },
-    { name: '枕云', immortal: '月仙', scent: '梦灵香', crystal: '月光石', cc: '#D5D9DE', persona: '守着月色的仙，教你把今天先搁下；柔和松弛，善于放下。' },
-    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E6B7B4', persona: '春日桃花开透的仙，出场自带光；明丽舒展，有存在感。' }
+    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#B49B72', mood: '桂香暖甜，温润不腻', ing: '桂花、檀香、沉香、安息香、丁香等', persona: '桂花开满庭院的仙，见谁都留一盏茶；温暖爽朗，有人情味。', img: 'images/realm-guiting.webp', alt: '桂庭意境图：雾白底色上，一头白鹿的鹿角化作开满金桂的枝桠，姜黄衣裙的桂仙立于下方，举起一串正发着光的合香珠与黄水晶串，长发拉成一线、散作金桂' },
+    { name: '玄岫', immortal: '岩仙', scent: '黑龙涎', crystal: '黑碧玺', cc: '#4C463F', mood: '沉暗厚重，木香深长有分量', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', persona: '居于深岩之下的仙，不急不躁，身形如山壁；沉静内敛，笃定有分量。', img: 'images/realm-xuanxiu.webp', alt: '玄岫意境图：岩上静立的玄衣仙子手垂一串黑碧玺串，一条苍龙自云端盘旋而下，龙首短钝圆润、闭目安然，与她相对' },
+    { name: '月涧', immortal: '云仙', scent: '白龙涎', crystal: '月光石', cc: '#9FB0B3', mood: '清透浅净，气息轻而不飘', ing: '香材同黑龙涎，浅色调和', persona: '山间流动的云，来去自在，不要求你回应；清淡通透，疏离而温和。', img: 'images/realm-yuejian.webp', alt: '月涧意境图：满月之下，一只巨鹤展翅俯首，立在涧水里的银蓝衣仙子举起一串月光石珠子相迎，水花与碎光在她脚边散开' },
+    { name: '山晓', immortal: '茶仙', scent: '山泉白茶', crystal: '绿幽灵', cc: '#86967E', mood: '白茶清雅，檀香收尾，凉而干净', ing: '檀香、艾草、安吉白茶、栗花、香茅', persona: '晨雾里煮茶的仙，山刚醒，空气是青的；清爽清醒，干净利落。', img: 'images/realm-shanxiao.webp', alt: '山晓意境图：一只白狐的头与长尾在雾中化作一道旋流，青衣茶仙站在茶垄上仰头望它，手里垂着一串绿幽灵珠串' },
+    { name: '幽帷', immortal: '书仙', scent: '帐中香', crystal: '紫水晶', cc: '#8E8694', mood: '幽室暖香，层次分明', ing: '榅桲、沉香、檀香、藿香、白芷、辛夷、石菖蒲等', persona: '守着一屋书卷的仙，帘子半垂，只待相投的人；安静细腻，独处型。', img: 'images/realm-youwei.webp', alt: '幽帷意境图：一只巨蝶的翅膀占满半幅画面，翅面是淡淡的山水楼阁，灰蓝紫衣的书仙在右下角托起一颗紫水晶，身旁只飘着两三片纸屑' },
+    { name: '枕云', immortal: '月仙', scent: '梦灵香', crystal: '白水晶', cc: '#E7DECB', mood: '草木暖柔，气息松弛放缓', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', persona: '守着月色的仙，教你把今天先搁下；柔和松弛，善于放下。', img: 'images/realm-zhenyun.webp', alt: '枕云意境图：满月之下，一只巨兔的正脸从云里探出，长耳横贯画面；月仙半卧在云堆上，一只手枕在头下，身旁放着一串白水晶珠子' },
+    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E3C6BE', mood: '玫瑰藏红，华贵微烟', ing: '玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等', persona: '春日桃花开透的仙，出场自带光；明丽舒展，有存在感。', img: 'images/realm-fangchen.webp', alt: '芳尘意境图：一只白孔雀在桃粉雾气里回首，羽翎散作轻烟，桃粉衣裙的桃仙在下方张开手臂，手上垂着一串粉晶珠串，下方漫着一层桃粉雾' }
   ];
 
   function metaRow(label, val) {
@@ -1405,13 +1525,19 @@
   var realmGrid = document.getElementById('realm-grid');
   REALMS.forEach(function (r) {
     var card = document.createElement('div');
-    card.className = 'card realm-card';
+    card.className = 'card realm-card has-art';
     card.innerHTML =
-      '<div class="realm-orb" style="--c:' + r.cc + '" role="img" aria-label="' + r.crystal + '意向晶球"></div>' +
-      '<div class="name">' + r.name + '</div>' +
-      '<div class="immortal">' + r.immortal + '</div>' +
-      '<div class="pair">' + r.scent + ' · ' + r.crystal + '</div>' +
-      '<div class="persona">' + r.persona + '</div>';
+      '<figure class="realm-art"><img src="' + r.img + '" alt="' + r.alt + '" loading="lazy"></figure>' +
+      '<div class="realm-body">' +
+      '<div class="name">' + r.name + '<span class="name-dot"> · </span><span class="name-immortal">' + r.immortal + '</span></div>' +
+      '<div class="meta">' +
+      metaRow('香方', r.scent) +
+      metaRow('晶石', r.crystal) +
+      metaRow('香气气质', r.mood) +
+      metaRow('成分', r.ing) +
+      '</div>' +
+      '<p class="persona">' + r.persona + '</p>' +
+      '</div>';
     realmGrid.appendChild(card);
   });
 
@@ -1557,7 +1683,7 @@
       input.focus();
       return;
     }
-    // 邮箱自动发送正在接通：完整报告先在页面内展开。
+    // 邮箱自动发送尚未接通：完整报告先在页面内展开，不假装已发送；接通后才真正寄到邮箱。
     done.hidden = false;
     done.textContent = '完整报告已在下方打开。（邮箱自动发送正在接通中，暂时还不会真的寄出；接通后，报告和新品预告会发到 ' + email + '。）';
     document.getElementById('full-report').hidden = false;
