@@ -315,11 +315,13 @@
   .realm-art { background: var(--paper); padding: 10px; border: 1.25px solid var(--gold-matte); border-image: linear-gradient(158deg, #C3B294 0%, #B3A284 52%, #A6987C 100%) 1; box-shadow: 0 14px 26px -24px rgba(76,58,40,0.32); }
   .realm-art img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
   .realm-body { padding: 18px 6px 14px; display: flex; flex-direction: column; gap: 8px; }
-  .realm-body .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
+  .realm-body .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: left; }
   .realm-body .name .name-immortal { font-size: 13.5px; font-weight: 400; color: var(--brown); letter-spacing: .14em; }
   .realm-body .name .name-dot { color: var(--muted); font-weight: 300; margin: 0 2px; }
   .realm-body .meta { text-align: left; }
-  .realm-body .persona { text-align: center; }
+  .realm-body .bio { font-size: 13.5px; color: var(--ink-soft); line-height: 1.8; text-align: left; margin: 0; }
+  .realm-body .pairline { font-size: 13px; color: var(--ink-soft); text-align: left; }
+  .realm-body .pairline .pair-sep { color: var(--muted); }
 
   /* ===== 盲盒横幅图 ===== */
   .blind-banner { margin-bottom: 30px; }
@@ -1498,13 +1500,13 @@
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
-    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#B49B72', mood: '桂香暖甜，温润不腻', ing: '桂花、檀香、沉香、安息香、丁香等', persona: '桂花开满庭院的仙，见谁都留一盏茶；温暖爽朗，有人情味。', img: 'images/realm-guiting.webp', alt: '桂庭意境图：雾白底色上，一头白鹿的鹿角化作开满金桂的枝桠，姜黄衣裙的桂仙立于下方，举起一串正发着光的合香珠与黄水晶串，长发拉成一线、散作金桂' },
-    { name: '玄岫', immortal: '岩仙', scent: '黑龙涎', crystal: '黑碧玺', cc: '#4C463F', mood: '沉暗厚重，木香深长有分量', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', persona: '居于深岩之下的仙，不急不躁，身形如山壁；沉静内敛，笃定有分量。', img: 'images/realm-xuanxiu.webp', alt: '玄岫意境图：岩上静立的玄衣仙子手垂一串黑碧玺串，一条苍龙自云端盘旋而下，龙首短钝圆润、闭目安然，与她相对' },
-    { name: '月涧', immortal: '云仙', scent: '白龙涎', crystal: '月光石', cc: '#9FB0B3', mood: '清透浅净，气息轻而不飘', ing: '香材同黑龙涎，浅色调和', persona: '山间流动的云，来去自在，不要求你回应；清淡通透，疏离而温和。', img: 'images/realm-yuejian.webp', alt: '月涧意境图：满月之下，一只巨鹤展翅俯首，立在涧水里的银蓝衣仙子举起一串月光石珠子相迎，水花与碎光在她脚边散开' },
-    { name: '山晓', immortal: '茶仙', scent: '山泉白茶', crystal: '绿幽灵', cc: '#86967E', mood: '白茶清雅，檀香收尾，凉而干净', ing: '檀香、艾草、安吉白茶、栗花、香茅', persona: '晨雾里煮茶的仙，山刚醒，空气是青的；清爽清醒，干净利落。', img: 'images/realm-shanxiao.webp', alt: '山晓意境图：一只白狐的头与长尾在雾中化作一道旋流，青衣茶仙站在茶垄上仰头望它，手里垂着一串绿幽灵珠串' },
-    { name: '幽帷', immortal: '书仙', scent: '帐中香', crystal: '紫水晶', cc: '#8E8694', mood: '幽室暖香，层次分明', ing: '榅桲、沉香、檀香、藿香、白芷、辛夷、石菖蒲等', persona: '守着一屋书卷的仙，帘子半垂，只待相投的人；安静细腻，独处型。', img: 'images/realm-youwei.webp', alt: '幽帷意境图：一只巨蝶的翅膀占满半幅画面，翅面是淡淡的山水楼阁，灰蓝紫衣的书仙在右下角托起一颗紫水晶，身旁只飘着两三片纸屑' },
-    { name: '枕云', immortal: '月仙', scent: '梦灵香', crystal: '白水晶', cc: '#E7DECB', mood: '草木暖柔，气息松弛放缓', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', persona: '守着月色的仙，教你把今天先搁下；柔和松弛，善于放下。', img: 'images/realm-zhenyun.webp', alt: '枕云意境图：满月之下，一只巨兔的正脸从云里探出，长耳横贯画面；月仙半卧在云堆上，一只手枕在头下，身旁放着一串白水晶珠子' },
-    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E3C6BE', mood: '玫瑰藏红，华贵微烟', ing: '玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等', persona: '春日桃花开透的仙，出场自带光；明丽舒展，有存在感。', img: 'images/realm-fangchen.webp', alt: '芳尘意境图：一只白孔雀在桃粉雾气里回首，羽翎散作轻烟，桃粉衣裙的桃仙在下方张开手臂，手上垂着一串粉晶珠串，下方漫着一层桃粉雾' }
+    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#B49B72', bio: '桂花开满庭院的仙，见谁都留一盏茶。', mood: '甘甜温润，自带人间烟火气', fit: '想要消除社交冷漠感，希望散发温暖亲和力、拉近人际距离的人。', ing: '桂花、檀香、沉香、安息香、丁香等', img: 'images/realm-guiting.webp', alt: '桂庭意境图：雾白底色上，一头白鹿的鹿角化作开满金桂的枝桠，姜黄衣裙的桂仙立于下方，举起一串正发着光的合香珠与黄水晶串，长发拉成一线、散作金桂' },
+    { name: '玄岫', immortal: '岩仙', scent: '黑龙涎', crystal: '黑碧玺', cc: '#4C463F', bio: '居于深岩之下的仙，不急不躁，身形如山壁。', mood: '沉静厚重，自带不容置疑的定力', fit: '面对繁杂工作易受干扰，渴望迅速稳住阵脚、屏蔽外界嘈杂的人。', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', img: 'images/realm-xuanxiu.webp', alt: '玄岫意境图：岩上静立的玄衣仙子手垂一串黑碧玺串，一条苍龙自云端盘旋而下，龙首短钝圆润、闭目安然，与她相对' },
+    { name: '月涧', immortal: '月仙', scent: '白龙涎', crystal: '月光石', cc: '#9FB0B3', bio: '住在月色里的仙，来去自在，不要求你回应。', mood: '清透浅净，维持刚刚好的边界感', fit: '偏爱清冷伪体香，希望在社交中保持舒适界限与独处空间的人。', ing: '龙涎香、檀香、沉香等，辅以浅色香材轻盈调和', img: 'images/realm-yuejian.webp', alt: '月涧意境图：满月之下，一只巨鹤展翅俯首，立在涧水里的银蓝衣仙子举起一串月光石珠子相迎，水花与碎光在她脚边散开' },
+    { name: '山晓', immortal: '茶仙', scent: '山泉白茶', crystal: '绿幽灵', cc: '#86967E', bio: '晨雾里煮茶的仙，山刚醒，空气是青的。', mood: '清冽干净，让头脑瞬间恢复清明的冷感香', fit: '午后易犯困或工作繁杂时，需要驱散闷倦、保持头脑清明专注的人。', ing: '檀香、艾草、安吉白茶、栗花、香茅', img: 'images/realm-shanxiao.webp', alt: '山晓意境图：一只白狐的头与长尾在雾中化作一道旋流，青衣茶仙站在茶垄上仰头望它，手里垂着一串绿幽灵珠串' },
+    { name: '幽帷', immortal: '书仙', scent: '帐中香', crystal: '紫水晶', cc: '#8E8694', bio: '守着一屋书卷的仙，帘子半垂，只待相投的人。', mood: '幽室暖香，书香与木香交织的静谧感', fit: '喜欢独处阅读，渴望在喧嚣中抽离、寻求内心静谧与深度思考的人。', ing: '檀香、沉香、藿香、白芷、辛夷、石菖蒲等', img: 'images/realm-youwei.webp', alt: '幽帷意境图：一只巨蝶的翅膀占满半幅画面，翅面是淡淡的山水楼阁，灰蓝紫衣的书仙在右下角托起一颗紫水晶，身旁只飘着两三片纸屑' },
+    { name: '枕云', immortal: '云仙', scent: '梦灵香', crystal: '白水晶', cc: '#E7DECB', bio: '卧在云上的仙，教你把今天先搁下。', mood: '草木暖柔，如坠云端般的深度松弛感', fit: '容易精神紧绷、思绪过多，渴望在夜里卸下防备、获得身心松弛的人。', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', img: 'images/realm-zhenyun.webp', alt: '枕云意境图：满月之下，一只巨兔的正脸从云里探出，长耳横贯画面；云仙半卧在云堆上，一只手枕在头下，身旁放着一串白水晶珠子' },
+    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E3C6BE', bio: '春日桃花开透的仙，出场自带光。', mood: '玫瑰藏红，华贵且微醺的迷人气场', fit: '想要在约会或重要场合点亮气场，散发自信明媚与浪漫魅力的人。', ing: '玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等', img: 'images/realm-fangchen.webp', alt: '芳尘意境图：一只白孔雀在桃粉雾气里回首，羽翎散作轻烟，桃粉衣裙的桃仙在下方张开手臂，手上垂着一串粉晶珠串，下方漫着一层桃粉雾' }
   ];
 
   function metaRow(label, val) {
@@ -1530,13 +1532,13 @@
       '<figure class="realm-art"><img src="' + r.img + '" alt="' + r.alt + '" loading="lazy"></figure>' +
       '<div class="realm-body">' +
       '<div class="name">' + r.name + '<span class="name-dot"> · </span><span class="name-immortal">' + r.immortal + '</span></div>' +
+      '<p class="bio">' + r.bio + '</p>' +
+      '<div class="pairline"><span class="m-label">香方：</span>' + r.scent + '<span class="pair-sep"> ｜ </span><span class="m-label">晶石：</span>' + r.crystal + '</div>' +
       '<div class="meta">' +
-      metaRow('香方', r.scent) +
-      metaRow('晶石', r.crystal) +
-      metaRow('香气气质', r.mood) +
+      metaRow('【香方气质】', r.mood) +
+      metaRow('【契合人群】', r.fit) +
       metaRow('成分', r.ing) +
       '</div>' +
-      '<p class="persona">' + r.persona + '</p>' +
       '</div>';
     realmGrid.appendChild(card);
   });
