@@ -141,6 +141,13 @@
   .hero {
     text-align: center;
     background: linear-gradient(180deg, #FAF6E9 0%, #F9F3E6 55%, var(--bg) 92%);
+    /* 羽化衬底（.wrap::before，宽 120%）向两侧各探出约一成，那部分全是渐隐到
+       透明的羽化边缘、画面上看不见，但若不裁，它的溢出会把整页的布局宽度撑到
+       屏宽的 110%：手机上页面能左右滑，固定定位的测香覆盖层也跟着变宽、被切。
+       在 .hero 这一层裁掉横向溢出，衬底照常渲染（可见部分从未超出 .hero），
+       页面宽度回到屏宽本身。clip 不建滚动容器；老内核退回 hidden，效果相同。 */
+    overflow-x: hidden;
+    overflow-x: clip;
   }
   .hero .wrap {
     position: relative; z-index: 1;
@@ -996,11 +1003,15 @@
   .bc-sub .bc-act { color: var(--brown-deep); }
 
   .cx-overlay {
-    position: fixed; inset: 0; z-index: 300;
+    position: fixed; inset: 0; width: 100%; z-index: 300;
     background: var(--bg);
     display: none; flex-direction: column;
     overflow: hidden;
   }
+  /* 覆盖层内的尺寸纪律：任何子元素都不得比它的容器更宽，flex/grid 子项一律
+     允许收缩；长串（邮箱、英文、数字）在 .cx-view p/h3 与 .cx-card 上已有折行
+     规则兜底。三条合起来，保证三态在窄屏上零横向溢出。 */
+  .cx-overlay * { max-width: 100%; min-width: 0; }
   .cx-overlay.open { display: flex; }
   .cx-top {
     flex: none; display: flex; align-items: center; justify-content: space-between; gap: 14px;
@@ -1020,8 +1031,8 @@
   .cx-close:hover { color: var(--brown-deep); }
   .cx-bar { flex: none; height: 2px; background: var(--line); }
   .cx-bar i { display: block; height: 100%; width: 0; background: var(--brass); transition: width .35s; }
-  .cx-scroll { flex: 1 1 auto; min-width: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
-  .cx-view { width: 100%; max-width: 640px; min-width: 0; margin: 0 auto; padding: clamp(30px, 6vw, 54px) clamp(20px, 5vw, 32px) clamp(52px, 8vw, 76px); }
+  .cx-scroll { flex: 1 1 auto; width: 100%; min-width: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .cx-view { width: 100%; max-width: 640px; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: clamp(30px, 6vw, 54px) clamp(20px, 5vw, 32px) clamp(52px, 8vw, 76px); }
   .cx-view[hidden] { display: none; }
 
   /* 开场页 */
@@ -2439,6 +2450,7 @@
   function cxShow(name) {
     Object.keys(cxViews).forEach(function (k) { cxViews[k].hidden = (k !== name); });
     cxScroll.scrollTop = 0;
+    cxScroll.scrollLeft = 0;
   }
   function cxOpenTest(source) {
     cxSource = source || 'plain';
