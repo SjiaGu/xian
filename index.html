@@ -364,29 +364,26 @@
   #series .layer-head { margin-bottom: clamp(16px, 2.4vw, 22px); }
   .series-origin { margin-bottom: clamp(18px, 2.6vw, 24px); }
   /* 色带瘦身为点缀带（已被取代，见下）。
-     色带重做 —— 从「散开的色块贴纸」改成「一条装裱好的矿物色带」。
-     七段色块无缝相连成一条完整横带：段与段之间零间隙、无分隔线，靠颜色
-     本身分段；横带与内容列齐平，带高桌面 56px、手机 44px，手机端也保持
-     一条不换行（七段等分压缩）。装裱感靠横带上下各一条 1px 哑光旧金
-     （--gold-matte）细线 —— 像画芯装裱的边，细而不亮。
-     配色在旧七色基础上整体压灰、统一加一层土色底，像同一盒矿物颜料而非
-     七颗糖，逐段定版（顺序与晶石·香方对应不变）：
-     桂庭·赭黄 #A68B57／玄岫·玄黛 #45413A／月涧·石青 #8A9E99／
-     山晓·石绿 #76866C／幽帷·藕荷 #847B8B／枕云·蛤粉 #E3D7BE／
-     芳尘·芙蓉 #D8B7A9。
+     色带定版（第七十八版）—— 七段色块无缝相连成一条完整横带：段与段
+     之间零间隙、无分隔线，靠颜色本身分段；横带与内容列齐平，带高桌面
+     28px、手机 24px，手机端也保持一条不换行（七段等分压缩）。无框：
+     不加任何边线，色带紧贴上方「设计灵感」块（margin-top: 0）直连。
+     配色从七张定版意境图逐张采样画中 accent 色、略加深定版（顺序与
+     晶石·香方对应不变）：
+     桂庭·赭黄 #B09468／玄岫·玄黛 #767E78／月涧·石青 #93A5A8／
+     山晓·石绿 #A29A76／幽帷·藕荷 #8F8694／枕云·灰白 #D6D1C8／
+     芳尘·芙蓉 #D3A79C。
      标注移到带下方一排，与色段同一套七等分网格、每段居中对齐：第一行
      晶石名（墨色）、第二行香方名（古铜色），12–13px、字距略开。
      手机端两行都保留：字号收到 11/10.5px、字距收紧，四字香方名（如
      「山泉白茶」）在 360px 宽下仍放得下；仅 ≤340px 的极窄屏省略第二行
      香方名，保对齐不错位。 */
-  .origin-colors { margin-top: 16px; }
+  .origin-colors { margin-top: 0; }
   .origin-band {
     display: grid; grid-template-columns: repeat(7, 1fr);
-    height: 44px;
-    border-top: 1px solid var(--gold-matte);
-    border-bottom: 1px solid var(--gold-matte);
+    height: 24px;
   }
-  @media (min-width: 720px) { .origin-band { height: 56px; } }
+  @media (min-width: 720px) { .origin-band { height: 28px; } }
   .origin-band .oc-seg { display: block; background: var(--c); min-width: 0; }
   .origin-labels { display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 9px; }
   .origin-labels .oc-label { text-align: center; min-width: 0; line-height: 1.55; }
@@ -1249,14 +1246,14 @@
         </div>
       </div>
       <div class="origin-colors">
-        <div class="origin-band" role="img" aria-label="七境矿物色带：桂庭赭黄、玄岫玄黛、月涧石青、山晓石绿、幽帷藕荷、枕云蛤粉、芳尘芙蓉">
-          <span class="oc-seg" style="--c:#A68B57"></span>
-          <span class="oc-seg" style="--c:#45413A"></span>
-          <span class="oc-seg" style="--c:#8A9E99"></span>
-          <span class="oc-seg" style="--c:#76866C"></span>
-          <span class="oc-seg" style="--c:#847B8B"></span>
-          <span class="oc-seg" style="--c:#E3D7BE"></span>
-          <span class="oc-seg" style="--c:#D8B7A9"></span>
+        <div class="origin-band" role="img" aria-label="七境矿物色带：桂庭赭黄、玄岫玄黛、月涧石青、山晓石绿、幽帷藕荷、枕云灰白、芳尘芙蓉">
+          <span class="oc-seg" style="--c:#B09468"></span>
+          <span class="oc-seg" style="--c:#767E78"></span>
+          <span class="oc-seg" style="--c:#93A5A8"></span>
+          <span class="oc-seg" style="--c:#A29A76"></span>
+          <span class="oc-seg" style="--c:#8F8694"></span>
+          <span class="oc-seg" style="--c:#D6D1C8"></span>
+          <span class="oc-seg" style="--c:#D3A79C"></span>
         </div>
         <div class="origin-labels">
           <div class="oc-label"><span class="oc-stone">黄水晶</span><span class="oc-scent">木樨香</span></div>
