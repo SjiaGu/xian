@@ -48,25 +48,17 @@
   section[id], div[id] { scroll-margin-top: 72px; }
 
   
-  .preview-bar {
-    background: var(--brown-deep); color: #F1EAE0;
-    padding: 10px clamp(20px, 5vw, 48px);
-    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
-    font-size: 13px; letter-spacing: .06em;
-  }
-  .preview-bar .pb-tag {
-    display: inline-block; border: 1px solid #D8C3A5; color: #D8C3A5;
-    padding: 2px 10px; font-size: 12px; letter-spacing: .2em; margin-right: 12px;
-  }
-  .preview-bar a { color: #D8C3A5; text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; display: inline-block; }
+  
+  
+  
 
   
-  .notes { background: var(--paper); border-bottom: 1px solid var(--line); }
-  .notes .wrap { padding-top: 44px; padding-bottom: 44px; }
-  .notes h2 { font-size: 20px; font-weight: 500; letter-spacing: .1em; margin-bottom: 6px; }
-  .notes .notes-sub { color: var(--muted); font-size: 13.5px; margin-bottom: 26px; }
-  .notes-grid { display: grid; grid-template-columns: 1fr; gap: 0 40px; }
-  @media (min-width: 820px) { .notes-grid { grid-template-columns: 1fr 1fr; } }
+  
+  
+  
+  
+  
+  
   .note-item { display: flex; gap: 14px; padding: 13px 0; border-top: 1px dashed var(--line); }
   .note-num {
     flex: none; width: 26px; height: 26px; border-radius: 50%;
@@ -133,7 +125,7 @@
   }
 
   /* ===== 通用 ===== */
-  
+  /* 全站版块留白：上下一律同一套尺度，版块相接不再忽大忽小 */
   .wrap { max-width: 1060px; margin: 0 auto; padding: clamp(54px, 7.5vw, 88px) clamp(22px, 5vw, 40px); }
   .eyebrow { color: var(--brown); font-size: 12.5px; letter-spacing: .34em; margin-bottom: 16px; }
   .sec-title { font-size: clamp(24px, 3.2vw, 32px); font-weight: 500; letter-spacing: .1em; line-height: 1.5; }
@@ -149,7 +141,24 @@
   .btn.ghost { border-color: var(--line); color: var(--ink-soft); }
   .btn.ghost:hover { border-color: var(--brown); color: var(--brown-deep); background: transparent; }
 
-  
+  /* ===== 首屏 Hero：头图整幅满幅、底部羽化，文字组落在青绿烟缕的弯处 =====
+ 头图整幅完整显示、不裁切：满幅铺满屏幕宽度、紧接导航下方，下半段以 mask
+ 渐变羽化溶进本节底色（自头图边缘采样的暖米 #FAF6E9 渐变回页面本底 --bg），
+ 零色差、零横线，烟雾向下的动势完整保留。
+ 头图为用户亲手 P 干净的版本（images/hero-clean.webp）：
+ 图内中文＋英文标语已由用户本人去除、烟雾完整自然，源图 2048×2048 原样转
+ 高质量 WebP，不裁切、不重画、不再做任何图像修复。标语由下方文字组以
+ 排版文字呈现。
+ 文字组顺序为：标题 → 标语（排版文字）→ 英文小字 → 正文 → 按钮，字号层级
+ 依次递减。
+ 24vw），组的最上方退到约图高 76%，标题「一香一石，腕底东方」坐进那条
+ 纵向青绿烟缕由直下转为横向 curl 的弯钩里（约图高 78%–82%）——上方与仙
+ 字（图高约 19%–50%）、烟团仍在一幅构图里呼应，但留出了呼吸，不再堵。
+ 仍只压淡烟：不压仙字笔画、不压图高 55%–65% 右侧青绿最浓的烟心，标题与
+ 标语落在弯钩与烟尾的淡烟上。文字组背后的极淡同底色 radial 羽化衬底
+ （.hero .wrap::before，边缘完全化开、无色块边界）保留，新落点烟色更淡，
+ 衬底浓度随之减淡，只为小字兜底可读性。负边距全程以 vw 计，手机端同
+ 比例下放：标题同样坐进弯处，标语行保持单行完整，文字同样不压仙字。 */
   .hero {
     text-align: center;
     background: linear-gradient(180deg, #FAF6E9 0%, #F9F3E6 55%, var(--bg) 92%);
@@ -159,7 +168,9 @@
     margin-top: calc(-1 * clamp(72px, 24vw, 576px));
     padding-top: 0; padding-bottom: clamp(56px, 7vw, 84px); max-width: 900px;
   }
-  
+  /*
+ 向外完全化开，看不出色块边界，只把压在淡烟上的小字托清楚；
+。 */
   .hero .wrap::before {
     content: ''; position: absolute; z-index: -1; pointer-events: none;
     left: 50%; top: 44%; transform: translate(-50%, -50%);
@@ -184,7 +195,10 @@
     letter-spacing: .3em; color: var(--brown-deep); white-space: nowrap;
   }
   .hero-micro { font-size: 11.5px; letter-spacing: .42em; color: var(--muted); margin-top: 13px; white-space: nowrap; }
-  
+  /*
+ 留一个有意的停顿；第二句收尾「日子便慢下来一点。」用 .nobr 整段绑定、
+ 绝不从中拆开，窄屏时只许断在「触到一分凉，」之后，上下两截长度相当；
+ text-wrap: balance 兜底均衡断行，不留孤字与两三字的短尾行。 */
   .hero-lead { color: var(--ink-soft); font-size: 14.5px; margin: 24px auto 0; max-width: 520px; text-wrap: balance; }
   .hero-lead .lead-line { display: block; text-wrap: balance; }
   .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
@@ -207,7 +221,9 @@
   .concept-fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
 
   /* ===== 品牌故事 ===== */
-  
+  /*
+ 同为 --mist、同为上下各一条细线收界，从相邻的答疑与仙日常之间分出来；
+ 文字、配图、排版一概不动，只换底色。 */
   .story { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .story-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
   @media (min-width: 880px) { .story-grid { grid-template-columns: 5fr 6fr; gap: 60px; } }
@@ -220,7 +236,17 @@
   .story-points div .sp-t { font-size: 15px; font-weight: 500; letter-spacing: .1em; color: var(--brown-deep); }
   .story-points div .sp-d { font-size: 12.5px; color: var(--muted); }
 
-  
+  /* ===== 产品总览 =====
+ 标题同一量级（17–19px），序号与短语随之小一档，箭头保持小而克制；每行
+ 上下留白收紧约一半（28px → 14px 上限），五行总高明显变矮，整节回到
+ 安静、轻量的量级。行间极细分隔线、整行可点与 hover 反馈、本节标题与
+ 底色色带全部保留；顺序、锚点、文案逐字不变。
+ 开始，节内自上而下为眉题「从腕间，到案头」（原总览大标题降为小字眉题，
+ 沿用全站 .eyebrow 的古铜色与拉开字距）→ 大标题「挑一串契合你当下气场的
+ "仙"」（.screen-title，字号样式不变）→ 原第三屏两段引文（.mood-body，
+ 逐字保留）→ 原总览说明句（.sec-sub，逐字保留）→ 目录五行。标题组改回
+ 左对齐（与原第三屏一致），与目录之间只留全站统一的板块内间距，不再叠
+ 加分隔线；原先白底标题块压着色带目录块的接缝就此消除。 */
   .tier { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .tier-head { margin-bottom: clamp(28px, 4vw, 40px); }
   .tier-head .sec-sub { margin-top: 20px; }
@@ -252,7 +278,9 @@
   .layer-head h2 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 500; letter-spacing: .08em; }
   .layer-head p { color: var(--ink-soft); font-size: 14.5px; margin-top: 12px; max-width: 640px; }
   .tag-line { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--brown-deep); letter-spacing: .08em; }
-  
+  /* 七境广告语：从已删的长介绍里单独救回的一句，
+ 立在标题正下方、作整个文字区的首行，单独成行，其下接「设计灵感」一段。
+ 不再与板块大标题（21–27px）抢层级，读着是一句引子。 */
   .series-slogan {
     margin-top: 12px;
     font-size: clamp(15px, 1.9vw, 16px); font-weight: 500;
@@ -283,6 +311,9 @@
   .card:hover { border-color: var(--brown-soft); }
   .card .strand { display: flex; justify-content: center; padding: 4px 0 6px; }
   .card .strand svg { width: 148px; height: 118px; }
+  
+  .grid-plain .card .strand { padding: 0 0 4px; }
+  .grid-plain .card .strand img { display: block; width: 100%; height: auto; aspect-ratio: 1408 / 1760; object-fit: contain; border-radius: 2px; background: var(--paper); }
   .card .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
   .card .immortal { font-size: 13px; color: var(--brown); letter-spacing: .14em; text-align: center; margin-top: -6px; }
   .card .meta { display: grid; gap: 3px; font-size: 13px; line-height: 1.7; border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 4px; }
@@ -291,15 +322,63 @@
   .m-val { color: var(--ink-soft); }
   .card .persona { font-size: 13.5px; color: var(--ink-soft); }
   .card .ingredients { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  /*
+ 三个尺寸以细竖线「｜」分隔（分隔符用次级色），整行左对齐；无边框、无底色、无圆角、
+ 无阴影。整组文字下方一条 2px 横线，横贯整组文字的宽度（不撑满卡片整行），
+ 横线下方留约 6–8px 再接卡片边缘。触控热区靠链接上下内边距保证（可点高度约 36–40px），
+ 视觉上仍是纯文字一行；点按反馈只用文字变色/下划线，不出现任何框或色块。
+ 功能与跳转逻辑不变。
+ 粗细与长度不变；尺寸行最前面加「珠径」小标示（.buy-label，次级色小字、字距拉开，
+ 纯文字不可点），整行形如「珠径 8mm ｜ 10mm ｜ 12mm」，横线随之横贯含标示的整组宽度。 */
+  .card .buy-group {
+    display: inline-flex; align-items: center; justify-self: start;
+    margin-top: 2px; margin-bottom: 7px;
+    border-bottom: 2px solid var(--gold-matte);
+  }
+  .card .buy-label {
+    flex: 0 0 auto;
+    padding: 10px 0 9px; margin-right: 8px;
+    color: var(--muted); font-size: 12px; letter-spacing: .18em;
+    user-select: none;
+  }
+  .card .buy-btn {
+    flex: 0 0 auto; min-width: 0;
+    display: inline-flex; align-items: center;
+    padding: 10px 2px 9px; border: 0; border-radius: 0;
+    background: transparent; color: var(--brown-deep);
+    font-size: 14px; letter-spacing: .06em; text-decoration: none;
+    transition: color .25s;
+  }
+  .card .buy-btn + .buy-btn::before {
+    content: "｜"; color: var(--muted); font-size: 11px; letter-spacing: 0;
+    margin: 0 9px; pointer-events: none;
+  }
+  .card .buy-btn:hover { color: var(--brown-soft); }
+  .card .buy-btn:active { color: var(--brown); text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 380px) {
+    .card .buy-btn { font-size: 13.5px; padding: 10px 1px 9px; }
+    .card .buy-btn + .buy-btn::before { margin: 0 7px; }
+  }
 
   .series-banner { margin-bottom: 26px; }
   .series-banner img { width: 100%; height: clamp(230px, 34vw, 360px); object-fit: cover; object-position: center 42%; border-radius: 4px; }
   .series-banner figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
 
-  
+  /* ===== 七境：文字在上、色带在下，与产品图分开又呼应 =====
+ 节首顺序：标题 → 广告语 → 「设计灵感」一段 —— 文字全部集中在上方，
+ 组成一个完整的文字区；七境的代表色排成一带矿物色，移到文字下方、紧贴七张产品卡之上，
+ 七色与下面七张画的色调直接呼应 —— 头图是头图，色带只作文字与图片之间的引子。
+ 色块配色：不用艳色，整带走中国传统矿物色 —— 赭黄、玄黛、石青、石绿、藕荷、蛤粉、芙蓉，
+ 都是矿石研粉的色：饱和压低、统一带一层灰，摆在一起如一排旧颜料，古雅沉静；每块上标矿物色名。
+。
+ 七张意境图全部回到产品卡，七卡统一：暖白画芯 + 一条退色旧金哑光细框。 */
   #series .layer-head { margin-bottom: clamp(16px, 2.4vw, 22px); }
   .series-origin { margin-bottom: clamp(18px, 2.6vw, 24px); }
-  
+  /*
+ 三分之一），七格一行紧凑排布、间距收小，不再有大色块与卡片感；标签小字
+ 落在芯片下方，水晶在前、色名在后（水晶名正墨色、色名浅色，「·」相连），
+ 境名不在本带重复。七色整体降饱和、添灰调、明度拉齐，只留玄黛（深）与
+ 蛤粉（浅）作两头锚点。手机端 4＋3 换行，标签不挤压重叠。 */
   .origin-colors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 10px; margin-top: 16px; }
   @media (min-width: 720px) { .origin-colors { grid-template-columns: repeat(7, 1fr); gap: 0 12px; } }
   .origin-cell { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
@@ -317,7 +396,13 @@
     background: var(--bg-soft); border: 1px solid var(--line); border-bottom: none;
     padding: clamp(18px, 2.6vw, 24px) clamp(20px, 3.4vw, 32px);
   }
-  
+  /* 左对齐与逐句分行：正文四句逐句分行定格，不再整段回流，
+ 桌面端不会再把「自己」甩到单独一行；句末短语用 .nobr 整段绑定，
+ 手机端窄幅回行时也只会整词换行、不落孤字。
+ 字号与疏密：上一版「设计灵感」做到 18–21px、正文 15.5px/行距 1.95，
+ 比全站正文（14–14.5px）大出一截，又松又跳，与整站不协调 —— 这一版全部回到全站标尺：
+ 小标题收成 15px 上下的小节题（仍比正文明确一档、后接的旧金细线同步收短），
+ 正文与全站正文同为 14.5px、行距收到 1.8，盒内留白同步收紧，整块贴回页面。 */
   .origin-text .ot-single { max-width: 640px; text-align: left; }
   .origin-text .ot-tag {
     display: flex; align-items: center; gap: 10px;
@@ -332,7 +417,14 @@
   }
   .origin-text h3 { font-size: 17px; font-weight: 500; letter-spacing: .12em; margin-bottom: 8px; }
   .origin-text p { font-size: 14px; color: var(--ink-soft); }
-  
+  /* 七境产品卡：七卡统一，整幅意境图入框（2:3 原比例，不裁切）。
+ 框只留一条 + 暖白画芯，图上不再压内细线，卡身外框也撤掉 —— 全卡只有这一条框线。
+ 框的粗细与颜色：图是雾白淡色，2.5px 的饱和古铜线会先跳出来抢图 ——
+ 线收细到约 1.25px，颜色退成往灰、往浅里收的旧金哑光，并给一条极淡的明暗渐变作金属质地
+ （哑光、不反光，不是亮金）；投影同步放轻放淡，让框退到图后面去。
+ 卡片文字：境名·仙名 / 小传一句 / 香方｜晶石同一行 /
+ 成分 / 香方气质 / 契合人群，全部左对齐（细则见 .realm-body 处注释）；
+ 标题下与设计灵感重复的那段长介绍已删，整节散文只留头部「设计灵感」一段。 */
   #realm-grid .card:last-child { grid-column: auto; }
   @media (min-width: 560px) and (max-width: 959px) { #realm-grid .card:last-child { grid-column: 1 / -1; justify-self: center; width: calc(50% - 9px); } }
   @media (min-width: 960px) { #realm-grid .card:last-child { grid-column: 2 / 3; } }
@@ -340,7 +432,9 @@
   .realm-card.has-art:hover { border: none; }
   .realm-art { background: var(--paper); padding: 10px; border: 1.25px solid var(--gold-matte); border-image: linear-gradient(158deg, #C3B294 0%, #B3A284 52%, #A6987C 100%) 1; box-shadow: 0 14px 26px -24px rgba(76,58,40,0.32); }
   .realm-art img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
-  
+  /* 卡片文字：全部左对齐 —— 境名·仙名 / 小传一句 /
+ 香方｜晶石同一行 / 成分 / 香方气质 / 契合人群。
+ 之前小传居中，换行后第二行往中间缩，看着散；现在左边成一条线。 */
   .realm-body { padding: 18px 6px 14px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
   .realm-body .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: left; }
   .realm-body .name .name-immortal { font-size: 13.5px; font-weight: 400; color: var(--brown); letter-spacing: .14em; }
@@ -350,7 +444,8 @@
   .realm-body .pairline .p-label { font-size: 12px; color: var(--muted); }
   .realm-body .pairline .p-sep { color: var(--muted); margin: 0 4px; }
   .realm-body .rline { font-size: 13.5px; line-height: 1.85; color: var(--ink-soft); }
-  .realm-body .rline .rl-label { color: var(--brown-deep); font-weight: 500; letter-spacing: .03em; }
+  
+  .realm-body .rline .rl-label { font-size: 12px; letter-spacing: .18em; color: var(--brown); font-weight: 400; }
   .realm-body .ring { font-size: 12.5px; line-height: 1.8; color: var(--ink-soft); }
   .realm-body .ring .rg-label { font-size: 12px; color: var(--muted); }
 
@@ -539,7 +634,7 @@
   #nav-drop .nav-menu { min-width: 232px; }
 
   /* ===== 导航 · 手机端汉堡与下拉面板（≤680px：顶栏只留 logo + 汉堡，
-     四项收进面板，「产品 / 仙日常」在面板内是可展开的子目录） ===== */
+ 四项收进面板，「产品 / 仙日常」在面板内是可展开的子目录） ===== */
   .nav-products-mobile { display: none; }
   .site-nav .nav-toggle { display: none; }
   .nav-panel { display: none; }
@@ -598,7 +693,8 @@
   }
 
   /* ===== 线香 ===== */
-  
+  /*；图源本身即
+ 4:3，宽度与卡片内容宽对齐，桌面与手机都完整显示、不裁切主体；无边框装裱。 */
   .incense-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
   .incense-fig { display: flex; justify-content: center; padding: 6px 0 4px; }
   .incense-fig svg { width: 118px; height: 96px; }
@@ -622,7 +718,7 @@
   .daily-card .dc-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
   .daily-card .dc-list .dc-soon { flex: none; font-size: 12px; letter-spacing: .12em; color: var(--muted); }
 
-  
+  /* ===== 仙日常 · 香文化目录与上新卡 ===== */
   .daily-cover { margin-top: 34px; }
   .daily-cover img { width: 100%; height: clamp(240px, 38vw, 400px); object-fit: cover; border-radius: 4px; }
   .daily-cover figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
@@ -691,7 +787,8 @@
   .duo-tag { font-size: 17px; font-weight: 500; letter-spacing: .22em; color: var(--brown-deep); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
   .duo-tag::after { content: ''; height: 1px; width: 34px; background: var(--gold-matte); flex: none; }
   .duo-card p { font-size: 15px; color: var(--ink-soft); max-width: 460px; }
-  
+  /*
+ .mood-body 本体，随大标题一起落进产品总览的色带里，不再自成一屏。 */
   .mood-body { max-width: 720px; margin-top: 20px; }
   .mood-body p { font-size: 15.5px; color: var(--ink-soft); }
   .mood-body p + p { margin-top: 12px; }
@@ -702,7 +799,16 @@
   .tl-row { border-top: none; padding: 16px 0 8px; }
   .tl-era { position: relative; }
   .tl-era::before { content: ''; position: absolute; left: -29px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--brass); }
-  
+  /* 一颗珠子是怎么做出来的：图改「符号化」，版式改顺读的直线 ——
+ 九张图全部重画成单个物件符号（浅碟香材、白瓷臼、陶碗香泥、裹布静置、指间搓珠、
+ 木托穿孔、竹盘排珠、软布单珠、平放成串）：每张只一个物件居中浮在与页面一致的
+ 暖米白底上，只有物件下一点柔和接触影；再以径向羽化 mask 把图片边缘化进底色，
+ 任何角度都看不出矩形边界。无框、无卡片底、无阴影盒子。
+ 版式：一线穿珠 —— 桌面一条笔直的横向细线贯穿整段，九步自左向右一字排开，
+ 每列自上而下：符号小图 → 线上小圆点节点（在每列图下方，如线穿珠）→ 序号步名 → 正文，
+ 视线只走一个方向；没有波浪、没有蛇形回头、没有上下交错。
+ 平板放不下九列时 wrap 成上下两行（5＋4），两行各起一条横线、都自左向右读；
+ 手机横线转竖线靠左，九步自上而下紧凑纵排（点＋图在左、文字在右），不横滑 */
   .beadline { display: flex; flex-wrap: wrap; margin-top: clamp(26px, 3.5vw, 34px); }
   .bl-step { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; padding: 0 7px; }
   .bl-step::before { content: ''; position: absolute; left: 0; right: 0; top: 107px; height: 1px; background: var(--brass); opacity: .45; }
@@ -751,6 +857,43 @@
   }
   .art-close:hover { border-color: var(--brown); }
   .art-close-top { margin: 0 0 4px auto; padding: 8px 2px; border: none; min-height: 38px; color: var(--brown); }
+
+  /*
+；锁版改成图下小巧的 HTML 字标；
+ 顶部加品名＋分类眉题；字号、行高与间距整体收紧。主页卡片与点击行为一律不动。
+；并显式写 height:auto
+ 按原图自然比例显示 —— 此前只写 width:100%、未写 height:auto，img 的 height 属性
+ 在部分 webview 里会当作固定高度生效，宽度随容器收窄、高度钉死，图被纵向拉长。 */
+  .grid-plain .card { cursor: pointer; }
+  .grid-plain .card:focus-visible { outline: 1.5px solid var(--brown); outline-offset: 3px; }
+  .plain-detail { margin-top: clamp(28px, 4.5vw, 46px); }
+  .plain-detail[hidden] { display: none; }
+  .pd-topbar { max-width: 600px; margin: 0 auto; display: flex; justify-content: flex-end; }
+  .pd-head { max-width: 600px; margin: 2px auto 0; display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .pd-name { font-size: 17px; letter-spacing: .14em; color: var(--ink); }
+  .pd-cat { font-size: 12px; letter-spacing: .1em; color: var(--muted); }
+  .pd-fig { max-width: 500px; margin: 14px auto 0; }
+  .pd-fig img {
+    /* 自然比例完整呈现：不设固定 aspect-ratio / 高度，不用 object-fit，不加任何 mask */
+    width: 100%; height: auto; display: block;
+  }
+  .pd-mark { margin-top: 18px; text-align: center; }
+  .pd-mark img { width: 30px; height: auto; display: block; margin: 0 auto; }
+  .pd-mark-word { margin-top: 5px; font-size: 11px; letter-spacing: .5em; text-indent: .5em; color: var(--brown); }
+  .pd-mark-line { margin-top: 6px; font-size: 12px; letter-spacing: .18em; color: var(--muted); }
+  .pd-poem { max-width: 600px; margin: 16px auto 0; text-align: center; padding: 0 4px; font-size: 15px; }
+  .pd-stanza { margin-bottom: .85em; }
+  .pd-stanza:last-child { margin-bottom: 0; }
+  .pd-line { display: block; line-height: 1.9; letter-spacing: .06em; color: var(--ink); white-space: nowrap; }
+  .pd-end { margin-top: 20px; }
+  /*
+ 无按键组、无订单表单、无咨询入口；选购在主页卡片的珠径按键完成。 ===== */
+  .pd-size-line { max-width: 600px; margin: 18px auto 0; padding: 0 4px; text-align: center; font-size: 12.5px; color: var(--muted); letter-spacing: .04em; line-height: 1.7; }
+  @media (max-width: 640px) {
+    .pd-poem { font-size: 14.5px; }
+    .pd-line { letter-spacing: .03em; }
+  }
+  @media (max-width: 380px) { .pd-line { letter-spacing: .01em; } }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -816,7 +959,7 @@
   </div>
 </nav>
 
-
+<!-- ===== 首屏 Hero：头图整幅满幅、底部羽化（用户亲手 P 干净的版本），文字组下放到青绿烟缕转弯的弯处、标题坐进弯钩 ===== -->
 <header class="hero" id="top">
   <figure class="hero-fig">
     <img src="images/hero-clean.webp" alt="仙 XIAN 品牌头图：深褐色书法「仙」字，红丝线在笔画间穿绕、收尾轻轻飘出，烟雾向画面四周自然散开、向下渐渐溶进页面底色">
@@ -859,7 +1002,7 @@
 
 <div class="ornament" aria-hidden="true"><i></i></div>
 
-
+<!-- ===== 产品总览：目录式五行，与「挑一串」合成一节一带 ===== -->
 <section class="tier" id="collections">
   <div class="wrap">
     <div class="tier-head">
@@ -890,6 +1033,20 @@
       <p>不缀晶石，只以古法合香成珠。第一阶段共八款，按气味的性情分三类 —— 清、静、舒，挑香先挑此刻想要的状态。每款只写气味、场景与主要香材，不写疗效；珠串图按各方香色绘制，先看个大概气质。<span class="photo-note">产品实拍图拍摄中，陆续替换</span></p>
     </div>
     <div class="grid grid-plain" id="plain-grid"></div>
+    <!-- 素串详情：点卡片在此原页展开 —— 眉题（品名＋分类）＋无锁版上手图（自然比例完整呈现，无羽化）＋图下小字标＋诗行文案 -->
+    <div class="plain-detail" id="plain-detail" hidden>
+      <div class="pd-topbar"><button class="art-close art-close-top pd-close-btn" type="button">收起 ↑</button></div>
+      <div class="pd-head"><span class="pd-name" id="pd-name"></span><span class="pd-cat" id="pd-cat"></span></div>
+      <figure class="pd-fig"><img id="pd-img" alt="" width="1296" height="1616"></figure>
+      <div class="pd-mark" aria-hidden="true">
+        <img src="images/nav-glyph-brown.png" alt="">
+        <div class="pd-mark-word">XIAN</div>
+        <div class="pd-mark-line">不必寻山问道，腕间自有清仙</div>
+      </div>
+      <div class="pd-poem" id="pd-poem"></div>
+      <p class="pd-size-line">珠径 8 · 10 · 12mm 可选 — 12mm 按单制作，下单后现做 · 男士亦可佩戴</p>
+      <button class="art-close pd-close-btn pd-end" type="button">回到素串 ↑</button>
+    </div>
   </div>
 </section>
 
@@ -1054,7 +1211,7 @@
   </div>
 </section>
 
-
+<!-- ===== 识香 · 合香珠科普（置于产品各区之后、品牌故事之前） ===== -->
 <section class="hexiang-sec" id="hexiang">
   <div class="wrap">
     <div class="eyebrow">认识仙 · 识香</div>
@@ -1525,6 +1682,20 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script>
+  // ===== 微店链接配置（主页素串卡片珠径按键的跳转目标） =====
+  // 每款一个链接，键名为款式拼音；链接为空字符串时按键以「#」占位（点击不跳转）。
+  // 微店链接待 Scarlett 提供后填入此处，填入后按键自动新窗口打开微店。
+  var WEIDIAN_LINKS = {
+    zitan: '',
+    shanquanbaicha: '',
+    xihulongjing: '',
+    bailongxian: '',
+    heilongxian: '',
+    menglingxiang: '',
+    muxixiang: '',
+    meiguiqixia: ''
+  };
+
   // ===== 轻提示（替代 alert） =====
   var toastTimer = null;
   function showToast(msg) {
@@ -1623,14 +1794,14 @@
 
   // ===== 数据 =====
   var PLAIN = [
-    { name: '山泉白茶', cat: '清 · 茶香', mood: '白茶清雅，檀香收尾，凉而干净', color: '#8FA98F', scene: '晨起 · 读书 · 茶席', ing: '檀香、艾草、安吉白茶、栗花、香茅' },
-    { name: '西湖龙井', cat: '清 · 茶香', mood: '龙井清透微凉，薄荷一丝清气', color: '#7A9B76', scene: '工作 · 晨起 · 午后', ing: '西湖龙井、侧柏叶、丁香、薄荷、茯苓' },
-    { name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '香材同黑龙涎，浅色调和' },
-    { name: '黑龙涎', cat: '静 · 沉木', mood: '沉暗厚重，木香深长有分量', color: '#3A2E26', scene: '独处 · 夜读', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等' },
-    { name: '紫檀真龙', cat: '静 · 沉木', mood: '紫檀木韵沉稳，尾调一点蜜甜', color: '#4A3428', scene: '静坐 · 独处 · 夜晚', ing: '小叶紫檀、龙涎香、沉香、安息香' },
-    { name: '梦灵香', cat: '静 · 沉木', mood: '草木暖柔，气息松弛放缓', color: '#A8A29A', scene: '晨昏 · 闲坐', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等' },
-    { name: '木樨香', cat: '舒 · 花草', mood: '桂香暖甜，温润不腻', color: '#C79A4B', scene: '访友 · 秋日 · 日常', ing: '桂花、檀香、沉香、安息香、丁香等' },
-    { name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰柔润如晚霞栖腕，陈皮与檀香压住甜意', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等' }
+    { key: 'shanquanbaicha', name: '山泉白茶', cat: '清 · 茶香', mood: '白茶清雅，檀香收尾，凉而干净', color: '#8FA98F', scene: '晨起 · 读书 · 茶席', ing: '檀香、艾草、安吉白茶、栗花、香茅', flat: 'images/plain-shanquanbaicha-card.webp', flatTone: '米白色' },
+    { key: 'xihulongjing', name: '西湖龙井', cat: '清 · 茶香', mood: '龙井清透微凉，薄荷一丝清气', color: '#7A9B76', scene: '工作 · 晨起 · 午后', ing: '西湖龙井、侧柏叶、丁香、薄荷、茯苓', flat: 'images/plain-xihulongjing-card.webp', flatTone: '青绿色' },
+    { key: 'bailongxian', name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '香材同黑龙涎，浅色调和', flat: 'images/plain-bailongxian-card.webp', flatTone: '浅米灰色' },
+    { key: 'heilongxian', name: '黑龙涎', cat: '静 · 沉木', mood: '沉暗厚重，木香深长有分量', color: '#3A2E26', scene: '独处 · 夜读', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', flat: 'images/plain-heilongxian-card.webp', flatTone: '深褐近黑色' },
+    { key: 'zitan', name: '紫檀真龙', cat: '静 · 沉木', mood: '紫檀木韵沉稳，尾调一点蜜甜', color: '#4A3428', scene: '静坐 · 独处 · 夜晚', ing: '小叶紫檀、龙涎香、沉香、安息香', flat: 'images/plain-zitan-card.webp', flatTone: '深红褐色' },
+    { key: 'menglingxiang', name: '梦灵香', cat: '静 · 沉木', mood: '草木暖柔，气息松弛放缓', color: '#A8A29A', scene: '晨昏 · 闲坐', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', flat: 'images/plain-menglingxiang-card.webp', flatTone: '暖灰褐色' },
+    { key: 'muxixiang', name: '木樨香', cat: '舒 · 花草', mood: '桂香暖甜，温润不腻', color: '#C79A4B', scene: '访友 · 秋日 · 日常', ing: '桂花、檀香、沉香、安息香、丁香等', flat: 'images/plain-muxixiang-card.webp', flatTone: '金桂黄色' },
+    { key: 'meiguiqixia', name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰柔润如晚霞栖腕，陈皮与檀香压住甜意', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等', flat: 'images/plain-meiguiqixia-card.webp', flatTone: '灰玫瑰粉色' }
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
@@ -1646,17 +1817,150 @@
   function metaRow(label, val) {
     return '<div class="meta-row"><span class="m-label">' + label + '</span><span class="m-val">' + val + '</span></div>';
   }
+  // ===== 卡片珠径购买按键组 —— 三键并排，href 取自 WEIDIAN_LINKS（按款一个链接）；
+  // 链接为空时以「#」占位；有值时新窗口打开微店。data-size 记录尺寸，供日后填链接时区分。 =====
+  function buyGroup(p) {
+    var link = WEIDIAN_LINKS[p.key] || '';
+    var href = link ? link : '#';
+    var extra = link ? ' target="_blank" rel="noopener"' : '';
+    return '<div class="buy-group" role="group" aria-label="「' + p.name + '」选择珠径购买">' +
+      '<span class="buy-label" aria-hidden="true">珠径</span>' +
+      ['8mm', '10mm', '12mm'].map(function (size) {
+        return '<a class="buy-btn" href="' + href + '" data-size="' + size + '"' + extra + '>' + size + '</a>';
+      }).join('') + '</div>';
+  }
   var plainGrid = document.getElementById('plain-grid');
   PLAIN.forEach(function (p) {
     var card = document.createElement('div');
     card.className = 'card';
     card.innerHTML =
-      '<div class="strand">' + strand([p.color], false) + '</div>' +
+      '<div class="strand"><img src="' + p.flat + '" alt="「' + p.name + '」平铺海报图：暖米白底上，一串' + p.flatTone + '合香珠成圈平铺，顶部是 EASTERN SPIRIT 刊头与仙字小印，底部写有品名" loading="lazy" width="1408" height="1760"></div>' +
       '<div class="name">' + p.name + '</div>' +
       '<span class="cat-tag">' + p.cat + '</span>' +
       '<div class="meta">' + metaRow('气味气质', p.mood) + metaRow('宜', p.scene) + '</div>' +
-      '<div class="ingredients">' + p.ing + '</div>';
+      '<div class="ingredients">' + p.ing + '</div>' +
+      buyGroup(p);
+    // 点珠径按键只跳微店：阻止冒泡，不触发卡片的「点击打开详情」；
+    // 占位链接（href 为「#」）点击时阻止默认跳转，不跳页顶、不报错
+    card.querySelectorAll('.buy-btn').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (a.getAttribute('href') === '#') { ev.preventDefault(); }
+      });
+    });
     plainGrid.appendChild(card);
+  });
+
+  // ===== 素串详情：点开卡片看上手图与诗行文案（原页展开，同时只开一款；文字与断行均为定版紧凑诗行版） =====
+  var PLAIN_DETAIL = {
+    '紫檀真龙': { img: 'images/plain-zitan-hand.webp', poem: [
+      ['老檀磨成珠，颜色往深里走。', '不张扬，也不轻浮，', '握在手里，先有分量，再有香。'],
+      ['木头的气息是慢的，', '甜里带一点凉，', '像傍晚走进一片林子。'],
+      ['它不陪热闹，', '陪你把一天过完。']
+    ] },
+    '山泉白茶': { img: 'images/plain-shanquanbaicha-hand.webp', poem: [
+      ['白茶与艾草的清气先到，', '檀香在尾巴上收住，凉而干净。'],
+      ['像清晨推开窗，', '山里的风先进来。'],
+      ['适合脑子转个不停的时候，', '闻到它，就慢一拍。']
+    ] },
+    '西湖龙井': { img: 'images/plain-xihulongjing-hand.webp', poem: [
+      ['茶香是青的，带一点薄荷的凉。', '不是甜的那种香，', '是干净、透亮。'],
+      ['像刚泡开的一杯龙井，', '热气散掉之后，', '留在杯壁上的味道。'],
+      ['午后犯困时捻一捻，比咖啡温和。']
+    ] },
+    '白龙涎': { img: 'images/plain-bailongxian-hand.webp', poem: [
+      ['龙涎的味道很难形容，', '干净里带一点海的气息，', '轻，但不飘。'],
+      ['它不抢人，安安静静待在腕子上，', '离近了才闻得到。'],
+      ['适合不喜欢浓香，', '又想身上有点味道的人。']
+    ] },
+    '黑龙涎': { img: 'images/plain-heilongxian-hand.webp', poem: [
+      ['这一串是往深里去的。', '龙涎打底，乳香和甘松压住，', '木头的气息一层一层沉下来。', '闻久了，心也跟着定下来。'],
+      ['颜色也深，不显眼，', '但有分量。'],
+      ['适合心里有事，', '需要稳住的时候。']
+    ] },
+    '梦灵香': { img: 'images/plain-menglingxiang-hand.webp', poem: [
+      ['薰衣草先出来，', '后面跟着沉香和茯神的暖，', '茯神的味道很淡，藏在最后。'],
+      ['气息是往下走的，松松的，', '像晚上回到家，把灯调暗。'],
+      ['不适合赶时间的时候，', '它会让你慢下来。']
+    ] },
+    '木樨香': { img: 'images/plain-muxixiang-hand.webp', poem: [
+      ['桂花的甜是暖的，不冲。', '檀香和安息香在后面托着，', '甜里有一点木头的稳。'],
+      ['像秋天傍晚，', '路过一棵桂花树，', '风一吹，满身都是。'],
+      ['不挑场合，谁戴都亲和。']
+    ] },
+    '玫瑰栖霞': { img: 'images/plain-meiguiqixia-hand.webp', poem: [
+      ['玫瑰的味道最怕俗。', '这一串用陈皮和檀香压住了甜，', '剩下的柔和润，', '像晚霞落在手腕上。'],
+      ['先是花香，慢慢透出木香，', '不张扬的好看，', '离近了才知道。']
+    ] }
+  };
+  var plainDetail = document.getElementById('plain-detail');
+  var pdImg = document.getElementById('pd-img');
+  var pdPoem = document.getElementById('pd-poem');
+  var pdName = document.getElementById('pd-name');
+  var pdCat = document.getElementById('pd-cat');
+  // ===== 详情内无任何选购控件 —— 珠径只以一行纯文字呈现（HTML .pd-size-line），
+  // 购买走主页卡片的珠径按键（跳微店）；此处不再有按键组、订单表单或咨询 mailto 逻辑。 =====
+  var plainCards = plainGrid.querySelectorAll('.card');
+  var openPlainName = null;
+  var lastPlainCard = null;
+  function syncPlainCards() {
+    plainCards.forEach(function (c, i) {
+      c.setAttribute('aria-expanded', PLAIN[i].name === openPlainName ? 'true' : 'false');
+    });
+  }
+  function fillPlainDetail(p) {
+    var d = PLAIN_DETAIL[p.name];
+    pdName.textContent = p.name;
+    pdCat.textContent = '素串 · ' + p.cat.split('·')[1].trim() + '系';
+    pdImg.src = d.img;
+    pdImg.alt = '「' + p.name + '」上手图：' + p.flatTone + '合香珠串佩戴在腕间';
+    pdPoem.innerHTML = d.poem.map(function (stanza) {
+      return '<p class="pd-stanza">' + stanza.map(function (line) {
+        return '<span class="pd-line">' + line + '</span>';
+      }).join('') + '</p>';
+    }).join('');
+    plainDetail.setAttribute('aria-label', p.name + ' · 上手图与文案');
+  }
+  function openPlain(p, card) {
+    fillPlainDetail(p);
+    openPlainName = p.name;
+    lastPlainCard = card;
+    plainDetail.hidden = false;
+    syncPlainCards();
+    plainDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function closePlain() {
+    if (!openPlainName) { return; }
+    openPlainName = null;
+    plainDetail.hidden = true;
+    syncPlainCards();
+    if (lastPlainCard) {
+      lastPlainCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      lastPlainCard.focus({ preventScroll: true });
+    }
+  }
+  function togglePlain(p, card) {
+    if (openPlainName === p.name) { closePlain(); } else { openPlain(p, card); }
+  }
+  plainCards.forEach(function (card, i) {
+    var p = PLAIN[i];
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-expanded', 'false');
+    card.setAttribute('aria-controls', 'plain-detail');
+    card.setAttribute('aria-label', '查看「' + p.name + '」的上手图与文案');
+    card.addEventListener('click', function () { togglePlain(p, card); });
+    card.addEventListener('keydown', function (ev) {
+      // 焦点在珠径按键（链接）上时，Enter / 空格只走链接本身，不触发打开详情
+      if (ev.target !== card) { return; }
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); togglePlain(p, card); }
+    });
+  });
+  document.querySelectorAll('.pd-close-btn').forEach(function (b) {
+    b.addEventListener('click', closePlain);
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { closePlain(); }
   });
   var realmGrid = document.getElementById('realm-grid');
   REALMS.forEach(function (r) {
@@ -1668,9 +1972,9 @@
       '<div class="name">' + r.name + '<span class="name-dot"> · </span><span class="name-immortal">' + r.immortal + '</span></div>' +
       '<p class="bio">' + r.bio + '</p>' +
       '<div class="pairline"><span class="p-label">香方：</span>' + r.scent + '<span class="p-sep">｜</span><span class="p-label">晶石：</span>' + r.crystal + '</div>' +
-      '<p class="rline"><span class="rl-label">【香方气质】</span> ' + r.mood + '</p>' +
-      '<p class="rline"><span class="rl-label">【契合人群】</span> ' + r.fit + '</p>' +
       '<p class="ring"><span class="rg-label">成分：</span> ' + r.ing + '</p>' +
+      '<p class="rline"><span class="rl-label">香方气质</span> ' + r.mood + '</p>' +
+      '<p class="rline"><span class="rl-label">契合人群</span> ' + r.fit + '</p>' +
       '</div>';
     realmGrid.appendChild(card);
   });
@@ -1817,7 +2121,7 @@
       input.focus();
       return;
     }
-    // 邮箱自动发送尚未接通：完整报告先在页面内展开，不假装已发送；接通后才真正寄到邮箱。
+    // 邮件自动发送正在接通中：完整报告先在页面内展开，不假装已发送；接通后才真正寄到邮箱。
     done.hidden = false;
     done.textContent = '完整报告已在下方打开。（邮箱自动发送正在接通中，暂时还不会真的寄出；接通后，报告和新品预告会发到 ' + email + '。）';
     document.getElementById('full-report').hidden = false;
