@@ -119,7 +119,7 @@
   .btn.ghost { border-color: var(--line); color: var(--ink-soft); }
   .btn.ghost:hover { border-color: var(--brown); color: var(--brown-deep); background: transparent; }
 
-  /* ===== 首屏 Hero：头图整幅满幅、底部羽化，文字组落在青绿烟缕的弯处 =====
+  /* ===== 首屏 Hero：头图整幅满幅、底部羽化，文字组落在青绿烟缕的弯处（） =====
      头图整幅完整显示、不裁切：满幅铺满屏幕宽度、紧接导航下方，下半段以 mask
      渐变羽化溶进本节底色（自头图边缘采样的暖米 #FAF6E9 渐变回页面本底 --bg），
      零色差、零横线，烟雾向下的动势完整保留。
@@ -154,7 +154,7 @@
     margin-top: calc(-1 * clamp(72px, 24vw, 576px));
     padding-top: 0; padding-bottom: clamp(56px, 7vw, 84px); max-width: 900px;
   }
-  /* 文字组羽化衬底——一层与页面同底色的 radial 渐变，中心极淡、
+  /* ：文字组羽化衬底——一层与页面同底色的 radial 渐变，中心极淡、
      向外完全化开，看不出色块边界，只把压在淡烟上的小字托清楚；本版落点烟色
      更淡，衬底浓度较再减一档。 */
   .hero .wrap::before {
@@ -181,7 +181,7 @@
     letter-spacing: .3em; color: var(--brown-deep); white-space: nowrap;
   }
   .hero-micro { font-size: 11.5px; letter-spacing: .42em; color: var(--muted); margin-top: 13px; white-space: nowrap; }
-  /* 正文按语义节拍断行——两句各占一行（.lead-line 分行），句间
+  /* ：正文按语义节拍断行——两句各占一行（.lead-line 分行），句间
      留一个有意的停顿；第二句收尾「日子便慢下来一点。」用 .nobr 整段绑定、
      绝不从中拆开，窄屏时只许断在「触到一分凉，」之后，上下两截长度相当；
      text-wrap: balance 兜底均衡断行，不留孤字与两三字的短尾行。 */
@@ -207,7 +207,7 @@
   .concept-fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
 
   /* ===== 品牌故事 ===== */
-  /* 整节改用与「从腕间，到案头」（产品总览）完全相同的底色色带 ——
+  /* ：整节改用与「从腕间，到案头」（产品总览）完全相同的底色色带 ——
      同为 --mist、同为上下各一条细线收界，从相邻的答疑与仙日常之间分出来；
      文字、配图、排版一概不动，只换底色。 */
   .story { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -222,13 +222,13 @@
   .story-points div .sp-t { font-size: 15px; font-weight: 500; letter-spacing: .1em; color: var(--brown-deep); }
   .story-points div .sp-d { font-size: 12.5px; color: var(--muted); }
 
-  /* ===== 产品总览 =====
+  /* ===== 产品总览（：撤掉五个方框，改目录式五行；：整体瘦身） =====
      只给目录五行瘦身：品名从展示级大字（20–25px）降到与全站正文
      标题同一量级（17–19px），序号与短语随之小一档，箭头保持小而克制；每行
      上下留白收紧约一半（28px → 14px 上限），五行总高明显变矮，整节回到
      安静、轻量的量级。行间极细分隔线、整行可点与 hover 反馈、本节标题与
      底色色带全部保留；顺序、锚点、文案逐字不变。
-     原第三屏「挑一串」整屏并入本节——色带从大标题所在位置就
+     ：原第三屏「挑一串」整屏并入本节——色带从大标题所在位置就
      开始，节内自上而下为眉题「从腕间，到案头」（原总览大标题降为小字眉题，
      沿用全站 .eyebrow 的古铜色与拉开字距）→ 大标题「挑一串契合你当下气场的
      "仙"」（.screen-title，字号样式不变）→ 原第三屏两段引文（.mood-body，
@@ -264,7 +264,7 @@
   .layer-head { margin-bottom: clamp(26px, 4vw, 40px); }
   .layer-num { color: var(--brown); font-size: 12px; letter-spacing: .3em; margin-bottom: 12px; }
   .layer-head h2 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 500; letter-spacing: .08em; }
-  /* 产品区三节（素串／设计款·七境／线香）的大标题单独收一号 ——
+  /* ：产品区三节（素串／设计款·七境／线香）的大标题单独收一号 ——
      桌面上限由 27px 收到 24px（约收 11%），衬线、字重与字距不变；
      手机端下限仍钉在 21px，窄屏上不因收小而变弱。盲盒、私订两节不套此
      规则，维持原 clamp(21px, 2.6vw, 27px)。 */
@@ -305,7 +305,7 @@
   .card:hover { border-color: var(--brown-soft); }
   .card .strand { display: flex; justify-content: center; padding: 4px 0 6px; }
   .card .strand svg { width: 148px; height: 118px; }
-  /* 素串卡片第一图换成已验收的刊头版卡图（4:5，1408×1760），按原始比例完整显示，不裁切刊头与串圆 */
+  /* ：素串卡片第一图换成已验收的刊头版卡图（4:5，1408×1760），按原始比例完整显示，不裁切刊头与串圆 */
   .grid-plain .card .strand { padding: 0 0 4px; }
   .grid-plain .card .strand img { display: block; width: 100%; height: auto; aspect-ratio: 1408 / 1760; object-fit: contain; border-radius: 2px; background: var(--paper); }
   .card .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
@@ -326,13 +326,13 @@
   .grid-plain .m-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
   .grid-plain .m-val { color: #57493A; }
   .grid-plain .card .buy-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
-  /* 主页素串卡片的珠径选择改无框式 —— 一行纯文字链接「8mm ｜ 10mm ｜ 12mm」，
+  /* ：主页素串卡片的珠径选择改无框式 —— 一行纯文字链接「8mm ｜ 10mm ｜ 12mm」，
      三个尺寸以细竖线「｜」分隔（分隔符用次级色），整行左对齐；无边框、无底色、无圆角、
      无阴影。整组文字下方一条 2px 横线，横贯整组文字的宽度（不撑满卡片整行），
      横线下方留约 6–8px 再接卡片边缘。触控热区靠链接上下内边距保证（可点高度约 36–40px），
      视觉上仍是纯文字一行；点按反馈只用文字变色/下划线，不出现任何框或色块。
-     功能与跳转逻辑不变。
-     横线由深褐改哑光旧金 var(--gold-matte)（#B3A284，与七境卡片框同色），
+     功能与跳转逻辑不变（）。
+     ：横线由深褐改哑光旧金 var(--gold-matte)（#B3A284，与七境卡片框同色），
      粗细与长度不变；尺寸行最前面加「珠径」小标示（.buy-label，次级色小字、字距拉开，
      纯文字不可点），整行形如「珠径 8mm ｜ 10mm ｜ 12mm」，横线随之横贯含标示的整组宽度。 */
   .card .buy-group {
@@ -376,15 +376,15 @@
      节首顺序（定）：标题 → 广告语 → 「设计灵感」一段 —— 文字全部集中在上方，
      组成一个完整的文字区；七境的代表色排成一带矿物色，移到文字下方、紧贴七张产品卡之上，
      七色与下面七张画的色调直接呼应 —— 头图是头图，色带只作文字与图片之间的引子。
-     色块配色：不用艳色，整带走中国传统矿物色 —— 赭黄、玄黛、石青、石绿、藕荷、蛤粉、芙蓉，
+     色块配色（）：不用艳色，整带走中国传统矿物色 —— 赭黄、玄黛、石青、石绿、藕荷、蛤粉、芙蓉，
      都是矿石研粉的色：饱和压低、统一带一层灰，摆在一起如一排旧颜料，古雅沉静；每块上标矿物色名。
-     色块改矮改紧凑成点缀带，标签改「水晶在前、色名在后」落在芯片下方，七色再往灰里收一档（见 .origin-colors 处注释）。
-     标签后半截由色名改为各境香方名（水晶 · 香方），芯片、配色、形式全保留。
+     ：色块改矮改紧凑成点缀带，标签改「水晶在前、色名在后」落在芯片下方，七色再往灰里收一档（见 .origin-colors 处注释）。
+     ：标签后半截由色名改为各境香方名（水晶 · 香方），芯片、配色、形式全保留。
      七张意境图全部回到产品卡，七卡统一：暖白画芯 + 一条退色旧金哑光细框（单框；粗细与颜色再收）。 */
   #series .layer-head { margin-bottom: clamp(16px, 2.4vw, 22px); }
   .series-origin { margin-bottom: clamp(18px, 2.6vw, 24px); }
-  /* 色带瘦身为点缀带（已被取代，见下）。
-     色带重做 —— 从「散开的色块贴纸」改成「一条装裱好的矿物色带」。
+  /* ：色带瘦身为点缀带（已被取代，见下）。
+     ：色带重做 —— 从「散开的色块贴纸」改成「一条装裱好的矿物色带」。
      七段色块无缝相连成一条完整横带：段与段之间零间隙、无分隔线，靠颜色
      本身分段；横带与内容列齐平，带高桌面 56px、手机 44px，手机端也保持
      一条不换行（七段等分压缩）。装裱感靠横带上下各一条 1px 哑光旧金
@@ -399,7 +399,7 @@
      手机端两行都保留：字号收到 11/10.5px、字距收紧，四字香方名（如
      「山泉白茶」）在 360px 宽下仍放得下；仅 ≤340px 的极窄屏省略第二行
      香方名，保对齐不错位。
-     Scarlett 看上线效果后纠正 —— 色带太粗、蛤粉段看着有外框、
+     ：Scarlett 看上线效果后纠正 —— 色带太粗、蛤粉段看着有外框、
      颜色不好看、玄黛太重。本版只把色带收成「细一点的装饰」：
      ① 带高桌面 56px → 28px、手机 44px → 24px，是一条细丝带，不是色块墙；
      ② 上下两条 1px 旧金线全删，单段不加任何边框／描边／阴影 —— 蛤粉段
@@ -624,6 +624,14 @@
   .hx-fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
   .hx-block { margin-top: clamp(52px, 7.5vw, 76px); }
   .hx-h { font-size: 19px; font-weight: 500; letter-spacing: .1em; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  /* 嗅觉重点块：引言之后、历史时间线与识香九步之前单独成块 —— 无任何框线，
+     左对齐与识香区正文版式一致；衬线（全站正文即衬线）、比正文大一号；
+     末句「人对香，先有感觉，后有判断。」独立成行、半粗作落点。两段皆 text-wrap:balance，
+     手机上不留孤字尾行。 */
+  .hx-smell { margin-top: clamp(34px, 5vw, 44px); padding: clamp(24px, 3.5vw, 32px) 0; text-align: left; }
+  .hx-smell p { font-size: 17px; line-height: 1.95; color: var(--ink); max-width: 680px; margin: 0; text-wrap: balance; }
+  .hx-smell .smell-last { margin-top: 14px; font-weight: 600; letter-spacing: .04em; }
+  @media (max-width: 599px) { .hx-smell p { font-size: 16px; } }
   .hx-lead { font-size: 14.5px; color: var(--ink-soft); margin-top: 14px; max-width: 640px; }
   .tl { margin-top: 6px; }
   .tl-row { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 18px 0 4px; border-top: 1px dashed var(--line); }
@@ -746,7 +754,7 @@
   }
 
   /* ===== 线香 ===== */
-  /* 两款各加一张氛围头图，置于卡片头部、线描小图之上；图源本身即
+  /* ：两款各加一张氛围头图，置于卡片头部、线描小图之上；图源本身即
      4:3，宽度与卡片内容宽对齐，桌面与手机都完整显示、不裁切主体；无边框装裱。 */
   .incense-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
   .incense-fig { display: flex; justify-content: center; padding: 6px 0 4px; }
@@ -771,7 +779,7 @@
   .daily-card .dc-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
   .daily-card .dc-list .dc-soon { flex: none; font-size: 12px; letter-spacing: .12em; color: var(--muted); }
 
-  /* ===== 仙日常 · 香文化目录与上新卡 ===== */
+  /* ===== 仙日常 · 香文化目录与上新卡（：目录封面 + AI 配图） ===== */
   .daily-cover { margin-top: 34px; }
   .daily-cover img { width: 100%; height: clamp(240px, 38vw, 400px); object-fit: cover; border-radius: 4px; }
   .daily-cover figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
@@ -826,7 +834,7 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ===== 首屏减法 / 第二·三屏大标题 / 识香下移改形 / 总览入口 ===== */
+  /* ===== ：首屏减法 / 第二·三屏大标题 / 识香下移改形 / 总览入口 ===== */
   .hero-lead { max-width: 600px; }
   .screen-title { font-size: clamp(27px, 4.4vw, 38px); font-weight: 600; letter-spacing: .13em; color: var(--brown-deep); line-height: 1.5; text-wrap: balance; }
   .duo-grid { display: grid; grid-template-columns: 1fr; gap: 28px; margin-top: clamp(30px, 4.5vw, 44px); }
@@ -840,7 +848,7 @@
   .duo-tag { font-size: 17px; font-weight: 500; letter-spacing: .22em; color: var(--brown-deep); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
   .duo-tag::after { content: ''; height: 1px; width: 34px; background: var(--gold-matte); flex: none; }
   .duo-card p { font-size: 15px; color: var(--ink-soft); max-width: 460px; }
-  /* 原 .mood 的外框（上分隔线＋大间距）随合并撤掉，两段引文只留
+  /* ：原 .mood 的外框（上分隔线＋大间距）随合并撤掉，两段引文只留
      .mood-body 本体，随大标题一起落进产品总览的色带里，不再自成一屏。 */
   .mood-body { max-width: 720px; margin-top: 20px; }
   .mood-body p { font-size: 15.5px; color: var(--ink-soft); }
@@ -895,7 +903,7 @@
     .bl-txt h4 { display: inline-block; margin-bottom: 2px; }
   }
 
-  /* ===== 香文化合集 —— 目录点开才看，正文默认收起 ===== */
+  /* ===== ：香文化合集 —— 目录点开才看，正文默认收起 ===== */
   .daily .article { display: none; margin-top: 18px; border: 1px solid var(--line); border-radius: 4px; }
   .daily .article.open { display: block; }
   .daily .article .wrap { padding-top: clamp(38px, 5vw, 54px); padding-bottom: clamp(38px, 5vw, 54px); }
@@ -911,10 +919,10 @@
   .art-close:hover { border-color: var(--brown); }
   .art-close-top { margin: 0 0 4px auto; padding: 8px 2px; border: none; min-height: 38px; color: var(--brown); }
 
-  /* ===== 素串详情 —— 卡片点开，上手图与诗行文案在原页展开 =====
-     详情图换成无锁版底图；锁版改成图下小巧的 HTML 字标；
+  /* ===== ：素串详情 —— 卡片点开，上手图与诗行文案在原页展开 =====
+     ：详情图换成无锁版底图；锁版改成图下小巧的 HTML 字标；
      顶部加品名＋分类眉题；字号、行高与间距整体收紧。主页卡片与点击行为一律不动。
-     详情图去掉一切羽化 / 渐隐 / mask，完整清晰呈现；并显式写 height:auto
+     ：详情图去掉一切羽化 / 渐隐 / mask，完整清晰呈现；并显式写 height:auto
      按原图自然比例显示 —— 此前只写 width:100%、未写 height:auto，img 的 height 属性
      在部分 webview 里会当作固定高度生效，宽度随容器收窄、高度钉死，图被纵向拉长。 */
   .grid-plain .card { cursor: pointer; }
@@ -939,7 +947,7 @@
   .pd-stanza:last-child { margin-bottom: 0; }
   .pd-line { display: block; line-height: 1.9; letter-spacing: .06em; color: var(--ink); white-space: nowrap; }
   .pd-end { margin-top: 20px; }
-  /* ===== 素串详情回归干净 —— 诗行文案下方只留一行珠径纯文字，
+  /* ===== ：素串详情回归干净 —— 诗行文案下方只留一行珠径纯文字，
      无按键组、无订单表单、无咨询入口；选购在主页卡片的珠径按键完成。 ===== */
   .pd-size-line { max-width: 600px; margin: 18px auto 0; padding: 0 4px; text-align: center; font-size: 12.5px; color: var(--muted); letter-spacing: .04em; line-height: 1.7; }
   @media (max-width: 640px) {
@@ -948,18 +956,18 @@
   }
   @media (max-width: 380px) { .pd-line { letter-spacing: .01em; } }
 
-  /* ===== 测香 · 全站客户偏好入口 =====
+  /* ===== ：测香 · 全站客户偏好入口 =====
      全屏覆盖层：开场页（仪式）→ 16 题纯文字逐题 → 「香签」结果卡。
      入口四处：「挑一串」节内主入口 / 素串区节末 / 私订咨询前 / 盲盒区（来源不同，香签出口不同）。
      样式只用既有色板与衬线，不引入新色；覆盖层 z-index 高于导航与 toast。 */
-  /* ===== 全站条状测香入口统一为一条「测香条」 =====
+  /* ===== ：全站条状测香入口统一为一条「测香条」 =====
      挑一串（节内只留这一个入口）／素串区／盲盒区三处共用同一结构：
      居中一条带极浅旧金淡染底色的条 —— 说明行在上、「测香」实心按钮在下，
      三处同色、同式、同按钮，客人一眼认出「这一条是测香」，不再有左右两处、
      样式各异的重复入口。淡染取 --gold-matte（#B3A284）的低透明度，
      只比页面底色深一档，仍在米白暖灰体系内，不跳色、不压重。
      私订区通道框内的小 pill 不在此列，维持。 */
-  /* 测香条只降高度、宽度不变 —— 上下内边距由 20–26px 收到
+  /* ：测香条只降高度、宽度不变 —— 上下内边距由 20–26px 收到
      13–16px，说明行与按钮的间距由 14px 收到 9px，整条变薄、精悍；
      底色、结构、按钮一律不动。 */
   .cx-strip {
@@ -972,7 +980,7 @@
   .tier .cx-strip { margin-bottom: clamp(28px, 4vw, 40px); }
   #plain .cx-strip { margin-top: clamp(32px, 4.5vw, 46px); }
   .feature-panel .cx-strip { margin-top: 22px; }
-  /* ===== 私订双通道 —— 主通道卸掉深褐实心，改轻手法分主次 =====
+  /* ===== ：私订双通道 —— 主通道卸掉深褐实心，改轻手法分主次 =====
      桌面 5:5 一行并排，手机上下堆叠；两框靠 grid 拉伸天然等高，行动行用
      margin-top:auto 沉底对齐，框内不留大块空白，高度与留白与不变。
      只降主通道的重量：测香框底色改回纸白（与次通道同为浅底），
@@ -983,7 +991,7 @@
      （来源 bespoke），次通道整框仍是 mailto 链接。 */
   .bespoke-channels { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 26px; }
   @media (min-width: 560px) { .bespoke-channels { grid-template-columns: 1fr 1fr; } }
-  /* 双通道框同样只降高度 —— 上下内边距 18/16px 收到 12/11px，
+  /* ：双通道框同样只降高度 —— 上下内边距 18/16px 收到 12/11px，
      框内行距（gap）6px 收到 4px，行动行上距 10px 收到 7px；等宽等高、
      主次分法与文案一律不动。 */
   .bc-box { display: flex; flex-direction: column; gap: 4px; padding: 12px 20px 11px; border-radius: 2px; }
@@ -1000,7 +1008,7 @@
   .bc-main .bc-tag { color: var(--brown); }
   .bc-main .bc-title { color: var(--brown-deep); }
   .bc-main p, .bc-main .bc-desc { color: var(--ink-soft); margin-bottom: 4px; }
-  /* 框内小按钮与全站测香条的 .btn.solid 统一为同一按钮家族 ——
+  /* ：框内小按钮与全站测香条的 .btn.solid 统一为同一按钮家族 ——
      同底色（--brown）、同字色（--paper）、同圆角（2px）、同字距（.16em），
      hover 同样沉到 --brown-deep；仅内边距按框内比例小一号。文案同步统一
      为「测香」，与测香条按钮字面一致（框内标题已是「先测香」，不再重复）。 */
@@ -1237,7 +1245,7 @@
 </section>
 
 
-<!-- ===== 产品总览 ===== -->
+<!-- ===== 产品总览（：撤五个方框，改目录式五行；：贰、叁两行互换，与下方板块层号对齐；：五行整体瘦身；：「挑一串」整屏并入本节，与总览合成一节一带；：与上一节「认识仙」之间的菱形隔断删除 —— 头图下方已有一道同样的菱形分隔，两节之间只靠两节自带的上下留白与色带边界衔接） ===== -->
 <section class="tier" id="collections">
   <div class="wrap">
     <div class="tier-head">
@@ -1446,12 +1454,16 @@
   </div>
 </section>
 
-<!-- ===== 识香 · 合香珠科普 ===== -->
+<!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
 <section class="hexiang-sec" id="hexiang">
   <div class="wrap">
     <div class="eyebrow">认识仙 · 识香</div>
     <h2 class="sec-title">一颗珠子，装着一千多年的香事</h2>
     <p class="sec-sub">合香珠不是新物。把香做成珠、佩在身上，中国人做了上千年。先认识它，再挑你的串。</p>
+    <div class="hx-smell">
+      <p>五感之中，唯嗅觉不经丘脑中继——气味信号自嗅球直达杏仁核与海马体，情绪与记忆的中枢。</p>
+      <p class="smell-last">人对香，先有感觉，后有判断。</p>
+    </div>
     <figure class="hx-fig">
       <img src="images/site-heritage-window.webp" alt="亮调窗台：晨光透过纱帘，一串深褐色合香圆珠挨着一本线装书躺在窗台上，旁置一小碟金桂花，一缕轻烟在光里缓缓升起" style="object-position:center 80%" loading="lazy">
       <figcaption>窗台晨光里，一串珠子、一本旧书、一碟桂花 —— 一千多年的香事，先从安静说起</figcaption>
@@ -1914,7 +1926,7 @@
   </div>
 </footer>
 
-<!-- ===== 测香 · 全屏覆盖层（开场 → 16 题 → 香签），四个入口共用，来源决定香签出口 ===== -->
+<!-- ===== ：测香 · 全屏覆盖层（开场 → 16 题 → 香签），四个入口共用，来源决定香签出口 ===== -->
 <div class="cx-overlay" id="cexiang" role="dialog" aria-modal="true" aria-label="测香 · 香气偏好测试" aria-hidden="true">
   <div class="cx-top">
     <span class="cx-top-name">测香</span>
@@ -1970,7 +1982,7 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-  // ===== 微店链接配置（主页素串卡片珠径按键的跳转目标） =====
+  // ===== ：微店链接配置（主页素串卡片珠径按键的跳转目标） =====
   // 每款一个链接，键名为款式拼音；链接为空字符串时按键以「#」占位（点击不跳转）。
   // 微店链接待 Scarlett 提供后填入此处，填入后按键自动新窗口打开微店。
   var WEIDIAN_LINKS = {
@@ -2105,7 +2117,7 @@
   function metaRow(label, val) {
     return '<div class="meta-row"><span class="m-label">' + label + '</span><span class="m-val">' + val + '</span></div>';
   }
-  // ===== 卡片珠径购买按键组 —— 三键并排，href 取自 WEIDIAN_LINKS（按款一个链接）；
+  // ===== ：卡片珠径购买按键组 —— 三键并排，href 取自 WEIDIAN_LINKS（按款一个链接）；
   // 链接为空时以「#」占位；有值时新窗口打开微店。data-size 记录尺寸，供日后填链接时区分。 =====
   function buyGroup(p) {
     var link = WEIDIAN_LINKS[p.key] || '';
@@ -2185,7 +2197,7 @@
   var pdPoem = document.getElementById('pd-poem');
   var pdName = document.getElementById('pd-name');
   var pdCat = document.getElementById('pd-cat');
-  // ===== 详情内无任何选购控件 —— 珠径只以一行纯文字呈现（HTML .pd-size-line），
+  // ===== ：详情内无任何选购控件 —— 珠径只以一行纯文字呈现（HTML .pd-size-line），
   // 购买走主页卡片的珠径按键（跳微店）；此处不再有按键组、订单表单或咨询 mailto 逻辑。 =====
   var plainCards = plainGrid.querySelectorAll('.card');
   var openPlainName = null;
@@ -2266,7 +2278,7 @@
     realmGrid.appendChild(card);
   });
 
-  // 
+  // （：盲盒旧 12 题已整套移除，替换为全站共用的「测香」，见页末脚本。）
 
   // ===== 仙日常 · 香文化合集：目录点开才展开，同时只开一篇，带收起入口 =====
   var catLinks = document.querySelectorAll('.cat-list a[data-article]');
@@ -2333,7 +2345,7 @@
   }
 </script>
 <script>
-  // ===== 测香 · 全站客户偏好入口（覆盖层，一期纯前端计分，答案不上传、不真发邮件） =====
+  // ===== ：测香 · 全站客户偏好入口（覆盖层，一期纯前端计分，答案不上传、不真发邮件） =====
   // 题目、逐项加分与避雷硬排除一律照《测香测试设计稿》：五维权重（香气 30 / 浓淡冷暖 20 /
   // 色彩 15 / 生辰五行 15 / 性格场景 20）已体现在逐题分值里；匹配度 = 86 +（主推分 ÷ 该款
   // 参与题理论最高分）× 11 取整，落在 86–97%。八款基础数据与站内 PLAIN 保持一致。
