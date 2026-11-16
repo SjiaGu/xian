@@ -103,10 +103,10 @@
   }
 
   /* ===== 通用 ===== */
-  /* 全站版块留白：上下一律同一套尺度，版块相接不再忽大忽小 */
+  /* 全站版块留白（统一）：上下一律同一套尺度，版块相接不再忽大忽小 */
   .wrap { max-width: 1060px; margin: 0 auto; padding: clamp(54px, 7.5vw, 88px) clamp(22px, 5vw, 40px); }
   .eyebrow { color: var(--brown); font-size: 12.5px; letter-spacing: .34em; margin-bottom: 16px; }
-  .sec-title { font-size: clamp(24px, 3.2vw, 32px); font-weight: 500; letter-spacing: .1em; line-height: 1.5; }
+  .sec-title { font-size: clamp(24px, 3.2vw, 32px); font-weight: 500; letter-spacing: .1em; line-height: 1.5; text-wrap: balance; }
   .sec-sub { color: var(--ink-soft); font-size: 15px; margin-top: 14px; max-width: 600px; }
   .btn {
     display: inline-block; padding: 13px 34px; border: 1px solid var(--brown);
@@ -271,7 +271,7 @@
   #plain .layer-head h2, #series .layer-head h2, #incense .layer-head h2 { font-size: clamp(21px, 2.3vw, 24px); }
   .layer-head p { color: var(--ink-soft); font-size: 14.5px; margin-top: 12px; max-width: 640px; }
   .tag-line { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--brown-deep); letter-spacing: .08em; }
-  /* 七境广告语：从已删的长介绍里单独救回的一句，
+  /* 七境广告语（立，收字号）：从已删的长介绍里单独救回的一句，
      立在标题正下方、作整个文字区的首行，单独成行，其下接「设计灵感」一段。
      按全站标尺收小：只比正文（14.5px）略大一档，
      不再与板块大标题（21–27px）抢层级，读着是一句引子。 */
@@ -316,6 +316,16 @@
   .m-val { color: var(--ink-soft); }
   .card .persona { font-size: 13.5px; color: var(--ink-soft); }
   .card .ingredients { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  /* 素串八卡信息层级强化（仅 .grid-plain 作用域，线香卡不套用）：四行标签
+     「香韵／宜／成分／珠径」统一成一个系统 —— 与本行值文字同大（13px）、
+     半粗 600、深褐 --brown-deep、字距 .1em，不再用 12px 次级灰小字；
+     值文字保持常规字重、颜色由 --ink-soft 加深一档为 #57493A（暖深灰褐），
+     每行「标签＋值」读成一个清楚的信息单元；品名仍是第一眼锚点，不动。 */
+  .grid-plain .card .meta { font-size: 13px; }
+  .grid-plain .meta-row { gap: 6px; }
+  .grid-plain .m-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
+  .grid-plain .m-val { color: #57493A; }
+  .grid-plain .card .buy-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
   /* 主页素串卡片的珠径选择改无框式 —— 一行纯文字链接「8mm ｜ 10mm ｜ 12mm」，
      三个尺寸以细竖线「｜」分隔（分隔符用次级色），整行左对齐；无边框、无底色、无圆角、
      无阴影。整组文字下方一条 2px 横线，横贯整组文字的宽度（不撑满卡片整行），
@@ -330,6 +340,9 @@
     margin-top: 2px; margin-bottom: 7px;
     border-bottom: 2px solid var(--gold-matte);
   }
+  /* 素串卡文字齐整化：珠径行以 margin-top:auto 钉在卡片底部——卡片本体是纵向 flex、
+     网格行内各卡等高，成分行折行与否不再影响珠径行基线，八卡珠径行同高对齐。 */
+  .grid-plain .card .buy-group { margin-top: auto; }
   .card .buy-label {
     flex: 0 0 auto;
     padding: 10px 0 9px; margin-right: 8px;
@@ -360,17 +373,17 @@
   .series-banner figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
 
   /* ===== 七境：文字在上、色带在下，与产品图分开又呼应 =====
-     节首顺序：标题 → 广告语 → 「设计灵感」一段 —— 文字全部集中在上方，
+     节首顺序（定）：标题 → 广告语 → 「设计灵感」一段 —— 文字全部集中在上方，
      组成一个完整的文字区；七境的代表色排成一带矿物色，移到文字下方、紧贴七张产品卡之上，
      七色与下面七张画的色调直接呼应 —— 头图是头图，色带只作文字与图片之间的引子。
      色块配色：不用艳色，整带走中国传统矿物色 —— 赭黄、玄黛、石青、石绿、藕荷、蛤粉、芙蓉，
      都是矿石研粉的色：饱和压低、统一带一层灰，摆在一起如一排旧颜料，古雅沉静；每块上标矿物色名。
      色块改矮改紧凑成点缀带，标签改「水晶在前、色名在后」落在芯片下方，七色再往灰里收一档（见 .origin-colors 处注释）。
      标签后半截由色名改为各境香方名（水晶 · 香方），芯片、配色、形式全保留。
-     七张意境图全部回到产品卡，七卡统一：暖白画芯 + 一条退色旧金哑光细框。 */
+     七张意境图全部回到产品卡，七卡统一：暖白画芯 + 一条退色旧金哑光细框（单框；粗细与颜色再收）。 */
   #series .layer-head { margin-bottom: clamp(16px, 2.4vw, 22px); }
   .series-origin { margin-bottom: clamp(18px, 2.6vw, 24px); }
-  /* 色带瘦身为点缀带。
+  /* 色带瘦身为点缀带（已被取代，见下）。
      色带重做 —— 从「散开的色块贴纸」改成「一条装裱好的矿物色带」。
      七段色块无缝相连成一条完整横带：段与段之间零间隙、无分隔线，靠颜色
      本身分段；横带与内容列齐平，带高桌面 56px、手机 44px，手机端也保持
@@ -378,9 +391,9 @@
      （--gold-matte）细线 —— 像画芯装裱的边，细而不亮。
      配色在旧七色基础上整体压灰、统一加一层土色底，像同一盒矿物颜料而非
      七颗糖，逐段定版（顺序与晶石·香方对应不变）：
-     桂庭·赭黄／玄岫·玄黛／月涧·石青／
-     山晓·石绿／幽帷·藕荷／枕云·蛤粉／
-     芳尘·芙蓉。
+     桂庭·赭黄 #A68B57／玄岫·玄黛 #45413A／月涧·石青 #8A9E99／
+     山晓·石绿 #76866C／幽帷·藕荷 #847B8B／枕云·蛤粉 #E3D7BE／
+     芳尘·芙蓉 #D8B7A9。
      标注移到带下方一排，与色段同一套七等分网格、每段居中对齐：第一行
      晶石名（墨色）、第二行香方名（古铜色），12–13px、字距略开。
      手机端两行都保留：字号收到 11/10.5px、字距收紧，四字香方名（如
@@ -391,7 +404,7 @@
      ① 带高桌面 56px → 28px、手机 44px → 24px，是一条细丝带，不是色块墙；
      ② 上下两条 1px 旧金线全删，单段不加任何边框／描边／阴影 —— 蛤粉段
      的「外框感」正是那两条线给的，删后它只是一段淡色，与邻段靠颜色分界；
-     ③ 配色：七段色值改为从七张
+     ③ 配色（定版，取代色值）：七段色值改为从七张
      定版意境图（images/realm-*.webp）逐张采样画中 accent 色、再为细带
      可读性略加深——色从画中来，与下方七卡天然成套，逐段定版（顺序与
      晶石·香方对应不变）：
@@ -400,7 +413,7 @@
      月涧·石青 #93A5A8（月涧图月灰 #AAB2B6）／
      山晓·石绿 #A29A76（山晓图茶砂 #BDB6A0，带一点绿意）／
      幽帷·藕荷 #8F8694（幽帷图灰调往靛紫推一档）／
-     枕云·蛤粉 #D6D1C8／
+     枕云·蛤粉 #D6D1C8（定版：Scarlett 定调「灰白」——中性灰白、只留一丝暖意、不偏米黄； #EAE3D3 太浅与页面米白底几乎同色、带子在此段像断线，本版比页面底色深一档、带子保持完整不断线，仍是七段里最浅最干净的一段）／
      芳尘·芙蓉 #D3A79C（芳尘图樱粉 #DEBBB6 略深）。
      ④ 色带与「设计灵感」块直接连接（同为追加修正）：.origin-colors 的
      上距 16px 归零，色带紧贴文字块下缘、像该版块的一条底边，两块读成
@@ -429,10 +442,10 @@
     background: var(--bg-soft); border: 1px solid var(--line); border-bottom: none;
     padding: clamp(18px, 2.6vw, 24px) clamp(20px, 3.4vw, 32px);
   }
-  /* 左对齐与逐句分行：正文四句逐句分行定格，不再整段回流，
+  /* 左对齐与逐句分行（定）：正文四句逐句分行定格，不再整段回流，
      桌面端不会再把「自己」甩到单独一行；句末短语用 .nobr 整段绑定，
      手机端窄幅回行时也只会整词换行、不落孤字。
-     字号与疏密：上一版「设计灵感」做到 18–21px、正文 15.5px/行距 1.95，
+     字号与疏密（收）：上一版「设计灵感」做到 18–21px、正文 15.5px/行距 1.95，
      比全站正文（14–14.5px）大出一截，又松又跳，与整站不协调 —— 这一版全部回到全站标尺：
      小标题收成 15px 上下的小节题（仍比正文明确一档、后接的旧金细线同步收短），
      正文与全站正文同为 14.5px、行距收到 1.8，盒内留白同步收紧，整块贴回页面。 */
@@ -450,12 +463,12 @@
   }
   .origin-text h3 { font-size: 17px; font-weight: 500; letter-spacing: .12em; margin-bottom: 8px; }
   .origin-text p { font-size: 14px; color: var(--ink-soft); }
-  /* 七境产品卡：七卡统一，整幅意境图入框（2:3 原比例，不裁切）。
+  /* 七境产品卡（起）：七卡统一，整幅意境图入框（2:3 原比例，不裁切）。
      框只留一条 + 暖白画芯，图上不再压内细线，卡身外框也撤掉 —— 全卡只有这一条框线。
-     框的粗细与颜色：图是雾白淡色，2.5px 的饱和古铜线会先跳出来抢图 ——
+     框的粗细与颜色（再收）：图是雾白淡色，2.5px 的饱和古铜线会先跳出来抢图 ——
      线收细到约 1.25px，颜色退成往灰、往浅里收的旧金哑光，并给一条极淡的明暗渐变作金属质地
      （哑光、不反光，不是亮金）；投影同步放轻放淡，让框退到图后面去。
-     卡片文字：境名·仙名 / 小传一句 / 香方｜晶石同一行 /
+     卡片文字（定稿，调整顺序）：境名·仙名 / 小传一句 / 香方｜晶石同一行 /
      成分 / 香方气质 / 契合人群，全部左对齐（细则见 .realm-body 处注释）；
      标题下与设计灵感重复的那段长介绍已删，整节散文只留头部「设计灵感」一段。 */
   #realm-grid .card:last-child { grid-column: auto; }
@@ -465,7 +478,7 @@
   .realm-card.has-art:hover { border: none; }
   .realm-art { background: var(--paper); padding: 10px; border: 1.25px solid var(--gold-matte); border-image: linear-gradient(158deg, #C3B294 0%, #B3A284 52%, #A6987C 100%) 1; box-shadow: 0 14px 26px -24px rgba(76,58,40,0.32); }
   .realm-art img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
-  /* 卡片文字：全部左对齐 —— 境名·仙名 / 小传一句 /
+  /* 卡片文字（定稿）：全部左对齐 —— 境名·仙名 / 小传一句 /
      香方｜晶石同一行 / 成分 / 香方气质 / 契合人群（改序，文字按定稿一字未改；
      「香方气质」「契合人群」小标题起去掉【】，样式见 .rl-label）。
      之前小传居中，换行后第二行往中间缩，看着散；现在左边成一条线。 */
@@ -474,14 +487,16 @@
   .realm-body .name .name-immortal { font-size: 13.5px; font-weight: 400; color: var(--brown); letter-spacing: .14em; }
   .realm-body .name .name-dot { color: var(--muted); font-weight: 300; margin: 0 2px; }
   .realm-body .bio { font-size: 13.5px; color: var(--ink); line-height: 1.8; }
-  .realm-body .pairline { border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 2px; font-size: 13px; line-height: 1.8; color: var(--ink-soft); }
-  .realm-body .pairline .p-label { font-size: 12px; color: var(--muted); }
+  .realm-body .pairline { border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 2px; font-size: 13px; line-height: 1.8; color: #57493A; }
+  .realm-body .pairline .p-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
   .realm-body .pairline .p-sep { color: var(--muted); margin: 0 4px; }
-  .realm-body .rline { font-size: 13.5px; line-height: 1.85; color: var(--ink-soft); }
-  /* 小标题去掉【】，改与全站眉题同调的小标签 —— 12px、字距拉开、古铜灰 */
-  .realm-body .rline .rl-label { font-size: 12px; letter-spacing: .18em; color: var(--brown); font-weight: 400; }
-  .realm-body .ring { font-size: 12.5px; line-height: 1.8; color: var(--ink-soft); }
-  .realm-body .ring .rg-label { font-size: 12px; color: var(--muted); }
+  .realm-body .rline { font-size: 13.5px; line-height: 1.85; color: #57493A; }
+  /* 标签系统与素串卡统一：与值文字同大（13px）、半粗 600、深褐 --brown-deep、字距 .1em，
+     不带冒号，标签＋空格＋值；值文字颜色同步加深一档为 #57493A、保持常规字重。
+     （的 12px 古铜灰小标签至此退役。） */
+  .realm-body .rline .rl-label { font-size: 13px; letter-spacing: .1em; color: var(--brown-deep); font-weight: 600; }
+  .realm-body .ring { font-size: 13px; line-height: 1.8; color: #57493A; }
+  .realm-body .ring .rg-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
 
   /* ===== 盲盒横幅图 ===== */
   .blind-banner { margin-bottom: 30px; }
@@ -660,6 +675,7 @@
   .footer-note { color: rgba(241,234,224,0.55); font-size: 12.5px; margin-top: 26px; line-height: 1.9; }
   .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(241,234,224,0.16); font-size: 12px; color: rgba(241,234,224,0.5); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
+
   /* ===== 识香并入认识仙：小节分隔 ===== */
   .hx-merge { margin-top: clamp(56px, 8vw, 84px); padding-top: clamp(44px, 6vw, 64px); border-top: 1px solid var(--line); }
 
@@ -836,7 +852,7 @@
   .tl-row { border-top: none; padding: 16px 0 8px; }
   .tl-era { position: relative; }
   .tl-era::before { content: ''; position: absolute; left: -29px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--brass); }
-  /* 一颗珠子是怎么做出来的：图改「符号化」，版式改顺读的直线 ——
+  /* 一颗珠子是怎么做出来的（定）：图改「符号化」，版式改顺读的直线 ——
      九张图全部重画成单个物件符号（浅碟香材、白瓷臼、陶碗香泥、裹布静置、指间搓珠、
      木托穿孔、竹盘排珠、软布单珠、平放成串）：每张只一个物件居中浮在与页面一致的
      暖米白底上，只有物件下一点柔和接触影；再以径向羽化 mask 把图片边缘化进底色，
@@ -859,7 +875,7 @@
   .bl-txt { width: 100%; padding-top: 15px; }
   .bl-txt .st-num { font-size: 12px; letter-spacing: .3em; color: var(--brown); margin-bottom: 5px; }
   .bl-txt h4 { font-size: 15px; font-weight: 500; letter-spacing: .08em; color: var(--ink); margin-bottom: 5px; }
-  .bl-txt p { font-size: 13px; color: var(--ink-soft); line-height: 1.8; }
+  .bl-txt p { font-size: 13px; color: var(--ink-soft); line-height: 1.8; text-wrap: balance; }
   /* 平板：九列放不下，wrap 成 5＋4 两行，两行都自左向右，横线随行各起一条 */
   @media (max-width: 1023px) and (min-width: 600px) {
     .beadline { row-gap: 38px; }
@@ -1220,6 +1236,7 @@
   </div>
 </section>
 
+
 <!-- ===== 产品总览 ===== -->
 <section class="tier" id="collections">
   <div class="wrap">
@@ -1233,7 +1250,7 @@
       <p class="sec-sub">素串、设计款、线香，是现成的成品；心愿盲盒与私订，是为你现做的一串。五项都在这里 —— 按你想要的确定程度，选一种。</p>
     </div>
     <div class="cx-strip">
-      <p>先测后挑 —— 十六道小题，落一张香签，再照着签挑你的串。</p>
+      <p>先测后挑 —— 十六道小题，落一张香签，<span class="nobr">再照着签挑你的串。</span></p>
       <button class="btn solid" type="button" data-cexiang="plain">测香</button>
     </div>
     <div class="tier-list">
@@ -1270,7 +1287,7 @@
       <button class="art-close pd-close-btn pd-end" type="button">回到素串 ↑</button>
     </div>
     <div class="cx-strip">
-      <p>八款都看过了，还没拿定主意？测完，落一张你的香签。</p>
+      <p>八款都看过了，还没拿定主意？测完，<span class="nobr">落一张你的香签。</span></p>
       <button class="btn solid" type="button" data-cexiang="plain">测香</button>
     </div>
   </div>
@@ -1320,6 +1337,7 @@
   </div>
 </section>
 
+
 <!-- ===== 03 线香 ===== -->
 <section class="layer" id="incense">
   <div class="wrap">
@@ -1356,7 +1374,7 @@
       <div class="card incense-soon">
         <div class="name">另两款</div>
         <span class="cat-tag">陆续上新</span>
-        <p class="persona">线香全线约四款，余下两款还在调香、试燃。好了再上，不赶时间 —— 香这件事，急不得。</p>
+        <p class="persona">线香全线约四款，余下两款还在调香、试燃。好了再上，不赶时间 —— <span class="nobr">香这件事，急不得。</span></p>
       </div>
     </div>
   </div>
@@ -1376,9 +1394,9 @@
     </div>
     <div class="feature-panel">
       <div class="panel-title">先懂你，才敢替你随机</div>
-      <p>不论选成品、私订还是开盲盒，仙都先请你做一遍测香 —— 十六道小题，凭第一直觉选，约两分钟。测完得一张你的香签；用在盲盒上，只取其中一件事：你明确想避开的香型，开盒时绝不放进去。</p>
+      <p>不论选成品、私订还是开盲盒，仙都先请你做一遍测香 —— 十六道小题，凭第一直觉选，约两分钟。测完得一张你的香签；用在盲盒上，只取其中一件事：你明确想避开的香型，<span class="nobr">开盒时绝不放进去。</span></p>
       <div class="steps blind-steps">
-        <div class="step"><div class="st-num">第一步</div><h4>先做测香</h4><p>十六道小题，测出你的本命香，也问清你想避开什么。</p></div>
+        <div class="step"><div class="st-num">第一步</div><h4>先做测香</h4><p>十六道小题，测出你的本命香，<span class="nobr">也问清你想避开什么。</span></p></div>
         <div class="step"><div class="st-num">第二步</div><h4>留一张香签</h4><p>测完得一张香签，本命香与避雷项都记在签上。</p></div>
         <div class="step"><div class="st-num">第三步</div><h4>拆一串未知</h4><p>避开你不喜欢的，其余随机现串，拆盒才见。</p></div>
       </div>
@@ -1401,21 +1419,21 @@
     <div class="bespoke-grid">
       <div>
         <div class="steps" style="grid-template-columns:1fr;margin-top:0">
-          <div class="step"><div class="st-num">第一步</div><h4>倾听</h4><p>先聊你的状态与日常偏好：喜欢什么气味、常戴什么场合、腕围几何。</p></div>
-          <div class="step"><div class="st-num">第二步</div><h4>甄选搭配</h4><p>以你的独特气质为轴，从古法香方与天然晶石中一对一甄选，给出搭配方案与你确认。</p></div>
-          <div class="step"><div class="st-num">第三步</div><h4>手工成串</h4><p>确认后手工成珠、穿串，按你的腕围收尾，只此一串，不做复刻。</p></div>
+          <div class="step"><div class="st-num">第一步</div><h4>倾听</h4><p>先聊你的状态与日常偏好：喜欢什么气味、常戴什么<span class="nobr">场合、腕围几何。</span></p></div>
+          <div class="step"><div class="st-num">第二步</div><h4>甄选搭配</h4><p>以你的独特气质为轴，从古法香方与天然晶石中一对一甄选，<span class="nobr">给出搭配方案与你确认。</span></p></div>
+          <div class="step"><div class="st-num">第三步</div><h4>手工成串</h4><p>确认后手工成珠、穿串，按你的腕围收尾，<span class="nobr">只此一串，不做复刻。</span></p></div>
         </div>
         <div class="bespoke-channels">
           <button class="bc-box bc-main" type="button" data-cexiang="bespoke">
             <span class="bc-tag">通道 · 壹</span>
             <span class="bc-title">先测香</span>
-            <span class="bc-desc">测完落一张香签，带着它来聊，定制更准。</span>
+            <span class="bc-desc">测完落一张香签，<span class="nobr">带着它来聊，定制更准。</span></span>
             <span class="bc-act">测香 →</span>
           </button>
           <a class="bc-box bc-sub" href="mailto:58623184@qq.com">
             <span class="bc-tag">通道 · 贰</span>
             <span class="bc-title">直接咨询</span>
-            <p>先聊你的状态与日常偏好：喜欢什么气味、常戴什么场合、腕围几何。</p>
+            <p>先聊你的状态与日常偏好：喜欢什么气味、常戴什么<span class="nobr">场合、腕围几何。</span></p>
             <span class="bc-act">写邮件咨询 →</span>
           </a>
         </div>
@@ -1443,17 +1461,17 @@
       <h3 class="hx-h">先说清：合香珠到底是什么</h3>
       <div class="craft-grid" style="margin-top:22px">
         <div class="craft-card"><h3>古法配伍</h3><p>沉香、檀香，佐以花、叶与草木，按一张方子配在一起，研粉、黏合、成珠。几味彼此让位、彼此成全 —— 所以它耐闻，有前有后，有层次。</p></div>
-        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，走上人的手腕。</p></div>
-        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，和一点旧时光的体面。</p></div>
+        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，<span class="nobr">走上人的手腕。</span></p></div>
+        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，<span class="nobr">和一点旧时光的体面。</span></p></div>
       </div>
     </div>
 
     <div class="hx-block">
       <h3 class="hx-h">它从哪里来</h3>
       <div class="tl">
-        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里最早的模样之一。</p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是从这张老方子里来的。</p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的正是这条老路。</p></div></div>
+        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里<span class="nobr">最早的模样之一。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是<span class="nobr">从这张老方子里来的。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的<span class="nobr">正是这条老路。</span></p></div></div>
         <div class="tl-row"><div class="tl-era">明清至今</div><div class="tl-body"><h4>入日常，入非遗</h4><p>香珠成串佩戴、把玩，清宫造办处曾在端午前后赶制香珠，供佩戴与赏赐。如今，合香珠传统制作技艺已在多地列入非物质文化遗产名录。</p></div></div>
       </div>
     </div>
@@ -1512,7 +1530,7 @@
 
     <div class="hx-block hx-stance">
       <h3 class="hx-h">最后，说一句香的来处</h3>
-      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，剩下的是空的。</p>
+      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，<span class="nobr">剩下的是空的。</span></p>
       <p>仙只做前一种。每一款的香材都列得出来，方子讲得清楚，不添加香精，不靠染色做样子。也因此先说好：<b>我们的香偏淡，那不是做得不到位，是草木本来的音量。</b>你若喜欢浓烈张扬的香，我们大约不合拍；你若喜欢近身、安静、耐闻的，这条路，古人替我们走了一千多年了。</p>
       <p class="hx-note">这一节是香文化常识，只为帮你认识合香珠；香是气息与陪伴，不作功效之说。</p>
     </div>
@@ -1525,16 +1543,16 @@
     <div class="layer-head" style="margin-bottom:0">
       <div class="layer-num">匠心</div>
       <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
-      <p>匠心传承 · 传统古法合香 —— 三件事，我们一直这样做。</p>
+      <p>匠心传承 · 传统古法合香 —— 三件事，<span class="nobr">我们一直这样做。</span></p>
     </div>
     <figure class="craft-banner">
       <img src="images/site-craft-window.webp" alt="窗边近景：女子的双手在晨光里轻捻一串摩卡色合香珠，案上摊着一本书、一杯冒着热气的茶与一小竹盘散珠，纱帘透光，一缕轻烟浮在光里" style="object-position:center 55%" loading="lazy">
       <figcaption>指尖捻珠，慢工细作</figcaption>
     </figure>
     <div class="craft-grid">
-      <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、有层次的香韵。</p></div>
+      <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、<span class="nobr">有层次的香韵。</span></p></div>
       <div class="craft-card"><div class="cc-num">匠心 · 贰</div><h3>温和亲肤，纯净植物本源</h3><p>贴身之物，先求稳妥。精选天然香材与植物纤维，搭配天然原石晶石，日常贴肤佩戴。</p></div>
-      <div class="craft-card"><div class="cc-num">匠心 · 叁</div><h3>手工打磨，温润如肌肤相亲</h3><p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，日常佩戴轻盈自在。</p></div>
+      <div class="craft-card"><div class="cc-num">匠心 · 叁</div><h3>手工打磨，温润如肌肤相亲</h3><p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，<span class="nobr">日常佩戴轻盈自在。</span></p></div>
     </div>
   </div>
 </section>
@@ -1545,13 +1563,13 @@
     <div class="layer-head" style="margin-bottom:0">
       <div class="layer-num">选购答疑</div>
       <h2>第一次买，先把这几件事说清</h2>
-      <p>站在第一次下单的角度，把最常被问起的四件事，提前放在这里。</p>
+      <p>站在第一次下单的角度，把最常被问起的四件事，<span class="nobr">提前放在这里。</span></p>
     </div>
     <div class="guide-grid">
-      <div class="craft-card"><div class="cc-num">问 · 壹</div><h3>素串和设计款，怎么选？</h3><p>只想贴身闻香、喜欢素净的，选素串；想让腕间多一点光色、香与石互相成全的，选设计款七境；想让屋里有香的，选案头的线香；拿不准、又享受未知的，先去盲盒测一测偏好 —— 没有高下，只有合不合此刻的你。</p></div>
+      <div class="craft-card"><div class="cc-num">问 · 壹</div><h3>素串和设计款，怎么选？</h3><p>只想贴身闻香、喜欢素净的，选素串；想让腕间多一点光色、香与石互相成全的，选设计款七境；想让屋里有香的，选案头的线香；拿不准、又享受未知的，先去盲盒测一测偏好 —— 没有高下，<span class="nobr">只有合不合此刻的你。</span></p></div>
       <div class="craft-card"><div class="cc-num">问 · 贰</div><h3>香味浓吗？会不会熏人？</h3><p>合香珠是近身之香：自己低头闻得到，凑近的人闻得到，不会满室皆香，更不是香水。它的分寸，是不打扰人。若你期待浓烈张扬，它可能会让你失望，<span class="nobr">先说在前面</span>。</p></div>
       <div class="craft-card"><div class="cc-num">问 · 叁</div><h3>香能留多久？</h3><p>天然香材的气息会随佩戴慢慢变淡，这是它的常态，不是坏了。不戴时避光、收进密封袋或盒子，能陪得久些。气息淡了，珠子还在。捻在指间，垂在腕间，它陪你的日子，比香气长。</p></div>
-      <div class="craft-card"><div class="cc-num">问 · 肆</div><h3>腕围怎么量？</h3><p>用软尺贴着手腕最细处绕一圈，就是净腕围；没有软尺，用纸条绕一圈做个记号，再摊平量长度也行。下单或私订时把腕围告诉我们，按你的尺寸成串，不凑数。</p></div>
+      <div class="craft-card"><div class="cc-num">问 · 肆</div><h3>腕围怎么量？</h3><p>用软尺贴着手腕最细处绕一圈，就是净腕围；没有软尺，用纸条绕一圈做个记号，再摊平量长度也行。下单或私订时把腕围告诉我们，<span class="nobr">按你的尺寸成串，不凑数。</span></p></div>
     </div>
   </div>
 </section>
@@ -1568,9 +1586,9 @@
         <div class="eyebrow">品牌故事</div>
         <div class="slogan">给喧嚣生活，留一抹东方清静</div>
         <div class="story-text">
-          <p class="lead">我们是根植于东方美学的现代首饰品牌，把古老的香道文化，转译为符合当代审美的腕间饰物。它要能进得了日常的衣橱 —— 衬衫、针织、西装都压得住；东方的韵味不靠纹样堆砌，藏在气息、材质与分寸里，近看才见。</p>
+          <p class="lead">我们是根植于东方美学的现代首饰品牌，把古老的香道文化，转译为符合当代审美的腕间饰物。它要能进得了日常的衣橱 —— 衬衫、针织、西装都压得住；东方的韵味不靠纹样堆砌，藏在气息、材质<span class="nobr">与分寸里，近看才见。</span></p>
           <p>品牌的初心，源于一次与古法合香的相遇。我们想：如果把合香凝练出的草本气息，与天然晶石的色泽纹理合在一起，做成一件日常腕间的轻巧首饰，会是怎样？于是，便有了这些腕间清仙。</p>
-          <p>我们不制造焦虑，只提供一点触手可及的东方气息。希望你在通勤路上、工位间隙低头时，闻到一缕淡淡的香韵，触到晶石的微凉 —— 这串小东西陪着你，慢慢松弛下来。</p>
+          <p>我们不制造焦虑，只提供一点触手可及的东方气息。希望你在通勤路上、工位间隙低头时，闻到一缕淡淡的香韵，触到晶石的微凉 —— 这串小东西<span class="nobr">陪着你，慢慢松弛下来。</span></p>
         </div>
         <div class="story-points">
           <div><div class="sp-t">古法为底</div><div class="sp-d">传统合香方 · 手工成珠</div></div>
@@ -1823,7 +1841,7 @@
     <div class="daily-card daily-new-card" id="daily-new">
       <div class="dc-top"><span class="cat-tag">上新预告</span><span class="dc-status">进行中</span></div>
       <h3>线香，另两款在路上</h3>
-      <p>线香全线约四款，浓情咖啡香与山泉白茶方已经先上；余下两款还在调香、试燃。定下来了，先在这里告诉你。</p>
+      <p>线香全线约四款，浓情咖啡香与山泉白茶方已经先上；余下两款还在调香、试燃。定下来了，<span class="nobr">先在这里告诉你。</span></p>
     </div>
   </div>
 </section>
@@ -1834,7 +1852,7 @@
     <div class="v-mark">仙 · XIAN</div>
     <h2>不止于腕间，更在于心间</h2>
     <p>往后，我们希望跳出一串首饰的边界，做一个都市里安放闲情的角落。</p>
-    <p>不定期举办东方气味沙龙、调香手作等新中式雅集，邀你在忙碌里，留出一段属于自己的清静时光。</p>
+    <p>不定期举办东方气味沙龙、调香手作等新中式雅集，邀你在忙碌里，留出一段<span class="nobr">属于自己的清静时光。</span></p>
   </div>
 </section>
 
@@ -2066,12 +2084,12 @@
   var PLAIN = [
     { key: 'shanquanbaicha', name: '山泉白茶', cat: '清 · 茶香', mood: '白茶清雅，檀香收尾，凉而干净', color: '#8FA98F', scene: '晨起 · 读书 · 茶席', ing: '檀香、艾草、安吉白茶、栗花、香茅', flat: 'images/plain-shanquanbaicha-card.webp', flatTone: '米白色' },
     { key: 'xihulongjing', name: '西湖龙井', cat: '清 · 茶香', mood: '龙井清透微凉，薄荷一丝清气', color: '#7A9B76', scene: '工作 · 晨起 · 午后', ing: '西湖龙井、侧柏叶、丁香、薄荷、茯苓', flat: 'images/plain-xihulongjing-card.webp', flatTone: '青绿色' },
-    { key: 'bailongxian', name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '香材同黑龙涎，浅色调和', flat: 'images/plain-bailongxian-card.webp', flatTone: '浅米灰色' },
+    { key: 'bailongxian', name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '龙涎香、檀香、沉香', flat: 'images/plain-bailongxian-card.webp', flatTone: '浅米灰色' },
     { key: 'heilongxian', name: '黑龙涎', cat: '静 · 沉木', mood: '沉暗厚重，木香深长有分量', color: '#3A2E26', scene: '独处 · 夜读', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', flat: 'images/plain-heilongxian-card.webp', flatTone: '深褐近黑色' },
-    { key: 'zitan', name: '紫檀真龙', cat: '静 · 沉木', mood: '紫檀木韵沉稳，尾调一点蜜甜', color: '#4A3428', scene: '静坐 · 独处 · 夜晚', ing: '小叶紫檀、龙涎香、沉香、安息香', flat: 'images/plain-zitan-card.webp', flatTone: '深红褐色' },
+    { key: 'zitan', name: '紫檀真龙', cat: '静 · 沉木', mood: '紫檀木韵沉稳，尾调蜜甜', color: '#4A3428', scene: '静坐 · 独处 · 夜晚', ing: '小叶紫檀、龙涎香、沉香、安息香', flat: 'images/plain-zitan-card.webp', flatTone: '深红褐色' },
     { key: 'menglingxiang', name: '梦灵香', cat: '静 · 沉木', mood: '草木暖柔，气息松弛放缓', color: '#A8A29A', scene: '晨昏 · 闲坐', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', flat: 'images/plain-menglingxiang-card.webp', flatTone: '暖灰褐色' },
     { key: 'muxixiang', name: '木樨香', cat: '舒 · 花草', mood: '桂香暖甜，温润不腻', color: '#C79A4B', scene: '访友 · 秋日 · 日常', ing: '桂花、檀香、沉香、安息香、丁香等', flat: 'images/plain-muxixiang-card.webp', flatTone: '金桂黄色' },
-    { key: 'meiguiqixia', name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰柔润如晚霞栖腕，陈皮与檀香压住甜意', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等', flat: 'images/plain-meiguiqixia-card.webp', flatTone: '灰玫瑰粉色' }
+    { key: 'meiguiqixia', name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰如晚霞，柔润不甜腻', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等', flat: 'images/plain-meiguiqixia-card.webp', flatTone: '灰玫瑰粉色' }
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
@@ -2107,8 +2125,7 @@
       '<div class="strand"><img src="' + p.flat + '" alt="「' + p.name + '」平铺海报图：暖米白底上，一串' + p.flatTone + '合香珠成圈平铺，顶部是 EASTERN SPIRIT 刊头与仙字小印，底部写有品名" loading="lazy" width="1408" height="1760"></div>' +
       '<div class="name">' + p.name + '</div>' +
       '<span class="cat-tag">' + p.cat + '</span>' +
-      '<div class="meta">' + metaRow('气味气质', p.mood) + metaRow('宜', p.scene) + '</div>' +
-      '<div class="ingredients">' + p.ing + '</div>' +
+      '<div class="meta">' + metaRow('香韵', p.mood) + metaRow('宜', p.scene) + metaRow('成分', p.ing) + '</div>' +
       buyGroup(p);
     // 点珠径按键只跳微店：阻止冒泡，不触发卡片的「点击打开详情」；
     // 占位链接（href 为「#」）点击时阻止默认跳转，不跳页顶、不报错
@@ -2241,9 +2258,9 @@
       '<div class="realm-body">' +
       '<div class="name">' + r.name + '<span class="name-dot"> · </span><span class="name-immortal">' + r.immortal + '</span></div>' +
       '<p class="bio">' + r.bio + '</p>' +
-      '<div class="pairline"><span class="p-label">香方：</span>' + r.scent + '<span class="p-sep">｜</span><span class="p-label">晶石：</span>' + r.crystal + '</div>' +
-      '<p class="ring"><span class="rg-label">成分：</span> ' + r.ing + '</p>' +
-      '<p class="rline"><span class="rl-label">香方气质</span> ' + r.mood + '</p>' +
+      '<div class="pairline"><span class="p-label">香方</span> ' + r.scent + '<span class="p-sep">｜</span><span class="p-label">晶石</span> ' + r.crystal + '</div>' +
+      '<p class="ring"><span class="rg-label">成分</span> ' + r.ing + '</p>' +
+      '<p class="rline"><span class="rl-label">香韵</span> ' + r.mood + '</p>' +
       '<p class="rline"><span class="rl-label">契合人群</span> ' + r.fit + '</p>' +
       '</div>';
     realmGrid.appendChild(card);
@@ -2326,10 +2343,10 @@
     { id: 'longjing', plainKey: 'xihulongjing', name: '西湖龙井', group: '茶香', mood: '龙井清透微凉，薄荷一丝清气', cold: 1, str: 2, wx: '木', color: '青绿', kw: '透', scene: '工作 · 晨起 · 午后', diff: '茶香系里最利落的一款' },
     { id: 'bailongxian', plainKey: 'bailongxian', name: '白龙涎', group: '茶香', mood: '清透浅净，气息轻而不飘', cold: 2, str: 1, wx: '金', color: '浅米灰', kw: '浅', scene: '通勤 · 日间', diff: '八款里最轻、最浅的一款' },
     { id: 'heilongxian', plainKey: 'heilongxian', name: '黑龙涎', group: '沉木', mood: '沉暗厚重，木香深长有分量', cold: 4, str: 5, wx: '水', color: '深褐近黑', kw: '沉', scene: '独处 · 夜读', diff: '八款里最沉、最深的一款' },
-    { id: 'zitan', plainKey: 'zitan', name: '紫檀真龙', group: '沉木', mood: '紫檀木韵沉稳，尾调一点蜜甜', cold: 4, str: 4, wx: '土', color: '深红褐', kw: '稳', scene: '静坐 · 独处 · 夜晚', diff: '沉木系里最稳的一款' },
+    { id: 'zitan', plainKey: 'zitan', name: '紫檀真龙', group: '沉木', mood: '紫檀木韵沉稳，尾调蜜甜', cold: 4, str: 4, wx: '土', color: '深红褐', kw: '稳', scene: '静坐 · 独处 · 夜晚', diff: '沉木系里最稳的一款' },
     { id: 'mengling', plainKey: 'menglingxiang', name: '梦灵香', group: '沉木', mood: '草木暖柔，气息松弛放缓', cold: 4, str: 3, wx: '水', color: '暖灰褐', kw: '柔', scene: '晨昏 · 闲坐', diff: '沉木系里最柔的一款' },
     { id: 'muxi', plainKey: 'muxixiang', name: '木樨香', group: '花草', mood: '桂香暖甜，温润不腻', cold: 5, str: 3, wx: '火', color: '金桂黄', kw: '暖', scene: '访友 · 秋日 · 日常', diff: '花草系里最暖的一款' },
-    { id: 'meigui', plainKey: 'meiguiqixia', name: '玫瑰栖霞', group: '花草', mood: '玫瑰柔润如晚霞栖腕，陈皮与檀香压住甜意', cold: 4, str: 3, wx: '火', color: '灰玫瑰粉', kw: '润', scene: '日常 · 访友 · 出行', diff: '花草系里最润的一款' }
+    { id: 'meigui', plainKey: 'meiguiqixia', name: '玫瑰栖霞', group: '花草', mood: '玫瑰如晚霞，柔润不甜腻', cold: 4, str: 3, wx: '火', color: '灰玫瑰粉', kw: '润', scene: '日常 · 访友 · 出行', diff: '花草系里最润的一款' }
   ];
   var CX_BY_ID = {};
   CX_PRODUCTS.forEach(function (p) { CX_BY_ID[p.id] = p; });
