@@ -282,12 +282,13 @@
   }
   .photo-note { display: inline-block; margin-top: 14px; margin-left: 10px; font-size: 12.5px; color: var(--muted); border: 1px dashed var(--line); padding: 3px 12px; }
 
-  .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-  @media (min-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (min-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
   @media (min-width: 960px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
-  @media (min-width: 560px) and (max-width: 959px) { .grid .card:last-child { grid-column: 1 / -1; } }
+  @media (max-width: 559px) { .grid { gap: 12px; } .card { padding: 18px 13px 16px; } .realm-card.has-art { padding: 10px 10px 2px; } }
+  @media (max-width: 959px) { .grid .card:last-child { grid-column: 1 / -1; } }
   /* 素串 8 款专用：桌面四列两行，整齐对称收尾，不再有最后一块掉下去 */
-  @media (min-width: 560px) { .grid-plain .card:last-child { grid-column: auto; } }
+  .grid-plain .card:last-child { grid-column: auto; }
   @media (min-width: 1024px) { .grid-plain { grid-template-columns: repeat(4, 1fr); gap: 18px; } .grid-plain .card { padding: 24px 16px 20px; } }
   /* 七境卡片：去掉说明书式的参数表，只留一颗临光的晶球与诗意短句 */
   .realm-orb {
@@ -727,24 +728,25 @@
     .site-nav.nav-open .nav-toggle .nav-line:nth-child(2) { opacity: 0; }
     .site-nav.nav-open .nav-toggle .nav-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
     .site-nav .nav-panel {
-      position: absolute; top: 100%; left: 0; right: 0; z-index: 110;
-      background: var(--paper); border-bottom: 1px solid var(--line);
-      box-shadow: 0 24px 32px -24px rgba(76,58,40,0.35);
-      padding: 4px clamp(20px, 5vw, 48px) 12px;
+      position: absolute; top: calc(100% + 6px); right: 10px; left: auto; z-index: 110;
+      width: min(238px, calc(100vw - 20px));
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+      box-shadow: 0 18px 34px -18px rgba(76,58,40,0.35);
+      padding: 6px 14px 8px;
     }
     .site-nav.nav-open .nav-panel { display: block; }
     .nav-panel .np-row { border-top: 1px dashed var(--line); }
     .nav-panel .np-row:first-child { border-top: none; }
     .nav-panel a.np-link {
-      display: flex; align-items: center; min-height: 48px; padding: 10px 2px;
-      font-size: 15px; color: var(--ink-soft); letter-spacing: .08em;
+      display: flex; align-items: center; min-height: 42px; padding: 8px 2px;
+      font-size: 14.5px; color: var(--ink-soft); letter-spacing: .08em;
     }
     .nav-panel a.np-link:hover { color: var(--brown-deep); }
     .np-group-btn {
       width: 100%; background: none; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: space-between;
-      min-height: 48px; padding: 10px 2px;
-      font-size: 15px; color: var(--ink-soft); letter-spacing: .08em;
+      min-height: 42px; padding: 8px 2px;
+      font-size: 14.5px; color: var(--ink-soft); letter-spacing: .08em;
     }
     .np-group-btn:hover, .np-group.open .np-group-btn { color: var(--brown-deep); }
     .np-group-btn .caret {
@@ -778,6 +780,7 @@
      值文字颜色同步加深一档为 #57493A、保持常规字重。 */
   /* 线香四款固定两列两行（2×2）：覆盖通用 .grid 桌面三列与「最后一卡通栏」，
      不再出现三加一、末卡掉到下一行独占一行的情况；手机仍单列堆叠。 */
+  #incense .grid .card:last-child { grid-column: auto; }
   @media (min-width: 560px) {
     #incense .grid { grid-template-columns: repeat(2, 1fr); }
     #incense .grid .card:last-child { grid-column: auto; }
@@ -952,7 +955,8 @@
      在部分 webview 里会当作固定高度生效，宽度随容器收窄、高度钉死，图被纵向拉长。 */
   .grid-plain .card { cursor: pointer; }
   .grid-plain .card:focus-visible { outline: 1.5px solid var(--brown); outline-offset: 3px; }
-  .plain-detail { margin-top: clamp(28px, 4.5vw, 46px); }
+  .plain-detail { margin-top: clamp(28px, 4.5vw, 46px); scroll-margin-top: 92px; }
+  .grid-plain .plain-detail { grid-column: 1 / -1; margin-top: 4px; }
   .plain-detail[hidden] { display: none; }
   .pd-topbar { max-width: 600px; margin: 0 auto; display: flex; justify-content: flex-end; }
   .pd-head { max-width: 600px; margin: 2px auto 0; display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
@@ -2279,6 +2283,7 @@
   }
   function openPlain(p, card) {
     fillPlainDetail(p);
+    if (card) { plainGrid.insertBefore(plainDetail, card.nextSibling); }
     openPlainName = p.name;
     lastPlainCard = card;
     plainDetail.hidden = false;
