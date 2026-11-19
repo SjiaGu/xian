@@ -213,14 +213,14 @@
   .story { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .story-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
   @media (min-width: 880px) { .story-grid { grid-template-columns: 5fr 6fr; gap: 60px; } }
-  .story-fig img { width: 100%; height: clamp(360px, 44vw, 500px); object-fit: cover; object-position: center 30%; border-radius: 4px; }
-  .story-fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
+  .story-fig img { width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; border-radius: 4px; display: block; }
+  .story-fig figcaption { font-size: 13.5px; color: var(--ink-soft); margin-top: 12px; letter-spacing: .08em; }
   .story .slogan { font-size: clamp(21px, 2.8vw, 27px); font-weight: 500; letter-spacing: .12em; margin-bottom: 22px; line-height: 1.6; }
-  .story-text p { color: var(--ink-soft); margin-bottom: 16px; font-size: 15px; }
+  .story-text p { color: var(--ink); margin-bottom: 16px; font-size: 16px; }
   .story-text p.lead { color: var(--ink); font-size: 16px; }
   .story-points { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
   .story-points div .sp-t { font-size: 15px; font-weight: 500; letter-spacing: .1em; color: var(--brown-deep); }
-  .story-points div .sp-d { font-size: 12.5px; color: var(--muted); }
+  .story-points div .sp-d { font-size: 13.5px; color: var(--ink-soft); }
 
   /* ===== 产品总览（：撤掉五个方框，改目录式五行；：整体瘦身） =====
      只给目录五行瘦身：品名从展示级大字（20–25px）降到与全站正文
@@ -308,6 +308,16 @@
   /* ：素串卡片第一图换成已验收的刊头版卡图（4:5，1408×1760），按原始比例完整显示，不裁切刊头与串圆 */
   .grid-plain .card .strand { padding: 0 0 4px; }
   .grid-plain .card .strand img { display: block; width: 100%; height: auto; aspect-ratio: 1408 / 1760; object-fit: contain; border-radius: 2px; background: var(--paper); }
+  /* 素串卡片箭头角标：叠在卡图右下角，提示可点开详情；展开时旋转 -90° 指向收起 */
+  .grid-plain .card .strand { position: relative; }
+  .grid-plain .card .card-arrow {
+    position: absolute; right: 10px; bottom: 14px; width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(250,247,240,.88); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1; color: var(--brown-deep);
+    pointer-events: none; transition: transform .25s;
+  }
+  .grid-plain .card[aria-expanded="true"] .card-arrow { transform: rotate(-90deg); }
   .card .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
   .card .immortal { font-size: 13px; color: var(--brown); letter-spacing: .14em; text-align: center; margin-top: -6px; }
   .card .meta { display: grid; gap: 3px; font-size: 13px; line-height: 1.7; border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 4px; }
@@ -542,9 +552,9 @@
 
   /* ===== 匠心 ===== */
   .craft { border-top: 1px solid var(--line); }
-  .craft-banner { margin-top: 34px; }
-  .craft-banner img { width: 100%; height: clamp(220px, 32vw, 380px); object-fit: cover; object-position: center 45%; border-radius: 4px; }
-  .craft-banner figcaption { font-size: 12.5px; color: var(--muted); margin-top: 12px; letter-spacing: .08em; }
+  /* 匠心引言：通栏文字（原引言右侧小幅竖图两栏排法已撤） */
+  .craft-wide { margin-top: 34px; }
+  .craft-wide img { width: 100%; height: auto; border-radius: 4px; }
   .craft-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 34px; }
   @media (min-width: 768px) { .craft-grid { grid-template-columns: repeat(3, 1fr); } }
   .craft-card { border-top: 1px solid var(--brown-soft); padding: 22px 6px 0; }
@@ -655,6 +665,8 @@
   .vision .v-mark { color: var(--brown); font-size: 20px; letter-spacing: .4em; margin-bottom: 20px; }
   .vision h2 { font-size: clamp(22px,3vw,30px); font-weight: 500; letter-spacing: .12em; margin-bottom: 18px; }
   .vision p { color: var(--ink-soft); max-width: 560px; margin: 0 auto 12px; font-size: 15px; }
+  .vision-fig { margin-top: clamp(28px, 4vw, 40px); }
+  .vision-fig img { width: 100%; height: auto; border-radius: 4px; }
 
   /* ===== 保养 ===== */
   .care-list { display: grid; grid-template-columns: 1fr; gap: 4px 40px; margin-top: 26px; }
@@ -995,6 +1007,8 @@
   /* 素串色差备注：八卡之后、测香条之前 —— 与测香条同款哑光金淡染底托出，无边框线 */
   .plain-note { max-width: 720px; margin: clamp(26px, 3.5vw, 38px) auto 0; background: rgba(179, 162, 132, 0.15); border-radius: 2px; padding: 14px 18px; text-align: center; font-size: 13px; line-height: 1.9; color: var(--ink-soft); text-wrap: balance; }
   .plain-note .pn-label { color: var(--ink); font-weight: 600; letter-spacing: .1em; }
+  /* 素串区点开提示：引言下方、八卡之前一行小字，次级灰褐、左对齐随标题版式，只此一处 */
+  .layer-head .plain-hint { font-size: 13px; color: var(--muted); letter-spacing: .06em; margin-top: 12px; }
   .feature-panel .cx-strip { margin-top: 22px; }
   /* ===== ：私订双通道 —— 主通道卸掉深褐实心，改轻手法分主次 =====
      桌面 5:5 一行并排，手机上下堆叠；两框靠 grid 拉伸天然等高，行动行用
@@ -1168,6 +1182,10 @@
 </head>
 <body>
 
+
+
+
+
 <!-- ===== 站点导航 ===== -->
 <nav class="site-nav">
   <a class="nav-logo" href="#top"><img src="images/nav-glyph-brown.png" alt="仙 XIAN logo"><span class="nav-word">XIAN</span></a>
@@ -1294,6 +1312,7 @@
       <div class="layer-num">壹 · 素串</div>
       <h2>纯合香珠，一串草木气息</h2>
       <p>不缀晶石，只以古法合香成珠。第一阶段共八款，按气味的性情分三类 —— 清、静、舒，挑香先挑此刻想要的状态。</p>
+      <p class="plain-hint">点开任意一款，看上手图与详情</p>
     </div>
     <div class="grid grid-plain" id="plain-grid"></div>
     <p class="plain-note"><span class="pn-label">关于色差</span>　天然草木为材，天气与批次不同，珠色略有差异——一串一色，皆是手作。</p>
@@ -1382,7 +1401,7 @@
           <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 案头独处</span></div>
           <div class="meta-row"><span class="m-label">成分</span><span class="m-val">咖啡豆 · 檀香 · 沉香</span></div>
         </div>
-        <p class="persona">不是复刻一杯咖啡。西来的豆香带着蓬勃朝气，遇上檀、沉千年的静气 —— 一场东西方香息的诗意邂逅，讲的是唤醒之后的沉淀。</p>
+        <p class="persona">豆香带着远方的朝气，檀、沉以千年的静气接住它。醒过之后，是沉淀。</p>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-rose-tea.webp" alt="玫瑰红茶氛围图：深红玫瑰与红茶叶相伴，身后漾开一片暖红色的光晕" loading="lazy"></div>
@@ -1393,6 +1412,7 @@
           <div class="meta-row"><span class="m-label">宜</span><span class="m-val">午后 · 茶席 · 独处</span></div>
           <div class="meta-row"><span class="m-label">成分</span><span class="m-val">红玫瑰、武夷红茶、檀香、粘粉</span></div>
         </div>
+        <p class="persona">花香先行，茶韵随后，檀香在暗处托底——热闹是花的，安稳是茶的。</p>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-pomelo.webp" alt="柚见龙井春氛围图：柚子瓣与龙井嫩芽相伴，身后漾开一片春绿色的光晕" loading="lazy"></div>
@@ -1403,6 +1423,7 @@
           <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 日常</span></div>
           <div class="meta-row"><span class="m-label">成分</span><span class="m-val">柚子叶、柚子皮、龙井绿茶、沉香、丁香、白芷、粘粉</span></div>
         </div>
+        <p class="persona">柚香清亮，茶气明净，一缕沉香压住底——轻得干净，净得有根。</p>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-pear.webp" alt="鹅梨王氛围图：带水珠的雪梨近景，身后漾开一片暖金青色的光晕" loading="lazy"></div>
@@ -1413,6 +1434,7 @@
           <div class="meta-row"><span class="m-label">宜</span><span class="m-val">夜晚 · 书房 · 独处</span></div>
           <div class="meta-row"><span class="m-label">成分</span><span class="m-val">榅桲、沉香、檀香、龙脑、苏合、甘草、粘粉</span></div>
         </div>
+        <p class="persona">梨香清甜，沉檀温厚，龙脑收尾透一丝凉。先甜，后静。</p>
       </div>
     </div>
     <p class="incense-more">持续上新，敬请期待</p>
@@ -1583,14 +1605,15 @@
 <!-- ===== 三大匠心 ===== -->
 <section class="craft" id="craft">
   <div class="wrap">
-    <div class="layer-head" style="margin-bottom:0">
-      <div class="layer-num">匠心</div>
-      <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
-      <p>匠心传承 · 传统古法合香 —— 三件事，<span class="nobr">我们一直这样做。</span></p>
+    <div class="craft-intro">
+      <div class="layer-head" style="margin-bottom:0">
+        <div class="layer-num">匠心</div>
+        <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
+        <p>匠心传承 · 传统古法合香 —— 三件事，<span class="nobr">我们一直这样做。</span></p>
+      </div>
     </div>
-    <figure class="craft-banner">
-      <img src="images/site-craft-window.webp" alt="窗边近景：女子的双手在晨光里轻捻一串摩卡色合香珠，案上摊着一本书、一杯冒着热气的茶与一小竹盘散珠，纱帘透光，一缕轻烟浮在光里" style="object-position:center 55%" loading="lazy">
-      <figcaption>指尖捻珠，慢工细作</figcaption>
+    <figure class="craft-wide">
+      <img src="images/model-craft-hands-wide.webp" alt="双手捻起一颗白水晶，腕间一串小珠" loading="lazy">
     </figure>
     <div class="craft-grid">
       <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、<span class="nobr">有层次的香韵。</span></p></div>
@@ -1622,8 +1645,8 @@
   <div class="wrap">
     <div class="story-grid">
       <figure class="story-fig">
-        <img src="images/story-scroll.webp" alt="手持书卷，腕间一串深色合香珠" loading="lazy">
-        <figcaption>腕间香珠，静读日常</figcaption>
+        <img src="images/model-story-moonnight.webp" alt="暮色里，品牌模特倚着岩石，身旁一块月光石，腕间一串白水晶与合香珠">
+        <figcaption>月下有石，腕间有香</figcaption>
       </figure>
       <div>
         <div class="eyebrow">品牌故事</div>
@@ -1883,8 +1906,8 @@
 
     <div class="daily-card daily-new-card" id="daily-new">
       <div class="dc-top"><span class="cat-tag">上新预告</span><span class="dc-status">进行中</span></div>
-      <h3>线香，另两款在路上</h3>
-      <p>线香四款已全线定版：浓情咖啡香、玫瑰红茶、柚见龙井春、鹅梨王，都已经在线香区里了。<span class="nobr">先在这里告诉你。</span></p>
+      <h3>游园惊梦，在路上了</h3>
+      <p>下一款设计款，取意昆曲里的一场园中梦。敦煌的矿物色撞在一起——石绿、朱砂、孔雀青；腕间一串多宝，圆润的宝石珠间着几颗合香珠。原来姹紫嫣红开遍——<span class="nobr">这一回，开在腕间。</span></p>
     </div>
   </div>
 </section>
@@ -1896,6 +1919,9 @@
     <h2>不止于腕间，更在于心间</h2>
     <p>往后，我们希望跳出一串首饰的边界，做一个都市里安放闲情的角落。</p>
     <p>不定期举办东方气味沙龙、调香手作等新中式雅集，邀你在忙碌里，留出一段<span class="nobr">属于自己的清静时光。</span></p>
+    <figure class="vision-fig">
+      <img src="images/model-vision-grassland.webp" alt="草原辽阔，女子立在风里，腕间一串金黄珠串" loading="lazy">
+    </figure>
   </div>
 </section>
 
@@ -2165,7 +2191,7 @@
     var card = document.createElement('div');
     card.className = 'card';
     card.innerHTML =
-      '<div class="strand"><img src="' + p.flat + '" alt="「' + p.name + '」平铺海报图：暖米白底上，一串' + p.flatTone + '合香珠成圈平铺，顶部是 EASTERN SPIRIT 刊头与仙字小印，底部写有品名" loading="lazy" width="1408" height="1760"></div>' +
+      '<div class="strand"><img src="' + p.flat + '" alt="「' + p.name + '」平铺海报图：暖米白底上，一串' + p.flatTone + '合香珠成圈平铺，顶部是 EASTERN SPIRIT 刊头与仙字小印，底部写有品名" loading="lazy" width="1408" height="1760"><span class="card-arrow" aria-hidden="true">→</span></div>' +
       '<div class="name">' + p.name + '</div>' +
       '<span class="cat-tag">' + p.cat + '</span>' +
       '<div class="meta">' + metaRow('香韵', p.mood) + metaRow('宜', p.scene) + metaRow('成分', p.ing) + '</div>' +
