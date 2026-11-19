@@ -123,7 +123,7 @@
      头图整幅完整显示、不裁切：满幅铺满屏幕宽度、紧接导航下方，下半段以 mask
      渐变羽化溶进本节底色（自头图边缘采样的暖米 #FAF6E9 渐变回页面本底 --bg），
      零色差、零横线，烟雾向下的动势完整保留。
-     头图为用户亲手 P 干净的版本：
+     头图为用户亲手 P 干净的版本（images/hero-clean.webp，换入）：
      图内中文＋英文标语已由用户本人去除、烟雾完整自然，源图 2048×2048 原样转
      高质量 WebP，不裁切、不重画、不再做任何图像修复。标语由下方文字组以
      排版文字呈现。
@@ -759,8 +759,21 @@
   .incense-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
   .incense-fig { display: flex; justify-content: center; padding: 6px 0 4px; }
   .incense-fig svg { width: 118px; height: 96px; }
-  .incense-soon { align-items: center; text-align: center; justify-content: center; border-style: dashed; }
-  .incense-soon .persona { max-width: 240px; }
+  /* 线香区收尾小字：四卡之后一行安静的小注，不做卡片、不加边框 */
+  .incense-more { text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .14em; margin-top: clamp(26px, 4vw, 36px); }
+  /* 线香标签系统与素串、七境卡统一：信息行标签「香韵／宜／成分」与值文字同大
+     （13px）、半粗 600、深褐 --brown-deep、字距 .1em，标签后不加冒号；
+     值文字颜色同步加深一档为 #57493A、保持常规字重。 */
+  /* 线香四款固定两列两行（2×2）：覆盖通用 .grid 桌面三列与「最后一卡通栏」，
+     不再出现三加一、末卡掉到下一行独占一行的情况；手机仍单列堆叠。 */
+  @media (min-width: 560px) {
+    #incense .grid { grid-template-columns: repeat(2, 1fr); }
+    #incense .grid .card:last-child { grid-column: auto; }
+  }
+  #incense .card .meta { font-size: 13px; }
+  #incense .meta-row { gap: 6px; }
+  #incense .m-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
+  #incense .m-val { color: #57493A; }
 
   /* ===== 仙日常 ===== */
   .daily { border-top: 1px solid var(--line); }
@@ -979,6 +992,9 @@
   .cx-strip p { font-size: 13.5px; color: var(--ink-soft); letter-spacing: .06em; max-width: 560px; margin: 0 auto 9px; }
   .tier .cx-strip { margin-bottom: clamp(28px, 4vw, 40px); }
   #plain .cx-strip { margin-top: clamp(32px, 4.5vw, 46px); }
+  /* 素串色差备注：八卡之后、测香条之前 —— 与测香条同款哑光金淡染底托出，无边框线 */
+  .plain-note { max-width: 720px; margin: clamp(26px, 3.5vw, 38px) auto 0; background: rgba(179, 162, 132, 0.15); border-radius: 2px; padding: 14px 18px; text-align: center; font-size: 13px; line-height: 1.9; color: var(--ink-soft); text-wrap: balance; }
+  .plain-note .pn-label { color: var(--ink); font-weight: 600; letter-spacing: .1em; }
   .feature-panel .cx-strip { margin-top: 22px; }
   /* ===== ：私订双通道 —— 主通道卸掉深褐实心，改轻手法分主次 =====
      桌面 5:5 一行并排，手机上下堆叠；两框靠 grid 拉伸天然等高，行动行用
@@ -1277,9 +1293,10 @@
     <div class="layer-head">
       <div class="layer-num">壹 · 素串</div>
       <h2>纯合香珠，一串草木气息</h2>
-      <p>不缀晶石，只以古法合香成珠。第一阶段共八款，按气味的性情分三类 —— 清、静、舒，挑香先挑此刻想要的状态。每款只写气味、场景与主要香材，不写疗效；珠串图按各方香色绘制，先看个大概气质。<span class="photo-note">产品实拍图拍摄中，陆续替换</span></p>
+      <p>不缀晶石，只以古法合香成珠。第一阶段共八款，按气味的性情分三类 —— 清、静、舒，挑香先挑此刻想要的状态。</p>
     </div>
     <div class="grid grid-plain" id="plain-grid"></div>
+    <p class="plain-note"><span class="pn-label">关于色差</span>　天然草木为材，天气与批次不同，珠色略有差异——一串一色，皆是手作。</p>
     <!-- 素串详情：点卡片在此原页展开 —— 眉题（品名＋分类）＋无锁版上手图（自然比例完整呈现，无羽化）＋图下小字标＋诗行文案 -->
     <div class="plain-detail" id="plain-detail" hidden>
       <div class="pd-topbar"><button class="art-close art-close-top pd-close-btn" type="button">收起 ↑</button></div>
@@ -1352,7 +1369,7 @@
     <div class="layer-head">
       <div class="layer-num">叁 · 线香</div>
       <h2>案头的香，燃一支，满室静</h2>
-      <p>合香珠是腕间的香 —— 不用点，贴着体温慢慢散；线香是案头的香 —— 燃一支，让气息铺满一间屋子。一个随身，一个安放空间。线香将陆续做约四款，先上两款，各有性情。</p>
+      <p>合香珠是腕间的香 —— 不用点，贴着体温慢慢散；线香是案头的香 —— 燃一支，让气息铺满一间屋子。一个随身，一个安放空间。线香共四款，各有性情。</p>
     </div>
     <div class="grid">
       <div class="card">
@@ -1361,30 +1378,44 @@
         <div class="name">浓情咖啡香</div>
         <span class="cat-tag">线香 · 东西相逢</span>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">气味气质</span><span class="m-val">咖啡豆的醇香起头，檀、沉的木气收尾，先醒后沉</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">咖啡豆的醇香起头，檀、沉的木气收尾，先醒后沉</span></div>
           <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 案头独处</span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">咖啡豆 · 檀香 · 沉香</span></div>
         </div>
         <p class="persona">不是复刻一杯咖啡。西来的豆香带着蓬勃朝气，遇上檀、沉千年的静气 —— 一场东西方香息的诗意邂逅，讲的是唤醒之后的沉淀。</p>
-        <div class="ingredients">咖啡豆 · 檀香 · 沉香</div>
       </div>
       <div class="card">
-        <div class="incense-photo"><img src="images/incense-baicha.webp" alt="山泉白茶方氛围图：一枝银白带毫的茶芽立在带水珠的圆石上，身后雾气里悬着一轮凉白的光" loading="lazy"></div>
-        <div class="incense-fig"><svg viewBox="0 0 148 118" role="img" aria-label="一支线香，青烟袅袅"><path d="M74 12 C 82 24, 66 32, 74 44 C 81 54, 68 60, 73 70" fill="none" stroke="#8A9A85" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/><line x1="74" y1="68" x2="74" y2="98" stroke="#5E4630" stroke-width="2" stroke-linecap="round"/><ellipse cx="74" cy="103" rx="17" ry="4.5" fill="none" stroke="#AE8C5F" stroke-width="1.4"/></svg></div>
-        <div class="name">山泉白茶方</div>
-        <span class="cat-tag">线香 · 清供之雅</span>
+        <div class="incense-photo"><img src="images/incense-rose-tea.webp" alt="玫瑰红茶氛围图：深红玫瑰与红茶叶相伴，身后漾开一片暖红色的光晕" loading="lazy"></div>
+        <div class="incense-fig"><svg viewBox="0 0 148 118" role="img" aria-label="一支线香，青烟袅袅"><path d="M74 12 C 82 24, 66 32, 74 44 C 81 54, 68 60, 73 70" fill="none" stroke="#A96A5E" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/><line x1="74" y1="68" x2="74" y2="98" stroke="#5E4630" stroke-width="2" stroke-linecap="round"/><ellipse cx="74" cy="103" rx="17" ry="4.5" fill="none" stroke="#AE8C5F" stroke-width="1.4"/></svg></div>
+        <div class="name">玫瑰红茶</div>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">气味气质</span><span class="m-val">白茶清雅先到，香茅一丝辛凉，檀香醇厚收尾</span></div>
-          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">茶席 · 午后 · 读书</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">玫瑰暖香，红茶醇润收尾</span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">午后 · 茶席 · 独处</span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">红玫瑰、武夷红茶、檀香、粘粉</span></div>
         </div>
-        <p class="persona">与素串里的山泉白茶同源同方：一串戴在腕间，一支燃在案头。清泉入鼻，草木归心 —— 像坐在松风竹炉边，把一下午过得很慢。</p>
-        <div class="ingredients">檀香 · 艾草 · 安吉白茶 · 栗花 · 香茅</div>
       </div>
-      <div class="card incense-soon">
-        <div class="name">另两款</div>
-        <span class="cat-tag">陆续上新</span>
-        <p class="persona">线香全线约四款，余下两款还在调香、试燃。好了再上，不赶时间 —— <span class="nobr">香这件事，急不得。</span></p>
+      <div class="card">
+        <div class="incense-photo"><img src="images/incense-pomelo.webp" alt="柚见龙井春氛围图：柚子瓣与龙井嫩芽相伴，身后漾开一片春绿色的光晕" loading="lazy"></div>
+        <div class="incense-fig"><svg viewBox="0 0 148 118" role="img" aria-label="一支线香，青烟袅袅"><path d="M74 12 C 66 24, 82 32, 74 44 C 67 54, 80 60, 75 70" fill="none" stroke="#8A9A85" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/><line x1="74" y1="68" x2="74" y2="98" stroke="#5E4630" stroke-width="2" stroke-linecap="round"/><ellipse cx="74" cy="103" rx="17" ry="4.5" fill="none" stroke="#AE8C5F" stroke-width="1.4"/></svg></div>
+        <div class="name">柚见龙井春</div>
+        <div class="meta">
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">柚香清亮，春茶气息明净</span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 日常</span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">柚子叶、柚子皮、龙井绿茶、沉香、丁香、白芷、粘粉</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="incense-photo"><img src="images/incense-pear.webp" alt="鹅梨王氛围图：带水珠的雪梨近景，身后漾开一片暖金青色的光晕" loading="lazy"></div>
+        <div class="incense-fig"><svg viewBox="0 0 148 118" role="img" aria-label="一支线香，青烟袅袅"><path d="M74 12 C 82 24, 66 32, 74 44 C 81 54, 68 60, 73 70" fill="none" stroke="#AE8C5F" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/><line x1="74" y1="68" x2="74" y2="98" stroke="#5E4630" stroke-width="2" stroke-linecap="round"/><ellipse cx="74" cy="103" rx="17" ry="4.5" fill="none" stroke="#AE8C5F" stroke-width="1.4"/></svg></div>
+        <div class="name">鹅梨王</div>
+        <div class="meta">
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">梨香清甜，龙脑一丝凉</span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">夜晚 · 书房 · 独处</span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">榅桲、沉香、檀香、龙脑、苏合、甘草、粘粉</span></div>
+        </div>
       </div>
     </div>
+    <p class="incense-more">持续上新，敬请期待</p>
   </div>
 </section>
 
@@ -1853,7 +1884,7 @@
     <div class="daily-card daily-new-card" id="daily-new">
       <div class="dc-top"><span class="cat-tag">上新预告</span><span class="dc-status">进行中</span></div>
       <h3>线香，另两款在路上</h3>
-      <p>线香全线约四款，浓情咖啡香与山泉白茶方已经先上；余下两款还在调香、试燃。定下来了，<span class="nobr">先在这里告诉你。</span></p>
+      <p>线香四款已全线定版：浓情咖啡香、玫瑰红茶、柚见龙井春、鹅梨王，都已经在线香区里了。<span class="nobr">先在这里告诉你。</span></p>
     </div>
   </div>
 </section>
@@ -1986,7 +2017,7 @@
   // 每款一个链接，键名为款式拼音；链接为空字符串时按键以「#」占位（点击不跳转）。
   // 微店链接待 Scarlett 提供后填入此处，填入后按键自动新窗口打开微店。
   var WEIDIAN_LINKS = {
-    zitan: '',
+    zhangzhongxiang: '',
     shanquanbaicha: '',
     xihulongjing: '',
     bailongxian: '',
@@ -2094,14 +2125,14 @@
 
   // ===== 数据 =====
   var PLAIN = [
+    { key: 'heilongxian', name: '黑龙涎', cat: '静 · 沉木', mood: '沉暗厚重，木香深长有分量', color: '#3A2E26', scene: '独处 · 夜读', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', flat: 'images/plain-heilongxian-card.webp', flatTone: '深褐近黑色' },
+    { key: 'bailongxian', name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '龙涎香、檀香、沉香', flat: 'images/plain-bailongxian-card.webp', flatTone: '浅米灰色' },
     { key: 'shanquanbaicha', name: '山泉白茶', cat: '清 · 茶香', mood: '白茶清雅，檀香收尾，凉而干净', color: '#8FA98F', scene: '晨起 · 读书 · 茶席', ing: '檀香、艾草、安吉白茶、栗花、香茅', flat: 'images/plain-shanquanbaicha-card.webp', flatTone: '米白色' },
     { key: 'xihulongjing', name: '西湖龙井', cat: '清 · 茶香', mood: '龙井清透微凉，薄荷一丝清气', color: '#7A9B76', scene: '工作 · 晨起 · 午后', ing: '西湖龙井、侧柏叶、丁香、薄荷、茯苓', flat: 'images/plain-xihulongjing-card.webp', flatTone: '青绿色' },
-    { key: 'bailongxian', name: '白龙涎', cat: '清 · 茶香', mood: '清透浅净，气息轻而不飘', color: '#C9BBA6', scene: '通勤 · 日间', ing: '龙涎香、檀香、沉香', flat: 'images/plain-bailongxian-card.webp', flatTone: '浅米灰色' },
-    { key: 'heilongxian', name: '黑龙涎', cat: '静 · 沉木', mood: '沉暗厚重，木香深长有分量', color: '#3A2E26', scene: '独处 · 夜读', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等', flat: 'images/plain-heilongxian-card.webp', flatTone: '深褐近黑色' },
-    { key: 'zitan', name: '紫檀真龙', cat: '静 · 沉木', mood: '紫檀木韵沉稳，尾调蜜甜', color: '#4A3428', scene: '静坐 · 独处 · 夜晚', ing: '小叶紫檀、龙涎香、沉香、安息香', flat: 'images/plain-zitan-card.webp', flatTone: '深红褐色' },
     { key: 'menglingxiang', name: '梦灵香', cat: '静 · 沉木', mood: '草木暖柔，气息松弛放缓', color: '#A8A29A', scene: '晨昏 · 闲坐', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等', flat: 'images/plain-menglingxiang-card.webp', flatTone: '暖灰褐色' },
-    { key: 'muxixiang', name: '木樨香', cat: '舒 · 花草', mood: '桂香暖甜，温润不腻', color: '#C79A4B', scene: '访友 · 秋日 · 日常', ing: '桂花、檀香、沉香、安息香、丁香等', flat: 'images/plain-muxixiang-card.webp', flatTone: '金桂黄色' },
-    { key: 'meiguiqixia', name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰如晚霞，柔润不甜腻', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等', flat: 'images/plain-meiguiqixia-card.webp', flatTone: '灰玫瑰粉色' }
+    { key: 'muxixiang', name: '木樨香', cat: '舒 · 花草', mood: '桂香暖甜，温润不腻', color: '#C79A4B', scene: '访友 · 午后 · 日常', ing: '桂花、檀香、沉香、安息香、丁香等', flat: 'images/plain-muxixiang-card.webp', flatTone: '金桂黄色' },
+    { key: 'meiguiqixia', name: '玫瑰栖霞', cat: '舒 · 花草', mood: '玫瑰如晚霞，柔润不甜腻', color: '#B98A84', scene: '日常 · 访友 · 出行', ing: '玫瑰花、陈皮、檀香、当归等', flat: 'images/plain-meiguiqixia-card.webp', flatTone: '灰玫瑰粉色' },
+    { key: 'zhangzhongxiang', name: '帐中香', cat: '静 · 沉木', mood: '幽室暖香，书香与木香交织', color: '#8C7B6B', scene: '独处 · 阅读 · 夜读', ing: '檀香、沉香、藿香、白芷、辛夷、石菖蒲', flat: 'images/plain-zhangzhongxiang-card.webp', flatTone: '暖灰褐色' }
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
@@ -2152,10 +2183,10 @@
 
   // ===== 素串详情：点开卡片看上手图与诗行文案（原页展开，同时只开一款；文字与断行均为定版紧凑诗行版） =====
   var PLAIN_DETAIL = {
-    '紫檀真龙': { img: 'images/plain-zitan-hand.webp', poem: [
-      ['老檀磨成珠，颜色往深里走。', '不张扬，也不轻浮，', '握在手里，先有分量，再有香。'],
-      ['木头的气息是慢的，', '甜里带一点凉，', '像傍晚走进一片林子。'],
-      ['它不陪热闹，', '陪你把一天过完。']
+    '帐中香': { img: 'images/plain-zhangzhongxiang-hand.webp', poem: [
+      ['帐中香是旧时书房里的香。', '檀香沉香打底，藿香白芷在后，', '气息是暖的，往下沉。'],
+      ['像半垂的帘子，', '把外面的喧闹隔开一层。'],
+      ['适合一个人看书的时候，', '不声不响，陪你把一页读完。']
     ] },
     '山泉白茶': { img: 'images/plain-shanquanbaicha-hand.webp', poem: [
       ['白茶与艾草的清气先到，', '檀香在尾巴上收住，凉而干净。'],
@@ -2355,9 +2386,9 @@
     { id: 'longjing', plainKey: 'xihulongjing', name: '西湖龙井', group: '茶香', mood: '龙井清透微凉，薄荷一丝清气', cold: 1, str: 2, wx: '木', color: '青绿', kw: '透', scene: '工作 · 晨起 · 午后', diff: '茶香系里最利落的一款' },
     { id: 'bailongxian', plainKey: 'bailongxian', name: '白龙涎', group: '茶香', mood: '清透浅净，气息轻而不飘', cold: 2, str: 1, wx: '金', color: '浅米灰', kw: '浅', scene: '通勤 · 日间', diff: '八款里最轻、最浅的一款' },
     { id: 'heilongxian', plainKey: 'heilongxian', name: '黑龙涎', group: '沉木', mood: '沉暗厚重，木香深长有分量', cold: 4, str: 5, wx: '水', color: '深褐近黑', kw: '沉', scene: '独处 · 夜读', diff: '八款里最沉、最深的一款' },
-    { id: 'zitan', plainKey: 'zitan', name: '紫檀真龙', group: '沉木', mood: '紫檀木韵沉稳，尾调蜜甜', cold: 4, str: 4, wx: '土', color: '深红褐', kw: '稳', scene: '静坐 · 独处 · 夜晚', diff: '沉木系里最稳的一款' },
+    { id: 'zhangzhongxiang', plainKey: 'zhangzhongxiang', name: '帐中香', group: '沉木', mood: '幽室暖香，书香与木香交织', cold: 4, str: 4, wx: '土', color: '深红褐', kw: '稳', scene: '静坐 · 独处 · 夜晚', diff: '沉木系里最稳的一款' },
     { id: 'mengling', plainKey: 'menglingxiang', name: '梦灵香', group: '沉木', mood: '草木暖柔，气息松弛放缓', cold: 4, str: 3, wx: '水', color: '暖灰褐', kw: '柔', scene: '晨昏 · 闲坐', diff: '沉木系里最柔的一款' },
-    { id: 'muxi', plainKey: 'muxixiang', name: '木樨香', group: '花草', mood: '桂香暖甜，温润不腻', cold: 5, str: 3, wx: '火', color: '金桂黄', kw: '暖', scene: '访友 · 秋日 · 日常', diff: '花草系里最暖的一款' },
+    { id: 'muxi', plainKey: 'muxixiang', name: '木樨香', group: '花草', mood: '桂香暖甜，温润不腻', cold: 5, str: 3, wx: '火', color: '金桂黄', kw: '暖', scene: '访友 · 午后 · 日常', diff: '花草系里最暖的一款' },
     { id: 'meigui', plainKey: 'meiguiqixia', name: '玫瑰栖霞', group: '花草', mood: '玫瑰如晚霞，柔润不甜腻', cold: 4, str: 3, wx: '火', color: '灰玫瑰粉', kw: '润', scene: '日常 · 访友 · 出行', diff: '花草系里最润的一款' }
   ];
   var CX_BY_ID = {};
@@ -2366,34 +2397,34 @@
   var CX_QUESTIONS = [
     { tag: '香气 · 偏好', q: '推开一扇门，你最想闻到哪种气息？', opts: [
       { t: '清晨茶园，带着水汽', short: '清晨茶园', add: { baicha: 3, longjing: 3, bailongxian: 3 } },
-      { t: '深山老林，木头与泥土', short: '深山老林', add: { heilongxian: 3, zitan: 3, mengling: 3 } },
+      { t: '深山老林，木头与泥土', short: '深山老林', add: { heilongxian: 3, zhangzhongxiang: 3, mengling: 3 } },
       { t: '秋天院子，花开正好', short: '秋天花开正好的院子', add: { muxi: 3, meigui: 3 } },
       { t: '说不清，干净没负担就行', short: '干净没负担的气息', add: { bailongxian: 2, baicha: 1 } } ] },
     { tag: '香气 · 偏好', q: '哪种味道你一闻就放松？', opts: [
       { t: '刚沏开的茶', add: { baicha: 2, longjing: 2 } },
-      { t: '老木家具的味道', add: { zitan: 2, heilongxian: 1 } },
+      { t: '老木家具的味道', add: { zhangzhongxiang: 2, heilongxian: 1 } },
       { t: '晒过的被子与花香', add: { muxi: 2, meigui: 1, mengling: 1 } },
       { t: '雨后空气', add: { bailongxian: 2, baicha: 1 } } ] },
     { tag: '香气 · 偏好', q: '童年记忆里最熟悉的气味是？', opts: [
       { t: '家里泡的茶', add: { baicha: 2, longjing: 2, bailongxian: 2 } },
-      { t: '木头柜子、老房子', add: { heilongxian: 2, zitan: 2, mengling: 2 } },
+      { t: '木头柜子、老房子', add: { heilongxian: 2, zhangzhongxiang: 2, mengling: 2 } },
       { t: '院子里的花', add: { muxi: 2, meigui: 2 } },
       { t: '山里、田野、草木', add: { baicha: 1, longjing: 1, mengling: 1 } } ] },
     { tag: '香气 · 避雷', q: '哪种味道你最受不了？', opts: [
       { t: '甜腻的花香', short: '甜腻的花香', ex: 'muxi', avoidName: '木樨香', add: { meigui: -3 } },
-      { t: '太浓太熏的木头味', short: '太浓太熏的木头味', ex: 'heilongxian', avoidName: '黑龙涎', add: { zitan: -3 } },
+      { t: '太浓太熏的木头味', short: '太浓太熏的木头味', ex: 'heilongxian', avoidName: '黑龙涎', add: { zhangzhongxiang: -3 } },
       { t: '太清淡、像没味道', short: '太清淡、像没味道', ex: 'bailongxian', avoidName: '白龙涎', add: { baicha: -2 } },
       { t: '草药感太重', short: '草药感太重', avoidName: '草药感偏重的香型', add: { mengling: -3, longjing: -2 } } ] },
     { tag: '浓淡 · 冷暖', q: '你希望腕间的香是？', opts: [
       { t: '若有似无，自己低头才闻到', add: { bailongxian: 3, baicha: 3, longjing: 3 } },
       { t: '刚刚好，近身的人能闻到', add: { mengling: 3, muxi: 3, meigui: 3 } },
-      { t: '存在感明确，一抬手就有', add: { zitan: 3, heilongxian: 3 } } ] },
+      { t: '存在感明确，一抬手就有', add: { zhangzhongxiang: 3, heilongxian: 3 } } ] },
     { tag: '浓淡 · 冷暖', q: '你更偏向哪种体感？', opts: [
       { t: '凉：薄荷、雨水、清晨的风', add: { baicha: 3, longjing: 3, bailongxian: 3 } },
-      { t: '暖：晒过太阳的木头、秋天的下午', add: { zitan: 3, muxi: 3, heilongxian: 3, mengling: 3, meigui: 3 } } ] },
+      { t: '暖：晒过太阳的木头、秋天的下午', add: { zhangzhongxiang: 3, muxi: 3, heilongxian: 3, mengling: 3, meigui: 3 } } ] },
     { tag: '浓淡 · 冷暖', q: '选一个词形容你想要的气息：', opts: [
       { t: '清', add: { baicha: 2, bailongxian: 1 } },
-      { t: '稳', add: { zitan: 2, heilongxian: 1 } },
+      { t: '稳', add: { zhangzhongxiang: 2, heilongxian: 1 } },
       { t: '柔', add: { mengling: 2, meigui: 1 } },
       { t: '甜', add: { muxi: 2, meigui: 1 } } ] },
     { tag: '色彩', q: '哪一种颜色，你第一眼就想拿起来？', opts: [
@@ -2401,13 +2432,13 @@
       { t: '青绿', dot: '#7A9B76', add: { longjing: 3 } },
       { t: '浅米灰', dot: '#C9BBA6', add: { bailongxian: 3 } },
       { t: '深褐近黑', dot: '#3A2E26', add: { heilongxian: 3 } },
-      { t: '深红褐', dot: '#4A3428', add: { zitan: 3 } },
+      { t: '深红褐', dot: '#4A3428', add: { zhangzhongxiang: 3 } },
       { t: '暖灰褐', dot: '#A8A29A', add: { mengling: 3 } },
       { t: '金桂黄', dot: '#C79A4B', add: { muxi: 3 } },
       { t: '灰玫瑰粉', dot: '#B98A84', add: { meigui: 3 } } ] },
     { tag: '色彩', q: '你的衣柜里最多的颜色是？', opts: [
       { t: '白、米、浅灰', short: '浅色衣柜', add: { baicha: 1, bailongxian: 1, mengling: 1 } },
-      { t: '黑、深褐、藏青', short: '深色衣柜', add: { heilongxian: 1, zitan: 1 } },
+      { t: '黑、深褐、藏青', short: '深色衣柜', add: { heilongxian: 1, zhangzhongxiang: 1 } },
       { t: '青绿、雾蓝', short: '青绿雾蓝', add: { longjing: 1, bailongxian: 1 } },
       { t: '粉、黄、暖色', short: '粉黄暖色', add: { meigui: 1, muxi: 1 } } ] },
     { tag: '生辰 · 季节', q: '你出生在哪个季节？', opts: [
@@ -2420,7 +2451,7 @@
       { t: '晴空暖阳', short: '晴空暖阳', wx: '火', add: { muxi: 1, meigui: 1 } },
       { t: '秋高气爽', short: '秋高气爽', wx: '金', add: { bailongxian: 1 } },
       { t: '冬夜初雪', short: '冬夜初雪', wx: '水', add: { heilongxian: 1, mengling: 1 } },
-      { t: '不疾不徐、四季如常', short: '四季如常', wx: '土', add: { zitan: 2 } } ] },
+      { t: '不疾不徐、四季如常', short: '四季如常', wx: '土', add: { zhangzhongxiang: 2 } } ] },
     { tag: '性格 · 场景', q: '周末你更想怎么过？', opts: [
       { t: '一个人读书、喝茶', add: { baicha: 2, heilongxian: 1 } },
       { t: '约朋友逛街、吃饭', add: { muxi: 2, meigui: 1 } },
@@ -2428,13 +2459,13 @@
       { t: '出门工作也清醒利落', add: { longjing: 2, bailongxian: 1 } } ] },
     { tag: '性格 · 场景', q: '朋友最常这样形容你：', opts: [
       { t: '安静', add: { baicha: 1, bailongxian: 1 } },
-      { t: '沉稳靠谱', add: { zitan: 2, heilongxian: 1 } },
+      { t: '沉稳靠谱', add: { zhangzhongxiang: 2, heilongxian: 1 } },
       { t: '温暖好相处', add: { muxi: 2, meigui: 1 } },
       { t: '有点梦幻、不着急', add: { mengling: 2 } } ] },
     { tag: '性格 · 场景', q: '你最想在哪个时刻戴着它？', opts: [
       { t: '晨起、开始一天之前', add: { baicha: 2, longjing: 1 } },
       { t: '工作、通勤的路上', add: { bailongxian: 2, longjing: 1 } },
-      { t: '独处、夜里安静下来', add: { heilongxian: 2, zitan: 1, mengling: 1 } },
+      { t: '独处、夜里安静下来', add: { heilongxian: 2, zhangzhongxiang: 1, mengling: 1 } },
       { t: '见朋友、日常出门', add: { meigui: 2, muxi: 1 } } ] },
     { tag: '佩戴 · 分量', q: '你喜欢手腕上的分量感是？', opts: [
       { t: '细细一串，几乎忘了它的存在', bead: 8 },
@@ -2442,7 +2473,7 @@
       { t: '大颗一点，有分量才安心', bead: 12 } ] },
     { tag: '心意 · 收尾', q: '最后一题，选一句最像你的话：', opts: [
       { t: '日子清净一点就好', add: { baicha: 1, bailongxian: 1 } },
-      { t: '稳住，慢慢来', add: { zitan: 1, heilongxian: 1 } },
+      { t: '稳住，慢慢来', add: { zhangzhongxiang: 1, heilongxian: 1 } },
       { t: '人间烟火最抚人心', add: { muxi: 1, meigui: 1 } },
       { t: '不赶路，感受路', add: { mengling: 1, longjing: 1 } } ] }
   ];
