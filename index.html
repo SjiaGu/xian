@@ -1097,6 +1097,147 @@
   .bc-sub p { color: var(--ink-soft); }
   .bc-sub .bc-act { color: var(--brown-deep); }
 
+  /* ===== 我要仙 · 购买路引（一期） ===== */
+  #bf-fab {
+    position: fixed; right: 14px; bottom: 18px; z-index: 290;
+    border: 1px solid var(--brown-deep); background: var(--brown-deep); color: #FBF8F1;
+    border-radius: 999px; padding: 11px 20px; font-size: 14px; letter-spacing: .18em;
+    box-shadow: 0 6px 18px rgba(60, 45, 30, .25); cursor: pointer; font-family: inherit;
+  }
+  #bf-fab-n {
+    display: inline-block; min-width: 17px; height: 17px; line-height: 17px; text-align: center;
+    background: #FBF8F1; color: var(--brown-deep); border-radius: 999px;
+    font-size: 10.5px; letter-spacing: 0; margin-left: 7px; vertical-align: 1px; padding: 0 4px;
+  }
+  #bf-fab-n[hidden] { display: none; }
+  .bf-overlay {
+    position: fixed; inset: 0; width: 100%; z-index: 320;
+    background: var(--bg); display: none; flex-direction: column; overflow: hidden;
+  }
+  .bf-overlay * { max-width: 100%; min-width: 0; }
+  .bf-overlay.open { display: flex; }
+  .bf-top {
+    flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+  }
+  .bf-top-title { font-size: 13px; letter-spacing: .3em; color: var(--brown); flex: none; }
+  .bf-steps { display: flex; gap: 13px; list-style: none; margin: 0; padding: 0; flex: 1; justify-content: center; }
+  .bf-steps li { font-size: 11.5px; letter-spacing: .08em; color: var(--muted); white-space: nowrap; }
+  .bf-steps li.done { color: var(--brown); }
+  .bf-steps li.on { color: var(--ink); font-weight: 600; }
+  .bf-close {
+    flex: none; background: none; border: 0; font-size: 24px; line-height: 1;
+    color: var(--ink-soft); cursor: pointer; padding: 2px 4px; font-family: inherit;
+  }
+  .bf-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .bf-view { max-width: 640px; margin: 0 auto; padding: 26px 20px 52px; width: 100%; box-sizing: border-box; }
+  .bf-h { font-size: 19px; letter-spacing: .12em; font-weight: 600; color: var(--ink); margin: 0 0 14px; }
+  .bf-p { font-size: 13.5px; line-height: 1.9; color: var(--ink-soft); margin: 0 0 20px; }
+  .bf-wide { display: block; width: 100%; margin-top: 10px; text-align: center; }
+  .bf-cart-note { margin-top: 18px; font-size: 13px; color: var(--ink-soft); text-align: center; }
+  .bf-cart-note a { color: var(--brown); text-decoration: underline; text-underline-offset: 4px; }
+  .bf-navrow { display: flex; gap: 10px; margin-top: 26px; }
+  .bf-navrow .btn { flex: 1; text-align: center; }
+  .bf-sign-card {
+    border: 1px solid var(--line); background: #FDFBF6; padding: 14px 16px; margin-bottom: 6px;
+  }
+  .bf-sign-t { font-size: 11px; letter-spacing: .3em; color: var(--brown); margin-bottom: 7px; }
+  .bf-sign-line { font-size: 13.5px; line-height: 1.85; color: var(--ink-soft); margin: 0; }
+  .bf-sign-line b { color: var(--ink); }
+  .bf-sec {
+    font-size: 12px; letter-spacing: .22em; color: var(--brown);
+    margin: 24px 0 4px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+  }
+  .bf-prod { display: flex; gap: 13px; padding: 13px 2px; border-bottom: 1px solid var(--line); align-items: flex-start; }
+  .bf-prod.feat { background: #FDFBF6; border: 1px solid var(--line); padding: 13px 12px; margin-top: 10px; }
+  .bf-prod-img { width: 62px; height: 78px; object-fit: cover; flex: none; display: block; }
+  .bf-prod-noimg {
+    display: flex; align-items: center; justify-content: center;
+    background: #F3EEE3; color: var(--brown); font-size: 22px;
+  }
+  .bf-prod-main { flex: 1; }
+  .bf-prod-name { font-size: 15.5px; letter-spacing: .1em; color: var(--ink); }
+  .bf-prod-pct { font-size: 11px; color: var(--brown); letter-spacing: .06em; margin-left: 9px; }
+  .bf-prod-sub { font-size: 12px; line-height: 1.7; color: var(--muted); margin: 4px 0 9px; }
+  .bf-prod-buy { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .bf-pills { display: inline-flex; gap: 5px; }
+  .bf-pill {
+    border: 1px solid var(--line); background: transparent; color: var(--ink-soft);
+    font-size: 12px; padding: 5px 9px; border-radius: 999px; cursor: pointer; font-family: inherit;
+  }
+  .bf-pill.on { border-color: var(--brown); color: var(--brown-deep); background: rgba(176, 148, 104, .13); font-weight: 600; }
+  .bf-prod-price { font-size: 15px; color: var(--ink); }
+  .bf-add {
+    margin-left: auto; background: none; border: 0; color: var(--brown-deep); cursor: pointer;
+    font-size: 13px; letter-spacing: .08em; text-decoration: underline; text-underline-offset: 4px;
+    font-family: inherit; padding: 4px 0;
+  }
+  .bf-price-note { margin-top: 22px; text-align: center; font-size: 12px; letter-spacing: .14em; color: var(--muted); }
+  .bf-empty { font-size: 14px; color: var(--ink-soft); line-height: 1.9; padding: 8px 0 2px; }
+  .bf-line { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .bf-line-main { flex: 1; }
+  .bf-line-name { font-size: 14.5px; color: var(--ink); letter-spacing: .06em; }
+  .bf-line-spec { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .bf-qty { display: inline-flex; align-items: center; gap: 8px; flex: none; }
+  .bf-qty button {
+    width: 24px; height: 24px; border: 1px solid var(--line); background: transparent;
+    color: var(--ink-soft); cursor: pointer; font-size: 13px; line-height: 1; font-family: inherit; padding: 0;
+  }
+  .bf-qty b { font-size: 13.5px; min-width: 14px; text-align: center; }
+  .bf-qty-lock { font-size: 12.5px; color: var(--muted); flex: none; }
+  .bf-line-sum { font-size: 14px; color: var(--ink); flex: none; min-width: 52px; text-align: right; }
+  .bf-del { background: none; border: 0; color: var(--muted); font-size: 17px; cursor: pointer; padding: 2px; flex: none; font-family: inherit; }
+  .bf-ring-prompt {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: rgba(176, 148, 104, .1); padding: 12px 14px; margin-top: 16px;
+  }
+  .bf-ring-prompt p { margin: 0; font-size: 13px; line-height: 1.75; color: var(--ink-soft); }
+  .bf-ring-prompt span { flex: none; display: inline-flex; gap: 12px; }
+  .bf-ring-add, .bf-ring-no {
+    background: none; border: 0; cursor: pointer; font-size: 13px; font-family: inherit; padding: 2px 0;
+  }
+  .bf-ring-add { color: var(--brown-deep); text-decoration: underline; text-underline-offset: 4px; }
+  .bf-ring-no { color: var(--muted); }
+  .bf-total { display: flex; align-items: baseline; gap: 10px; margin-top: 20px; }
+  .bf-total span { font-size: 13px; letter-spacing: .2em; color: var(--ink-soft); }
+  .bf-total b { font-size: 22px; color: var(--ink); }
+  .bf-total small { font-size: 11.5px; color: var(--muted); }
+  .bf-field { display: block; margin-bottom: 15px; }
+  .bf-field span { display: block; font-size: 12px; letter-spacing: .18em; color: var(--brown); margin-bottom: 7px; }
+  .bf-field input, .bf-field textarea {
+    width: 100%; box-sizing: border-box; border: 1px solid var(--line); background: #FFFDF8;
+    padding: 11px 12px; font-size: 14.5px; color: var(--ink); font-family: inherit; border-radius: 0;
+  }
+  .bf-field input:focus, .bf-field textarea:focus { outline: 1px solid var(--brown); outline-offset: 0; }
+  .bf-err { font-size: 13px; color: #A4553F; line-height: 1.7; margin: 4px 0 0; }
+  .bf-order-no { font-size: 24px; letter-spacing: .14em; color: var(--ink); margin: 2px 0 8px; }
+  .bf-done-total { font-size: 14px; color: var(--ink-soft); margin: 0 0 16px; }
+  .bf-done-total b { color: var(--ink); font-size: 17px; }
+  .bf-order-sum {
+    font-family: inherit; font-size: 12.5px; line-height: 1.95; color: var(--ink-soft);
+    background: #FDFBF6; border: 1px solid var(--line); padding: 12px 14px; margin: 0 0 20px;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .bf-qr {
+    border: 1.5px dashed var(--line); padding: 22px 16px 16px; text-align: center; margin-bottom: 20px;
+  }
+  .bf-qr img { width: 184px; height: 184px; }
+  .bf-qr-t { font-size: 14px; letter-spacing: .24em; color: var(--ink-soft); margin-top: 9px; }
+  .bf-qr-s { font-size: 11px; color: var(--muted); margin-top: 5px; letter-spacing: .1em; }
+  .bf-pay-steps { margin: 0 0 6px; padding-left: 20px; font-size: 13.5px; line-height: 2.05; color: var(--ink-soft); }
+  .rd-buy {
+    max-width: 560px; margin: 22px auto 0; display: flex; align-items: center;
+    justify-content: space-between; gap: 14px;
+  }
+  .rd-price { font-size: 19px; color: var(--ink); }
+  .rd-price i { font-style: normal; font-size: 11px; color: var(--muted); margin-left: 8px; letter-spacing: .08em; }
+  .card button.buy-btn { background: none; border: 0; font: inherit; cursor: pointer; }
+  @media (max-width: 559px) {
+    .bf-steps { gap: 9px; }
+    .bf-steps li { font-size: 11px; }
+    .bf-top-title { display: none; }
+    .bf-prod-img { width: 54px; height: 68px; }
+  }
   .cx-overlay {
     position: fixed; inset: 0; width: 100%; z-index: 300;
     background: var(--bg);
@@ -1290,7 +1431,8 @@
     <div class="hero-micro">XIAN · 东方香饰 × 天然晶石</div>
     <p class="hero-lead"><span class="lead-line">以千年古法草木之香，唤醒天然晶石之色。</span><span class="lead-line">低头闻到一缕香，触到一分凉，<span class="nobr">日子便慢下来一点。</span></span></p>
     <div class="hero-cta">
-      <a class="btn solid" href="#series">看设计款 · 七境</a>
+      <button class="btn solid" id="hero-buy" type="button">我要仙</button>
+      <a class="btn" href="#series">看设计款 · 七境</a>
     </div>
   </div>
 </header>
@@ -1423,6 +1565,7 @@
       <figure class="pd-fig zutu" id="rd-fig"><img id="rd-img" alt="" width="1000" height="1919"></figure>
       <div class="pd-head"><span class="pd-name" id="rd-name"></span><span class="pd-cat" id="rd-cat"></span></div>
       <div class="realm-body rd-text" id="rd-text"></div>
+      <div class="rd-buy"><span class="rd-price">¥498<i>全国统一售价 · 包邮</i></span><button class="btn solid" id="rd-add" type="button">加入购物车</button></div>
       <button class="art-close pd-close-btn pd-end rd-close-btn" type="button">回到七境 ↑</button>
     </div>
   </div>
@@ -2077,20 +2220,6 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-  // ===== ：微店链接配置（主页素串卡片珠径按键的跳转目标） =====
-  // 每款一个链接，键名为款式拼音；链接为空字符串时按键以「#」占位（点击不跳转）。
-  // 微店链接待 Scarlett 提供后填入此处，填入后按键自动新窗口打开微店。
-  var WEIDIAN_LINKS = {
-    zhangzhongxiang: '',
-    shanquanbaicha: '',
-    xihulongjing: '',
-    bailongxian: '',
-    heilongxian: '',
-    menglingxiang: '',
-    muxixiang: '',
-    meiguiqixia: ''
-  };
-
   // ===== 轻提示（替代 alert） =====
   var toastTimer = null;
   function showToast(msg) {
@@ -2212,16 +2341,12 @@
   function metaRow(label, val) {
     return '<div class="meta-row"><span class="m-label">' + label + '</span><span class="m-val">' + val + '</span></div>';
   }
-  // ===== ：卡片珠径购买按键组 —— 三键并排，href 取自 WEIDIAN_LINKS（按款一个链接）；
-  // 链接为空时以「#」占位；有值时新窗口打开微店。data-size 记录尺寸，供日后填链接时区分。 =====
+  // ===== ：卡片珠径按键组 —— 点任一珠径即把该款该珠径加入购物车，并汇入「我要仙」路引第三步计价。 =====
   function buyGroup(p) {
-    var link = WEIDIAN_LINKS[p.key] || '';
-    var href = link ? link : '#';
-    var extra = link ? ' target="_blank" rel="noopener"' : '';
-    return '<div class="buy-group" role="group" aria-label="「' + p.name + '」选择珠径购买">' +
+    return '<div class="buy-group" role="group" aria-label="「' + p.name + '」选择珠径加入购物车">' +
       '<span class="buy-label" aria-hidden="true">珠径</span>' +
       ['8mm', '10mm', '12mm'].map(function (size) {
-        return '<a class="buy-btn" href="' + href + '" data-size="' + size + '"' + extra + '>' + size + '</a>';
+        return '<button class="buy-btn" type="button" data-size="' + size + '">' + size + '</button>';
       }).join('') + '</div>';
   }
   var plainGrid = document.getElementById('plain-grid');
@@ -2234,12 +2359,12 @@
       '<span class="cat-tag">' + p.cat + '</span>' +
       '<div class="meta">' + metaRow('香韵', p.mood) + metaRow('宜', p.scene) + metaRow('成分', p.ing) + '</div>' +
       buyGroup(p);
-    // 点珠径按键只跳微店：阻止冒泡，不触发卡片的「点击打开详情」；
-    // 占位链接（href 为「#」）点击时阻止默认跳转，不跳页顶、不报错
-    card.querySelectorAll('.buy-btn').forEach(function (a) {
-      a.addEventListener('click', function (ev) {
+    // 点珠径按键＝加购：阻止冒泡，不触发卡片的「点击打开详情」
+    card.querySelectorAll('.buy-btn').forEach(function (b) {
+      b.addEventListener('click', function (ev) {
         ev.stopPropagation();
-        if (a.getAttribute('href') === '#') { ev.preventDefault(); }
+        bfAddPlain(p, parseInt(b.getAttribute('data-size'), 10));
+        bfOpen(3);
       });
     });
     plainGrid.appendChild(card);
@@ -2293,7 +2418,7 @@
   var pdName = document.getElementById('pd-name');
   var pdCat = document.getElementById('pd-cat');
   // ===== ：详情内无任何选购控件 —— 珠径只以一行纯文字呈现（HTML .pd-size-line），
-  // 购买走主页卡片的珠径按键（跳微店）；此处不再有按键组、订单表单或咨询 mailto 逻辑。 =====
+  // 购买走主页卡片的珠径按键（加购汇入「我要仙」路引）；此处不再有按键组、订单表单或咨询 mailto 逻辑。 =====
   var plainCards = plainGrid.querySelectorAll('.card');
   var openPlainName = null;
   var lastPlainCard = null;
@@ -2500,6 +2625,65 @@
     }
   }
 </script>
+<!-- ===== 我要仙 · 购买路引（一期） ===== -->
+<button id="bf-fab" type="button" aria-label="我要仙 · 进入购买">我要仙<span id="bf-fab-n" hidden></span></button>
+
+<div class="bf-overlay" id="buy-flow" role="dialog" aria-modal="true" aria-label="我要仙 · 购买路引" aria-hidden="true">
+  <div class="bf-top">
+    <span class="bf-top-title">我要仙</span>
+    <ol class="bf-steps" id="bf-steps">
+      <li data-s="1">测香</li><li data-s="2">选品</li><li data-s="3">计价</li><li data-s="4">收货</li><li data-s="5">订单</li>
+    </ol>
+    <button class="bf-close" id="bf-close" type="button" aria-label="关闭购买">×</button>
+  </div>
+  <div class="bf-scroll" id="bf-scroll">
+    <section class="bf-view" id="bf-v1">
+      <h3 class="bf-h">先闻一闻，还是直接选？</h3>
+      <p class="bf-p">测香十六题，凭直觉点选，落一张你的香签——本命香是哪一款，签上写得明白。不想测，也可以直接看全部产品。</p>
+      <button class="btn solid bf-wide" id="bf-to-test" type="button">开始测香</button>
+      <button class="btn bf-wide" id="bf-skip" type="button">已想好，直接选</button>
+      <p class="bf-cart-note" id="bf-cart-note" hidden></p>
+    </section>
+    <section class="bf-view" id="bf-v2" hidden>
+      <div id="bf-sign"></div>
+      <div id="bf-shelf"></div>
+      <p class="bf-price-note">全站明码标价 · 全国统一售价 · 全场包邮</p>
+      <div class="bf-navrow">
+        <button class="btn bf-back" data-back="1" type="button">← 上一步</button>
+        <button class="btn solid" id="bf-to-cart" type="button">去计价 →</button>
+      </div>
+    </section>
+    <section class="bf-view" id="bf-v3" hidden>
+      <h3 class="bf-h">购物车</h3>
+      <div id="bf-cart"></div>
+      <div id="bf-ring"></div>
+      <div class="bf-total" id="bf-total"></div>
+      <div class="bf-navrow">
+        <button class="btn bf-back" data-back="2" type="button">← 继续选品</button>
+        <button class="btn solid" id="bf-to-form" type="button">填收货信息 →</button>
+      </div>
+    </section>
+    <section class="bf-view" id="bf-v4" hidden>
+      <h3 class="bf-h">收货信息</h3>
+      <form id="bf-form" novalidate>
+        <label class="bf-field"><span>姓名</span><input id="bf-f-name" type="text" autocomplete="name" placeholder="收件人姓名"></label>
+        <label class="bf-field"><span>电话</span><input id="bf-f-phone" type="tel" autocomplete="tel" placeholder="11 位手机号"></label>
+        <label class="bf-field"><span>收货地址</span><textarea id="bf-f-addr" rows="3" autocomplete="street-address" placeholder="省 / 市 / 区＋详细地址"></textarea></label>
+        <label class="bf-field"><span>腕围</span><input id="bf-f-wrist" type="text" placeholder="如 15cm（贴手量一圈，按单现穿用）"></label>
+        <label class="bf-field"><span>备注</span><input id="bf-f-note" type="text" placeholder="可不填"></label>
+        <p class="bf-err" id="bf-err" hidden></p>
+        <div class="bf-navrow">
+          <button class="btn bf-back" data-back="3" type="button">← 改订单</button>
+          <button class="btn solid" type="submit">提交订单 →</button>
+        </div>
+      </form>
+    </section>
+    <section class="bf-view" id="bf-v5" hidden>
+      <div id="bf-done"></div>
+    </section>
+  </div>
+</div>
+
 <script>
   // ===== ：测香 · 全站客户偏好入口（覆盖层，一期纯前端计分，答案不上传、不真发邮件） =====
   // 题目、逐项加分与避雷硬排除一律照《测香测试设计稿》：五维权重（香气 30 / 浓淡冷暖 20 /
@@ -2804,6 +2988,8 @@
       exitBtn.textContent = '带着这张签去咨询';
     } else if (cxSource === 'blindbox') {
       exitBtn.textContent = '回到盲盒';
+    } else if (cxSource === 'plain' || cxSource === 'flow') {
+      exitBtn.textContent = '按香签选串 →';
     } else {
       exitBtn.textContent = '去看这一串 · ' + main.name;
     }
@@ -2828,7 +3014,11 @@
         '想按这张签聊一聊私订，谢谢。'
       ].join('\n');
       cxCloseTest();
-      window.location.href = 'mailto:58623184@qq.com?subject=' + encodeURIComponent('私订咨询 · 我的本命香是「' + main.name + '」') + '&body=' + encodeURIComponent(body);
+      var cxMail = document.createElement('a');
+      cxMail.href = 'mailto:58623184@qq.com?subject=' + encodeURIComponent('私订咨询 · 我的本命香是「' + main.name + '」') + '&body=' + encodeURIComponent(body);
+      document.body.appendChild(cxMail);
+      cxMail.click();
+      cxMail.remove();
       return;
     }
     cxCloseTest();
@@ -2836,6 +3026,7 @@
       document.getElementById('blindbox').scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
+    if (cxSource === 'plain' || cxSource === 'flow') { bfOpen(2); return; }
     for (var i = 0; i < PLAIN.length; i++) {
       if (PLAIN[i].key === main.plainKey) {
         openPlain(PLAIN[i], plainCards[i]);
@@ -2880,6 +3071,317 @@
     report.hidden = false;
     report.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
+
+  // ===== 我要仙 · 一键购买路引（一期·客人主通道） =====
+  // 价格口径（定版）：素串按珠径三档 8mm 198 / 10mm 268 / 12mm 328，香方不分价；
+  // 设计款 498；换购戒指 49；全场包邮，总价一步到位。
+  var BF_PLAIN_PRICE = { 8: 198, 10: 268, 12: 328 };
+  var BF_DESIGN_PRICE = 498;
+  var BF_RING_PRICE = 49;
+  var bfCart = [];
+  var bfRingSeen = false;
+  try {
+    var bfSaved = JSON.parse(localStorage.getItem('xian_cart_v1') || 'null');
+    if (bfSaved && bfSaved.items) { bfCart = bfSaved.items; bfRingSeen = !!bfSaved.ringSeen; }
+  } catch (e) {}
+  // 代理归属参数：一期只记录（?agent=码，首次写入本地），不启用子站；订单提交时带上归属码。
+  (function () {
+    try {
+      var m = /[?&]agent=([^&#]+)/.exec(location.search);
+      if (m && !localStorage.getItem('xian_agent')) {
+        localStorage.setItem('xian_agent', JSON.stringify({ code: decodeURIComponent(m[1]), ts: Date.now() }));
+      }
+    } catch (e) {}
+  })();
+
+  var bfOverlay = document.getElementById('buy-flow');
+  var bfScroll = document.getElementById('bf-scroll');
+  var bfFab = document.getElementById('bf-fab');
+
+  function bfSave() {
+    try { localStorage.setItem('xian_cart_v1', JSON.stringify({ items: bfCart, ringSeen: bfRingSeen })); } catch (e) {}
+    bfFabUpdate();
+  }
+  function bfCount() { return bfCart.reduce(function (s, it) { return s + it.qty; }, 0); }
+  function bfTotal() { return bfCart.reduce(function (s, it) { return s + it.price * it.qty; }, 0); }
+  function bfFabUpdate() {
+    var badge = document.getElementById('bf-fab-n');
+    var n = bfCount();
+    badge.hidden = n === 0;
+    badge.textContent = n;
+  }
+  function bfAdd(item) {
+    for (var i = 0; i < bfCart.length; i++) {
+      if (bfCart[i].id === item.id) { bfCart[i].qty += item.qty || 1; bfSave(); return; }
+    }
+    item.qty = item.qty || 1;
+    bfCart.push(item);
+    bfSave();
+  }
+  function bfAddPlain(p, size) {
+    bfAdd({ id: 'plain-' + p.key + '-' + size, kind: 'plain', name: p.name, spec: '素串 · ' + size + 'mm', price: BF_PLAIN_PRICE[size] });
+  }
+  function bfAddDesign(name, sub) {
+    bfAdd({ id: 'design-' + name, kind: 'design', name: name, spec: sub || '设计款', price: BF_DESIGN_PRICE });
+  }
+
+  function bfOpen(step) {
+    bfOverlay.classList.add('open');
+    bfOverlay.setAttribute('aria-hidden', 'false');
+    bfFab.style.display = 'none';
+    document.body.style.overflow = 'hidden';
+    bfGo(step || 1);
+  }
+  function bfClose() {
+    bfOverlay.classList.remove('open');
+    bfOverlay.setAttribute('aria-hidden', 'true');
+    bfFab.style.display = '';
+    document.body.style.overflow = '';
+  }
+  function bfGo(n) {
+    [1, 2, 3, 4, 5].forEach(function (i) {
+      document.getElementById('bf-v' + i).hidden = i !== n;
+      var li = document.querySelector('#bf-steps li[data-s="' + i + '"]');
+      li.classList.toggle('on', i === n);
+      li.classList.toggle('done', i < n);
+    });
+    if (n === 1) { bfRenderStep1(); }
+    if (n === 2) { bfRenderShelf(); }
+    if (n === 3) { bfRenderCart(); }
+    bfScroll.scrollTop = 0;
+  }
+  function bfRenderStep1() {
+    var note = document.getElementById('bf-cart-note');
+    var n = bfCount();
+    if (n > 0) {
+      note.hidden = false;
+      note.innerHTML = '购物车里已有 ' + n + ' 件 · <a href="#" id="bf-note-go">去计价 →</a>';
+      document.getElementById('bf-note-go').addEventListener('click', function (ev) { ev.preventDefault(); bfGo(3); });
+    } else { note.hidden = true; }
+  }
+
+  // ----- 第二步 · 香签结果即货架 -----
+  function bfPills(selSize) {
+    return [8, 10, 12].map(function (s) {
+      return '<button type="button" class="bf-pill' + (s === selSize ? ' on' : '') + '" data-size="' + s + '">' + s + 'mm</button>';
+    }).join('');
+  }
+  function bfPlainRow(p, selSize, pct) {
+    return '<div class="bf-prod' + (pct ? ' feat' : '') + '" data-key="' + p.key + '">' +
+      '<img class="bf-prod-img" src="' + p.flat + '" alt="" loading="lazy">' +
+      '<div class="bf-prod-main">' +
+      '<div class="bf-prod-name">' + p.name + (pct ? '<span class="bf-prod-pct">匹配度 ' + pct + '%</span>' : '') + '</div>' +
+      '<p class="bf-prod-sub">' + p.mood + '</p>' +
+      '<div class="bf-prod-buy"><span class="bf-pills">' + bfPills(selSize) + '</span>' +
+      '<span class="bf-prod-price">¥' + BF_PLAIN_PRICE[selSize] + '</span>' +
+      '<button type="button" class="bf-add" data-add="plain">加入购物车</button></div>' +
+      '</div></div>';
+  }
+  function bfDesignRow(name, sub, img) {
+    return '<div class="bf-prod" data-design="' + name + '">' +
+      (img ? '<img class="bf-prod-img" src="' + img + '" alt="" loading="lazy">' : '<div class="bf-prod-img bf-prod-noimg">仙</div>') +
+      '<div class="bf-prod-main">' +
+      '<div class="bf-prod-name">' + name + '</div>' +
+      '<p class="bf-prod-sub">' + sub + '</p>' +
+      '<div class="bf-prod-buy"><span class="bf-prod-price">¥' + BF_DESIGN_PRICE + '</span>' +
+      '<button type="button" class="bf-add" data-add="design">加入购物车</button></div>' +
+      '</div></div>';
+  }
+  function bfPlainByKey(key) {
+    for (var i = 0; i < PLAIN.length; i++) { if (PLAIN[i].key === key) { return PLAIN[i]; } }
+    return null;
+  }
+  function bfRenderShelf() {
+    var sign = document.getElementById('bf-sign');
+    var shelf = document.getElementById('bf-shelf');
+    var html = '';
+    if (cxResult) {
+      var main = bfPlainByKey(cxResult.main.plainKey);
+      var second = bfPlainByKey(cxResult.second.plainKey);
+      sign.innerHTML = '<div class="bf-sign-card"><div class="bf-sign-t">你的香签</div>' +
+        '<p class="bf-sign-line">本命香 <b>' + cxResult.main.name + '</b>（匹配度 ' + cxResult.mainPct + '%）· 次推 <b>' + cxResult.second.name + '</b> · 珠径建议 ' + cxResult.bead + 'mm</p></div>';
+      if (main) { html += '<div class="bf-sec">本命香</div>' + bfPlainRow(main, cxResult.bead, cxResult.mainPct); }
+      if (second) { html += '<div class="bf-sec">次推</div>' + bfPlainRow(second, 10, null); }
+    } else { sign.innerHTML = ''; }
+    html += '<div class="bf-sec">全部素串 · 香方不分价</div>';
+    PLAIN.forEach(function (p) { html += bfPlainRow(p, 10, null); });
+    html += '<div class="bf-sec">设计款</div>';
+    REALMS.forEach(function (r) { html += bfDesignRow(r.name + ' · ' + r.immortal, r.scent + ' · ' + r.crystal, r.img); });
+    html += bfDesignRow('游园惊梦', '设计款 · 多宝手串', '');
+    shelf.innerHTML = html;
+  }
+  document.getElementById('bf-shelf').addEventListener('click', function (ev) {
+    var pill = ev.target.closest('.bf-pill');
+    if (pill) {
+      var prod = pill.closest('.bf-prod');
+      prod.querySelectorAll('.bf-pill').forEach(function (x) { x.classList.remove('on'); });
+      pill.classList.add('on');
+      prod.querySelector('.bf-prod-price').textContent = '¥' + BF_PLAIN_PRICE[pill.getAttribute('data-size')];
+      return;
+    }
+    var add = ev.target.closest('.bf-add');
+    if (!add) { return; }
+    var box = add.closest('.bf-prod');
+    if (add.getAttribute('data-add') === 'plain') {
+      var p = bfPlainByKey(box.getAttribute('data-key'));
+      var sel = box.querySelector('.bf-pill.on');
+      if (p) { bfAddPlain(p, sel ? parseInt(sel.getAttribute('data-size'), 10) : 10); }
+    } else {
+      bfAddDesign(box.getAttribute('data-design'), '设计款');
+    }
+    add.textContent = '已加入 ✓';
+    setTimeout(function () { add.textContent = '加入购物车'; }, 1200);
+  });
+
+  // ----- 第三步 · 购物车计价 -----
+  function bfRenderCart() {
+    var box = document.getElementById('bf-cart');
+    var ringBox = document.getElementById('bf-ring');
+    var totalBox = document.getElementById('bf-total');
+    var toForm = document.getElementById('bf-to-form');
+    if (!bfCart.length) {
+      box.innerHTML = '<p class="bf-empty">购物车还是空的。回到选品，挑一串合眼缘的。</p>';
+      ringBox.innerHTML = '';
+      totalBox.innerHTML = '';
+      toForm.style.display = 'none';
+      return;
+    }
+    toForm.style.display = '';
+    box.innerHTML = bfCart.map(function (it, i) {
+      var qtyCtl = it.kind === 'ring'
+        ? '<span class="bf-qty-lock">× 1</span>'
+        : '<span class="bf-qty"><button type="button" data-q="-1" data-i="' + i + '">−</button><b>' + it.qty + '</b><button type="button" data-q="1" data-i="' + i + '">＋</button></span>';
+      return '<div class="bf-line"><div class="bf-line-main"><div class="bf-line-name">' + it.name + '</div><div class="bf-line-spec">' + it.spec + ' · ¥' + it.price + '</div></div>' +
+        qtyCtl + '<span class="bf-line-sum">¥' + (it.price * it.qty) + '</span>' +
+        '<button type="button" class="bf-del" data-del="' + i + '" aria-label="删除">×</button></div>';
+    }).join('');
+    var hasPlain = bfCart.some(function (it) { return it.kind === 'plain'; });
+    var hasRing = bfCart.some(function (it) { return it.kind === 'ring'; });
+    if (hasPlain && !hasRing && !bfRingSeen) {
+      ringBox.innerHTML = '<div class="bf-ring-prompt"><p>素串可 +¥49 换购一枚水晶小戒指，配着戴正好。</p>' +
+        '<span><button type="button" class="bf-ring-add">加一枚</button><button type="button" class="bf-ring-no">不用了</button></span></div>';
+      ringBox.querySelector('.bf-ring-add').addEventListener('click', function () {
+        bfRingSeen = true;
+        bfAdd({ id: 'ring', kind: 'ring', name: '水晶小戒指', spec: '换购 · 随素串', price: BF_RING_PRICE });
+        bfRenderCart();
+      });
+      ringBox.querySelector('.bf-ring-no').addEventListener('click', function () {
+        bfRingSeen = true; bfSave(); bfRenderCart();
+      });
+    } else { ringBox.innerHTML = ''; }
+    totalBox.innerHTML = '<span>总计</span><b>¥' + bfTotal() + '</b><small>全场包邮 · 含邮费，无其他费用</small>';
+  }
+  document.getElementById('bf-cart').addEventListener('click', function (ev) {
+    var q = ev.target.closest('[data-q]');
+    if (q) {
+      var it = bfCart[parseInt(q.getAttribute('data-i'), 10)];
+      if (it) {
+        it.qty += parseInt(q.getAttribute('data-q'), 10);
+        if (it.qty < 1) { it.qty = 1; }
+        bfSave(); bfRenderCart();
+      }
+      return;
+    }
+    var d = ev.target.closest('[data-del]');
+    if (d) { bfCart.splice(parseInt(d.getAttribute('data-del'), 10), 1); bfSave(); bfRenderCart(); }
+  });
+
+  // ----- 第四步 · 收货信息；第五步 · 订单与支付引导 -----
+  document.getElementById('bf-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var name = document.getElementById('bf-f-name').value.trim();
+    var phone = document.getElementById('bf-f-phone').value.trim();
+    var addr = document.getElementById('bf-f-addr').value.trim();
+    var wrist = document.getElementById('bf-f-wrist').value.trim();
+    var note = document.getElementById('bf-f-note').value.trim();
+    var err = document.getElementById('bf-err');
+    var msg = '';
+    if (!name) { msg = '请填收件人姓名。'; }
+    else if (!/^1\d{10}$/.test(phone)) { msg = '请填 11 位手机号——客服确认订单时要用。'; }
+    else if (!addr) { msg = '请填收货地址。'; }
+    else if (!wrist) { msg = '请填腕围——串是按你的腕围现穿的。'; }
+    if (msg) { err.hidden = false; err.textContent = msg; return; }
+    err.hidden = true;
+    var now = new Date();
+    var pad = function (x) { return (x < 10 ? '0' : '') + x; };
+    var no = 'XIAN' + now.getFullYear() + pad(now.getMonth() + 1) + pad(now.getDate()) + '-' + Math.floor(1000 + Math.random() * 9000);
+    var agent = null;
+    try { agent = JSON.parse(localStorage.getItem('xian_agent') || 'null'); } catch (e) {}
+    var order = {
+      no: no, ts: Date.now(), items: bfCart.slice(), total: bfTotal(),
+      name: name, phone: phone, addr: addr, wrist: wrist, note: note,
+      agent: agent ? agent.code : null, status: '待确认'
+    };
+    try {
+      var orders = JSON.parse(localStorage.getItem('xian_orders') || '[]');
+      orders.push(order);
+      localStorage.setItem('xian_orders', JSON.stringify(orders));
+    } catch (e) {}
+    bfCart = [];
+    bfSave();
+    bfRenderDone(order);
+    bfGo(5);
+  });
+  function bfOrderText(o) {
+    var lines = ['订单号：' + o.no, '应付：¥' + o.total + '（包邮）'];
+    o.items.forEach(function (it) { lines.push('· ' + it.name + '（' + it.spec + '）× ' + it.qty + ' — ¥' + (it.price * it.qty)); });
+    lines.push('收件：' + o.name + ' ' + o.phone);
+    lines.push('地址：' + o.addr);
+    lines.push('腕围：' + o.wrist);
+    if (o.note) { lines.push('备注：' + o.note); }
+    return lines.join('\n');
+  }
+  function bfRenderDone(o) {
+    var sum = bfOrderText(o).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    document.getElementById('bf-done').innerHTML =
+      '<h3 class="bf-h">订单已生成</h3>' +
+      '<div class="bf-order-no">' + o.no + '</div>' +
+      '<p class="bf-done-total">应付总额 <b>¥' + o.total + '</b>（含邮费）</p>' +
+      '<pre class="bf-order-sum">' + sum + '</pre>' +
+      '<div class="bf-qr"><img src="images/kefu-qr.png" alt="客服企业微信二维码"><div class="bf-qr-t">客服二维码</div><div class="bf-qr-s">企业微信 · 扫码添加</div></div>' +
+      '<ol class="bf-pay-steps"><li>扫码加客服微信</li><li>把订单号报给客服</li><li>客服与你确认腕围和订单细节</li><li>确认后在微信内付款，发货后通知你</li></ol>' +
+      '<div class="bf-navrow"><button class="btn" id="bf-copy" type="button">复制订单信息</button><button class="btn solid" id="bf-finish" type="button">完成</button></div>';
+    document.getElementById('bf-finish').addEventListener('click', bfClose);
+    document.getElementById('bf-copy').addEventListener('click', function () {
+      var btn = this;
+      var txt = bfOrderText(o);
+      function ok() { btn.textContent = '已复制 ✓'; setTimeout(function () { btn.textContent = '复制订单信息'; }, 1500); }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(ok, ok); }
+      else {
+        var ta = document.createElement('textarea');
+        ta.value = txt; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        ta.remove(); ok();
+      }
+    });
+  }
+
+  // ----- 入口接线 -----
+  document.getElementById('bf-close').addEventListener('click', bfClose);
+  bfFab.addEventListener('click', function () { bfOpen(1); });
+  var bfHeroBuy = document.getElementById('hero-buy');
+  if (bfHeroBuy) { bfHeroBuy.addEventListener('click', function () { bfOpen(1); }); }
+  document.getElementById('bf-to-test').addEventListener('click', function () { bfClose(); cxOpenTest('flow'); });
+  document.getElementById('bf-skip').addEventListener('click', function () { bfGo(2); });
+  document.getElementById('bf-to-cart').addEventListener('click', function () { bfGo(3); });
+  document.getElementById('bf-to-form').addEventListener('click', function () { bfGo(4); });
+  document.querySelectorAll('#buy-flow .bf-back').forEach(function (b) {
+    b.addEventListener('click', function () { bfGo(parseInt(b.getAttribute('data-back'), 10)); });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && bfOverlay.classList.contains('open')) { bfClose(); }
+  });
+  // 七境详情「加入购物车」：借道 openRealm 记录当前境
+  var bfRealmNow = null;
+  var bfOpenRealmOrig = openRealm;
+  openRealm = function (r, card) { bfRealmNow = r; bfOpenRealmOrig(r, card); };
+  document.getElementById('rd-add').addEventListener('click', function () {
+    if (!bfRealmNow) { return; }
+    bfAddDesign(bfRealmNow.name + ' · ' + bfRealmNow.immortal, '设计款 · ' + bfRealmNow.scent + '｜' + bfRealmNow.crystal);
+    bfOpen(3);
+  });
+  bfFabUpdate();
+
 </script>
 
 </body>
