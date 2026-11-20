@@ -320,6 +320,36 @@
     pointer-events: none; transition: transform .25s;
   }
   .grid-plain .card[aria-expanded="true"] .card-arrow { transform: rotate(-90deg); }
+  /* 详情里的组图：整幅呈现，略放宽 */
+  .pd-fig.zutu { max-width: 540px; }
+  /* 七境组图详情：与素串详情同一套版式 */
+  .realm-detail { margin-top: clamp(28px, 4.5vw, 46px); scroll-margin-top: 92px; }
+  #realm-grid .realm-detail { grid-column: 1 / -1; margin-top: 4px; }
+  .realm-detail[hidden] { display: none; }
+  .realm-card { cursor: pointer; }
+  .realm-body { position: relative; }
+  .realm-look {
+    position: absolute; top: 8px; right: 0; white-space: nowrap;
+    font-size: 11.5px; letter-spacing: .12em; color: var(--brown);
+  }
+  .realm-look .rl-dia { font-size: 9px; margin-right: 5px; vertical-align: 1px; }
+  #realm-grid .realm-card .name { text-align: left; font-size: 23px; letter-spacing: .22em; }
+  #realm-grid .realm-card .name .name-immortal { font-size: 14px; letter-spacing: .14em; color: var(--brown); font-weight: 400; }
+  #realm-grid .realm-card .name .name-sep {
+    display: inline-block; width: 1px; height: 16px; margin: 0 13px 0 8px;
+    background: var(--line); vertical-align: -3px;
+  }
+  #realm-grid .realm-card .realm-body { margin-top: 12px; }
+  #realm-grid .realm-card .bio { color: var(--ink-soft); margin-top: 8px; }
+  .realm-tag { font-size: 13px; letter-spacing: .1em; color: #57493A; margin-top: 8px; }
+  .rd-text { max-width: 560px; margin: 18px auto 0; }
+  .realm-detail .pd-head { margin-top: 20px; }
+  .realm-detail .pd-name .name-immortal { font-size: 13px; letter-spacing: .1em; color: var(--brown); font-weight: 400; }
+  .realm-detail .pd-name .name-sep {
+    display: inline-block; width: 1px; height: 14px; margin: 0 11px 0 7px;
+    background: var(--line); vertical-align: -2px;
+  }
+  .rd-text .ring { border-top: 1px dashed var(--line); padding-top: 10px; }
   .card .name { font-size: 17.5px; font-weight: 500; letter-spacing: .1em; text-align: center; }
   .card .immortal { font-size: 13px; color: var(--brown); letter-spacing: .14em; text-align: center; margin-top: -6px; }
   .card .meta { display: grid; gap: 3px; font-size: 13px; line-height: 1.7; border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 4px; }
@@ -1388,6 +1418,13 @@
       </div>
     </div>
     <div class="grid" id="realm-grid"></div>
+    <div class="realm-detail" id="realm-detail" hidden>
+      <div class="pd-topbar"><button class="art-close art-close-top rd-close-btn" type="button">收起 ↑</button></div>
+      <figure class="pd-fig zutu" id="rd-fig"><img id="rd-img" alt="" width="1000" height="1919"></figure>
+      <div class="pd-head"><span class="pd-name" id="rd-name"></span><span class="pd-cat" id="rd-cat"></span></div>
+      <div class="realm-body rd-text" id="rd-text"></div>
+      <button class="art-close pd-close-btn pd-end rd-close-btn" type="button">回到七境 ↑</button>
+    </div>
   </div>
 </section>
 
@@ -2320,6 +2357,7 @@
   document.addEventListener('keydown', function (ev) {
     if (ev.key === 'Escape') { closePlain(); }
   });
+  var REALM_ZUTU = { '玄岫': 'images/detail-yanxian-zutu.webp' };
   var realmGrid = document.getElementById('realm-grid');
   REALMS.forEach(function (r) {
     var card = document.createElement('div');
@@ -2327,14 +2365,73 @@
     card.innerHTML =
       '<figure class="realm-art"><img src="' + r.img + '" alt="' + r.alt + '" loading="lazy"></figure>' +
       '<div class="realm-body">' +
-      '<div class="name">' + r.name + '<span class="name-dot"> · </span><span class="name-immortal">' + r.immortal + '</span></div>' +
+      '<div class="name">' + r.name + '<span class="name-sep" aria-hidden="true"></span><span class="name-immortal">' + r.immortal + '</span></div>' +
+      '<span class="realm-look" aria-hidden="true"><span class="rl-dia">◆</span>入境见物</span>' +
       '<p class="bio">' + r.bio + '</p>' +
-      '<div class="pairline"><span class="p-label">香方</span> ' + r.scent + '<span class="p-sep">｜</span><span class="p-label">晶石</span> ' + r.crystal + '</div>' +
+      '<p class="realm-tag">' + r.scent + ' · ' + r.crystal + '</p>' +
+      '</div>';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-expanded', 'false');
+    card.setAttribute('aria-controls', 'realm-detail');
+    card.addEventListener('click', function () { toggleRealm(r, card); });
+    card.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleRealm(r, card); }
+    });
+    realmGrid.appendChild(card);
+  });
+  // ===== 七境组图详情：点开卡片原位展开组图（目前只有玄岫·岩仙有组图） =====
+  var realmDetail = document.getElementById('realm-detail');
+  var rdImg = document.getElementById('rd-img');
+  var rdName = document.getElementById('rd-name');
+  var rdCat = document.getElementById('rd-cat');
+  var openRealmName = null;
+  var lastRealmCard = null;
+  var rdFig = document.getElementById('rd-fig');
+  var rdText = document.getElementById('rd-text');
+  function openRealm(r, card) {
+    rdName.innerHTML = r.name + '<span class="name-sep" aria-hidden="true"></span><span class="name-immortal">' + r.immortal + '</span>';
+    rdCat.textContent = '设计款 · 七境';
+    if (REALM_ZUTU[r.name]) {
+      rdFig.style.display = '';
+      rdImg.src = REALM_ZUTU[r.name];
+      rdImg.alt = '「' + r.immortal + '」产品组图：白纸底完整产品图、佩戴特写与模特氛围图';
+    } else {
+      rdFig.style.display = 'none';
+      rdImg.removeAttribute('src');
+    }
+    rdText.innerHTML =
       '<p class="ring"><span class="rg-label">成分</span> ' + r.ing + '</p>' +
       '<p class="rline"><span class="rl-label">香韵</span> ' + r.mood + '</p>' +
-      '<p class="rline"><span class="rl-label">契合人群</span> ' + r.fit + '</p>' +
-      '</div>';
-    realmGrid.appendChild(card);
+      '<p class="rline"><span class="rl-label">契合人群</span> ' + r.fit + '</p>';
+    realmGrid.querySelectorAll('.realm-card').forEach(function (c) {
+      c.setAttribute('aria-expanded', 'false');
+    });
+    if (card) { realmGrid.insertBefore(realmDetail, card.nextSibling); }
+    openRealmName = r.name;
+    lastRealmCard = card;
+    realmDetail.hidden = false;
+    if (card) { card.setAttribute('aria-expanded', 'true'); }
+    realmDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function closeRealm() {
+    if (!openRealmName) { return; }
+    openRealmName = null;
+    realmDetail.hidden = true;
+    if (lastRealmCard) {
+      lastRealmCard.setAttribute('aria-expanded', 'false');
+      lastRealmCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      lastRealmCard.focus({ preventScroll: true });
+    }
+  }
+  function toggleRealm(r, card) {
+    if (openRealmName === r.name) { closeRealm(); } else { openRealm(r, card); }
+  }
+  realmDetail.querySelectorAll('.rd-close-btn').forEach(function (b) {
+    b.addEventListener('click', closeRealm);
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { closeRealm(); }
   });
 
   // （：盲盒旧 12 题已整套移除，替换为全站共用的「测香」，见页末脚本。）
