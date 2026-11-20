@@ -1218,12 +1218,14 @@
     background: #FDFBF6; border: 1px solid var(--line); padding: 12px 14px; margin: 0 0 20px;
     white-space: pre-wrap; word-break: break-word;
   }
-  .bf-qr {
-    border: 1.5px dashed var(--line); padding: 22px 16px 16px; text-align: center; margin-bottom: 20px;
+  .bf-qr { display: flex; justify-content: center; margin: 6px 0 24px; }
+  .bf-qr-card {
+    background: #FFFDF8; border: 1px solid var(--line); text-align: center;
+    padding: 20px 22px 15px; box-shadow: 0 10px 26px rgba(60, 45, 30, .08);
   }
-  .bf-qr img { width: 184px; height: 184px; }
-  .bf-qr-t { font-size: 14px; letter-spacing: .24em; color: var(--ink-soft); margin-top: 9px; }
-  .bf-qr-s { font-size: 11px; color: var(--muted); margin-top: 5px; letter-spacing: .1em; }
+  .bf-qr img { width: 188px; height: 188px; display: block; }
+  .bf-qr-t { font-size: 13.5px; letter-spacing: .3em; color: var(--ink-soft); margin-top: 13px; text-indent: .3em; }
+  .bf-qr-s { font-size: 11px; color: var(--muted); margin-top: 5px; letter-spacing: .12em; }
   .bf-pay-steps { margin: 0 0 6px; padding-left: 20px; font-size: 13.5px; line-height: 2.05; color: var(--ink-soft); }
   .rd-buy {
     max-width: 560px; margin: 22px auto 0; display: flex; align-items: center;
@@ -3338,7 +3340,7 @@
       '<div class="bf-order-no">' + o.no + '</div>' +
       '<p class="bf-done-total">应付总额 <b>¥' + o.total + '</b>（含邮费）</p>' +
       '<pre class="bf-order-sum">' + sum + '</pre>' +
-      '<div class="bf-qr"><img src="images/kefu-qr.png" alt="客服企业微信二维码"><div class="bf-qr-t">客服二维码</div><div class="bf-qr-s">企业微信 · 扫码添加</div></div>' +
+      '<div class="bf-qr"><div class="bf-qr-card"><img src="images/kefu-qr.png" alt="客服企业微信二维码"><div class="bf-qr-t">客服二维码</div><div class="bf-qr-s">企业微信 · 扫码添加</div></div></div>' +
       '<ol class="bf-pay-steps"><li>扫码加客服微信</li><li>把订单号报给客服</li><li>客服与你确认腕围和订单细节</li><li>确认后在微信内付款，发货后通知你</li></ol>' +
       '<div class="bf-navrow"><button class="btn" id="bf-copy" type="button">复制订单信息</button><button class="btn solid" id="bf-finish" type="button">完成</button></div>';
     document.getElementById('bf-finish').addEventListener('click', bfClose);
