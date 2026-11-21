@@ -729,6 +729,20 @@
   }
   @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 32px 0; margin-top: 28px; } }
   @media (max-width: 640px) { footer { padding-bottom: 96px; } }
+  /* ===== 联系弹窗（页脚微信咨询 / 邮箱咨询 / 洽谈合作共用） ===== */
+  .cm-overlay { position: fixed; inset: 0; z-index: 330; background: rgba(43, 36, 28, .45); display: none; align-items: center; justify-content: center; padding: 20px; }
+  .cm-overlay.open { display: flex; }
+  .cm-card { position: relative; background: #FFFDF8; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 50px rgba(43, 36, 28, .18); padding: 26px 24px 20px; width: 320px; max-width: calc(100vw - 40px); text-align: center; }
+  .cm-x { position: absolute; top: 8px; right: 12px; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; padding: 4px; }
+  .cm-title { font-size: 16px; letter-spacing: .18em; color: var(--ink); margin-bottom: 16px; }
+  .cm-card img { width: 188px; height: 188px; display: block; margin: 0 auto; }
+  .cm-cap { font-size: 12.5px; color: var(--muted); letter-spacing: .08em; margin-top: 10px; }
+  .cm-mail { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px dashed var(--line); margin-top: 18px; padding: 14px 6px 2px; border-radius: 6px; }
+  .cm-mail.hl { background: #F3EAD9; }
+  .cm-mail span { font-size: 13.5px; color: var(--ink); letter-spacing: .02em; }
+  .cm-copy { flex: none; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; font-size: 12.5px; color: var(--brown); cursor: pointer; letter-spacing: .06em; }
+  .cm-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
   .footer-col h4 { font-size: 15px; letter-spacing: .32em; color: #F5EFE3; font-weight: 600; display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(241,234,224,0.14); }
   .footer-col h4::before { content: ''; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); display: block; flex: none; }
   .footer-col a { display: block; font-size: 13px; color: rgba(241,234,224,0.62); padding: 5px 0; line-height: 1.7; min-height: 30px; }
@@ -1519,7 +1533,33 @@
 <div class="ornament" aria-hidden="true"><i></i></div>
 
 <!-- ===== 认识仙 · 香与石 ===== -->
-<section class="concept" id="concept">
+
+
+<!-- ===== 品牌故事 ===== -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <figure class="story-fig">
+        <img src="images/model-story-moonnight.webp" alt="暮色里，品牌模特倚着岩石，身旁一块月光石，腕间一串白水晶与合香珠">
+        <figcaption>月下有石，腕间有香</figcaption>
+      </figure>
+      <div>
+        <div class="eyebrow">品牌故事</div>
+        <div class="slogan">给喧嚣生活，留一抹东方清静</div>
+        <div class="story-text">
+          <p class="lead">我们是根植于东方美学的现代首饰品牌，把古老的香道文化，转译为符合当代审美的腕间饰物。它要能进得了日常的衣橱 —— 衬衫、针织、西装都压得住；东方的韵味不靠纹样堆砌，藏在气息、材质<span class="nobr">与分寸里，近看才见。</span></p>
+          <p>品牌的初心，源于一次与古法合香的相遇。我们想：如果把合香凝练出的草本气息，与天然晶石的色泽纹理合在一起，做成一件日常腕间的轻巧首饰，会是怎样？于是，便有了这些腕间清仙。</p>
+          <p>我们不制造焦虑，只提供一点触手可及的东方气息。希望你在通勤路上、工位间隙低头时，闻到一缕淡淡的香韵，触到晶石的微凉 —— 这串小东西<span class="nobr">陪着你，慢慢松弛下来。</span></p>
+        </div>
+        <div class="story-points">
+          <div><div class="sp-t">古法为底</div><div class="sp-d">传统合香方 · 手工成珠</div></div>
+          <div><div class="sp-t">当代为形</div><div class="sp-d">轻巧腕饰 · 日常可戴</div></div>
+          <div><div class="sp-t">清静为意</div><div class="sp-d">不喧哗 · 只陪伴</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><section class="concept" id="concept">
   <div class="wrap">
     <div class="eyebrow">认识仙</div>
     <h2 class="screen-title">香修于内，石养于外</h2>
@@ -1537,6 +1577,122 @@
       <img src="images/site-tea-mountain.webp" alt="清晨的茶山云海：云海漫过一层层茶山，白裙女子立在山脊的岩石上，长发与裙摆被风吹起，腕间戴着米白合香珠与白水晶相间的串" style="object-position:72% center" loading="lazy">
       <figcaption>不必寻山问道，腕间自有清仙</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- ===== 三大匠心 ===== -->
+<section class="craft" id="craft">
+  <div class="wrap">
+    <div class="craft-intro">
+      <div class="layer-head" style="margin-bottom:0">
+        <div class="layer-num">匠心</div>
+        <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
+        <p>匠心传承 · 传统古法合香 —— 三件事，<span class="nobr">我们一直这样做。</span></p>
+      </div>
+    </div>
+    <figure class="craft-wide">
+      <img src="images/model-craft-hands-wide.webp" alt="双手捻起一颗白水晶，腕间一串小珠" loading="lazy">
+    </figure>
+    <div class="craft-grid">
+      <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、<span class="nobr">有层次的香韵。</span></p></div>
+      <div class="craft-card"><div class="cc-num">匠心 · 贰</div><h3>温和亲肤，纯净植物本源</h3><p>贴身之物，先求稳妥。精选天然香材与植物纤维，搭配天然原石晶石，日常贴肤佩戴。</p></div>
+      <div class="craft-card"><div class="cc-num">匠心 · 叁</div><h3>手工打磨，温润如肌肤相亲</h3><p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，<span class="nobr">日常佩戴轻盈自在。</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
+<section class="hexiang-sec" id="hexiang">
+  <div class="wrap">
+    <div class="eyebrow">认识仙 · 识香</div>
+    <h2 class="sec-title">一颗珠子，装着一千多年的香事</h2>
+    <p class="sec-sub">合香珠不是新物。把香做成珠、佩在身上，中国人做了上千年。先认识它，再挑你的串。</p>
+    <div class="hx-smell">
+      <p>五感之中，唯嗅觉不经丘脑中继——气味信号自嗅球直达杏仁核与海马体，情绪与记忆的中枢。</p>
+      <p class="smell-last">人对香，先有感觉，后有判断。</p>
+    </div>
+    <figure class="hx-fig">
+      <img src="images/site-heritage-window.webp" alt="亮调窗台：晨光透过纱帘，一串深褐色合香圆珠挨着一本线装书躺在窗台上，旁置一小碟金桂花，一缕轻烟在光里缓缓升起" style="object-position:center 80%" loading="lazy">
+      <figcaption>窗台晨光里，一串珠子、一本旧书、一碟桂花 —— 一千多年的香事，先从安静说起</figcaption>
+    </figure>
+
+    <div class="hx-block">
+      <h3 class="hx-h">先说清：合香珠到底是什么</h3>
+      <div class="craft-grid" style="margin-top:22px">
+        <div class="craft-card"><h3>古法配伍</h3><p>沉香、檀香，佐以花、叶与草木，按一张方子配在一起，研粉、黏合、成珠。几味彼此让位、彼此成全 —— 所以它耐闻，有前有后，有层次。</p></div>
+        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，<span class="nobr">走上人的手腕。</span></p></div>
+        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，<span class="nobr">和一点旧时光的体面。</span></p></div>
+      </div>
+    </div>
+
+    <div class="hx-block">
+      <h3 class="hx-h">它从哪里来</h3>
+      <div class="tl">
+        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里<span class="nobr">最早的模样之一。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是<span class="nobr">从这张老方子里来的。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的<span class="nobr">正是这条老路。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">明清至今</div><div class="tl-body"><h4>入日常，入非遗</h4><p>香珠成串佩戴、把玩，清宫造办处曾在端午前后赶制香珠，供佩戴与赏赐。如今，合香珠传统制作技艺已在多地列入非物质文化遗产名录。</p></div></div>
+      </div>
+    </div>
+
+    <div class="hx-block">
+      <h3 class="hx-h">一颗珠子是怎么做出来的</h3>
+      <p class="hx-lead">老流程传下来，大致九步。除了打粉，其余几乎全靠一双手——这也是它量产不了、<span class="nobr">快不了的原因</span>。</p>
+      <div class="beadline">
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-1.webp" alt="一只浅色小碟，盛着沉香小块、檀香条与几枚花苞" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">壹</div><h4>选材炮制</h4><p>香材先一一拣选、炮制，去燥气、留本香。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-2.webp" alt="一只白瓷研钵，钵里是研细的香粉，钵杵斜搁在钵沿" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">贰</div><h4>阴干打粉</h4><p>阴干后研成细粉，粉的粗细，决定珠子的质地。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-3.webp" alt="一只素陶碗，碗里一团和好的香泥" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">叁</div><h4>配伍黏合</h4><p>按方配伍，以植物黏粉相合，和成香泥。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-4.webp" alt="一团香泥裹在素布里静置，旁边轻靠着一把小木槌" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">肆</div><h4>捶打醒制</h4><p>反复捶打、静置醒制，让几味香真正融到一起。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-5.webp" alt="女子的双手在指间搓一颗深褐圆珠，旁边放着三颗已成型的圆珠" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">伍</div><h4>手作成珠</h4><p>一颗一颗搓圆、修形。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-6.webp" alt="一颗深褐圆珠搁在小木块上，一根细针正穿过珠心" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">陆</div><h4>穿孔</h4><p>趁珠体未干，以细针逐颗穿孔。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-7.webp" alt="一只浅竹盘上整齐放着一排深褐圆珠" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">柒</div><h4>阴干定型</h4><p>放在阴凉通风处，慢慢阴干定型。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-8.webp" alt="一颗打磨好的深褐圆珠，单独搁在一块素色软布上，珠面温润" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">捌</div><h4>打磨抛光</h4><p>细细打磨抛光，珠面温润。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-9.webp" alt="一圈穿好的深褐色哑光合香珠手串，平放在素净的底面上" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">玖</div><h4>穿绳成串</h4><p>穿绳成串，才到你手里。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hx-block hx-stance">
+      <h3 class="hx-h">最后，说一句香的来处</h3>
+      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，<span class="nobr">剩下的是空的。</span></p>
+      <p>仙只做前一种。每一款的香材都列得出来，方子讲得清楚，不添加香精，不靠染色做样子。也因此先说好：<b>我们的香偏淡，那不是做得不到位，是草木本来的音量。</b>你若喜欢浓烈张扬的香，我们大约不合拍；你若喜欢近身、安静、耐闻的，这条路，古人替我们走了一千多年了。</p>
+      <p class="hx-note">这一节是香文化常识，只为帮你认识合香珠；香是气息与陪伴，不作功效之说。</p>
+    </div>
   </div>
 </section>
 
@@ -1767,122 +1923,6 @@
   </div>
 </section>
 
-<!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
-<section class="hexiang-sec" id="hexiang">
-  <div class="wrap">
-    <div class="eyebrow">认识仙 · 识香</div>
-    <h2 class="sec-title">一颗珠子，装着一千多年的香事</h2>
-    <p class="sec-sub">合香珠不是新物。把香做成珠、佩在身上，中国人做了上千年。先认识它，再挑你的串。</p>
-    <div class="hx-smell">
-      <p>五感之中，唯嗅觉不经丘脑中继——气味信号自嗅球直达杏仁核与海马体，情绪与记忆的中枢。</p>
-      <p class="smell-last">人对香，先有感觉，后有判断。</p>
-    </div>
-    <figure class="hx-fig">
-      <img src="images/site-heritage-window.webp" alt="亮调窗台：晨光透过纱帘，一串深褐色合香圆珠挨着一本线装书躺在窗台上，旁置一小碟金桂花，一缕轻烟在光里缓缓升起" style="object-position:center 80%" loading="lazy">
-      <figcaption>窗台晨光里，一串珠子、一本旧书、一碟桂花 —— 一千多年的香事，先从安静说起</figcaption>
-    </figure>
-
-    <div class="hx-block">
-      <h3 class="hx-h">先说清：合香珠到底是什么</h3>
-      <div class="craft-grid" style="margin-top:22px">
-        <div class="craft-card"><h3>古法配伍</h3><p>沉香、檀香，佐以花、叶与草木，按一张方子配在一起，研粉、黏合、成珠。几味彼此让位、彼此成全 —— 所以它耐闻，有前有后，有层次。</p></div>
-        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，<span class="nobr">走上人的手腕。</span></p></div>
-        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，<span class="nobr">和一点旧时光的体面。</span></p></div>
-      </div>
-    </div>
-
-    <div class="hx-block">
-      <h3 class="hx-h">它从哪里来</h3>
-      <div class="tl">
-        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里<span class="nobr">最早的模样之一。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是<span class="nobr">从这张老方子里来的。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的<span class="nobr">正是这条老路。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">明清至今</div><div class="tl-body"><h4>入日常，入非遗</h4><p>香珠成串佩戴、把玩，清宫造办处曾在端午前后赶制香珠，供佩戴与赏赐。如今，合香珠传统制作技艺已在多地列入非物质文化遗产名录。</p></div></div>
-      </div>
-    </div>
-
-    <div class="hx-block">
-      <h3 class="hx-h">一颗珠子是怎么做出来的</h3>
-      <p class="hx-lead">老流程传下来，大致九步。除了打粉，其余几乎全靠一双手——这也是它量产不了、<span class="nobr">快不了的原因</span>。</p>
-      <div class="beadline">
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-1.webp" alt="一只浅色小碟，盛着沉香小块、檀香条与几枚花苞" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">壹</div><h4>选材炮制</h4><p>香材先一一拣选、炮制，去燥气、留本香。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-2.webp" alt="一只白瓷研钵，钵里是研细的香粉，钵杵斜搁在钵沿" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">贰</div><h4>阴干打粉</h4><p>阴干后研成细粉，粉的粗细，决定珠子的质地。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-3.webp" alt="一只素陶碗，碗里一团和好的香泥" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">叁</div><h4>配伍黏合</h4><p>按方配伍，以植物黏粉相合，和成香泥。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-4.webp" alt="一团香泥裹在素布里静置，旁边轻靠着一把小木槌" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">肆</div><h4>捶打醒制</h4><p>反复捶打、静置醒制，让几味香真正融到一起。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-5.webp" alt="女子的双手在指间搓一颗深褐圆珠，旁边放着三颗已成型的圆珠" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">伍</div><h4>手作成珠</h4><p>一颗一颗搓圆、修形。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-6.webp" alt="一颗深褐圆珠搁在小木块上，一根细针正穿过珠心" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">陆</div><h4>穿孔</h4><p>趁珠体未干，以细针逐颗穿孔。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-7.webp" alt="一只浅竹盘上整齐放着一排深褐圆珠" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">柒</div><h4>阴干定型</h4><p>放在阴凉通风处，慢慢阴干定型。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-8.webp" alt="一颗打磨好的深褐圆珠，单独搁在一块素色软布上，珠面温润" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">捌</div><h4>打磨抛光</h4><p>细细打磨抛光，珠面温润。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-9.webp" alt="一圈穿好的深褐色哑光合香珠手串，平放在素净的底面上" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">玖</div><h4>穿绳成串</h4><p>穿绳成串，才到你手里。</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hx-block hx-stance">
-      <h3 class="hx-h">最后，说一句香的来处</h3>
-      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，<span class="nobr">剩下的是空的。</span></p>
-      <p>仙只做前一种。每一款的香材都列得出来，方子讲得清楚，不添加香精，不靠染色做样子。也因此先说好：<b>我们的香偏淡，那不是做得不到位，是草木本来的音量。</b>你若喜欢浓烈张扬的香，我们大约不合拍；你若喜欢近身、安静、耐闻的，这条路，古人替我们走了一千多年了。</p>
-      <p class="hx-note">这一节是香文化常识，只为帮你认识合香珠；香是气息与陪伴，不作功效之说。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 三大匠心 ===== -->
-<section class="craft" id="craft">
-  <div class="wrap">
-    <div class="craft-intro">
-      <div class="layer-head" style="margin-bottom:0">
-        <div class="layer-num">匠心</div>
-        <h2>东方气韵 · 纯净本源 · 贴肤安心</h2>
-        <p>匠心传承 · 传统古法合香 —— 三件事，<span class="nobr">我们一直这样做。</span></p>
-      </div>
-    </div>
-    <figure class="craft-wide">
-      <img src="images/model-craft-hands-wide.webp" alt="双手捻起一颗白水晶，腕间一串小珠" loading="lazy">
-    </figure>
-    <div class="craft-grid">
-      <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、<span class="nobr">有层次的香韵。</span></p></div>
-      <div class="craft-card"><div class="cc-num">匠心 · 贰</div><h3>温和亲肤，纯净植物本源</h3><p>贴身之物，先求稳妥。精选天然香材与植物纤维，搭配天然原石晶石，日常贴肤佩戴。</p></div>
-      <div class="craft-card"><div class="cc-num">匠心 · 叁</div><h3>手工打磨，温润如肌肤相亲</h3><p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，<span class="nobr">日常佩戴轻盈自在。</span></p></div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 选购答疑 ===== -->
 <section class="guide" id="guide">
   <div class="wrap">
@@ -1896,32 +1936,6 @@
       <div class="craft-card"><div class="cc-num">问 · 贰</div><h3>香味浓吗？会不会熏人？</h3><p>合香珠是近身之香：自己低头闻得到，凑近的人闻得到，不会满室皆香，更不是香水。它的分寸，是不打扰人。若你期待浓烈张扬，它可能会让你失望，<span class="nobr">先说在前面</span>。</p></div>
       <div class="craft-card"><div class="cc-num">问 · 叁</div><h3>香能留多久？</h3><p>天然香材的气息会随佩戴慢慢变淡，这是它的常态，不是坏了。不戴时避光、收进密封袋或盒子，能陪得久些。气息淡了，珠子还在。捻在指间，垂在腕间，它陪你的日子，比香气长。</p></div>
       <div class="craft-card"><div class="cc-num">问 · 肆</div><h3>腕围怎么量？</h3><p>用软尺贴着手腕最细处绕一圈，就是净腕围；没有软尺，用纸条绕一圈做个记号，再摊平量长度也行。下单或私订时把腕围告诉我们，<span class="nobr">按你的尺寸成串，不凑数。</span></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 品牌故事 ===== -->
-<section class="story" id="story">
-  <div class="wrap">
-    <div class="story-grid">
-      <figure class="story-fig">
-        <img src="images/model-story-moonnight.webp" alt="暮色里，品牌模特倚着岩石，身旁一块月光石，腕间一串白水晶与合香珠">
-        <figcaption>月下有石，腕间有香</figcaption>
-      </figure>
-      <div>
-        <div class="eyebrow">品牌故事</div>
-        <div class="slogan">给喧嚣生活，留一抹东方清静</div>
-        <div class="story-text">
-          <p class="lead">我们是根植于东方美学的现代首饰品牌，把古老的香道文化，转译为符合当代审美的腕间饰物。它要能进得了日常的衣橱 —— 衬衫、针织、西装都压得住；东方的韵味不靠纹样堆砌，藏在气息、材质<span class="nobr">与分寸里，近看才见。</span></p>
-          <p>品牌的初心，源于一次与古法合香的相遇。我们想：如果把合香凝练出的草本气息，与天然晶石的色泽纹理合在一起，做成一件日常腕间的轻巧首饰，会是怎样？于是，便有了这些腕间清仙。</p>
-          <p>我们不制造焦虑，只提供一点触手可及的东方气息。希望你在通勤路上、工位间隙低头时，闻到一缕淡淡的香韵，触到晶石的微凉 —— 这串小东西<span class="nobr">陪着你，慢慢松弛下来。</span></p>
-        </div>
-        <div class="story-points">
-          <div><div class="sp-t">古法为底</div><div class="sp-d">传统合香方 · 手工成珠</div></div>
-          <div><div class="sp-t">当代为形</div><div class="sp-d">轻巧腕饰 · 日常可戴</div></div>
-          <div><div class="sp-t">清静为意</div><div class="sp-d">不喧哗 · 只陪伴</div></div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -2227,9 +2241,9 @@
       </div>
       <div class="footer-col">
         <h4>联系</h4>
-        <a href="javascript:void(0)" data-toast="微信咨询入口待上线，敬请期待">微信咨询</a>
-        <a href="mailto:58623184@qq.com">邮箱咨询</a>
-        <a href="mailto:58623184@qq.com">洽谈合作</a>
+        <a href="javascript:void(0)" id="ft-wx">微信咨询</a>
+        <a href="javascript:void(0)" id="ft-mail">邮箱咨询</a>
+        <a href="javascript:void(0)" id="ft-coop">洽谈合作</a>
       </div>
     </div>
     <div class="footer-note">
@@ -2300,7 +2314,7 @@
   </div>
 </div>
 
-<div class="toast" id="toast" role="status"></div>
+<div class="toast" id="toast" role="status" style="z-index:400"></div>
 
 <script>
   // ===== 轻提示（替代 alert） =====
@@ -2312,6 +2326,32 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
   }
+  // ===== 页脚联系弹窗（微信咨询 / 邮箱咨询 / 洽谈合作） =====
+  var cmModal = document.getElementById('contact-modal');
+  var cmTitle = document.getElementById('cm-title');
+  var cmMailRow = document.getElementById('cm-mail-row');
+  function cmOpen(title, focusMail) {
+    cmTitle.textContent = title;
+    cmMailRow.classList.toggle('hl', !!focusMail);
+    cmModal.classList.add('open');
+    cmModal.setAttribute('aria-hidden', 'false');
+  }
+  function cmClose() {
+    cmModal.classList.remove('open');
+    cmModal.setAttribute('aria-hidden', 'true');
+  }
+  document.getElementById('ft-wx').addEventListener('click', function () { cmOpen('微信咨询', false); });
+  document.getElementById('ft-coop').addEventListener('click', function () { cmOpen('洽谈合作', false); });
+  document.getElementById('ft-mail').addEventListener('click', function () { cmOpen('邮箱咨询', true); });
+  document.getElementById('cm-close').addEventListener('click', cmClose);
+  cmModal.addEventListener('click', function (e) { if (e.target === cmModal) cmClose(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && cmModal.classList.contains('open')) cmClose(); });
+  document.getElementById('cm-copy').addEventListener('click', function () {
+    var addr = '58623184@qq.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(addr).then(function () { showToast('邮箱已复制：' + addr); }, function () { showToast('邮箱：' + addr); });
+    } else { showToast('邮箱：' + addr); }
+  });
   document.querySelectorAll('[data-toast]').forEach(function (el) {
     el.addEventListener('click', function () { showToast(el.getAttribute('data-toast')); });
   });
@@ -2711,7 +2751,20 @@
 <!-- ===== 选物购香 · 购买路引（一期） ===== -->
 <button id="bf-fab" type="button" aria-label="选物购香 · 进入购买"><svg class="buy-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 8h13.6l-1.1 11.2a1.6 1.6 0 0 1-1.6 1.5H7.9a1.6 1.6 0 0 1-1.6-1.5L5.2 8z"/><path d="M8.6 10.2V6.7a3.4 3.4 0 0 1 6.8 0v3.5"/></svg>选物购香<span id="bf-fab-n" hidden></span></button>
 
-<div class="bf-overlay" id="buy-flow" role="dialog" aria-modal="true" aria-label="选物购香 · 购买路引" aria-hidden="true">
+<div class="cm-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-label="联系" aria-hidden="true">
+    <div class="cm-card">
+      <button class="cm-x" id="cm-close" type="button" aria-label="关闭">×</button>
+      <div class="cm-title" id="cm-title">微信咨询</div>
+      <img src="images/kefu-qr.png" alt="企业微信二维码">
+      <div class="cm-cap">企业微信 · 扫码添加</div>
+      <div class="cm-mail" id="cm-mail-row">
+        <span>邮箱　58623184@qq.com</span>
+        <button class="cm-copy" id="cm-copy" type="button">复制邮箱</button>
+      </div>
+      <p class="cm-note">复制后，去你的邮箱里粘贴发送。</p>
+    </div>
+  </div>
+  <div class="bf-overlay" id="buy-flow" role="dialog" aria-modal="true" aria-label="选物购香 · 购买路引" aria-hidden="true">
   <div class="bf-top">
     <span class="bf-top-title">选物购香</span>
     <ol class="bf-steps" id="bf-steps">
