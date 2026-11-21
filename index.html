@@ -324,17 +324,41 @@
   /* 详情里的组图：整幅呈现，略放宽 */
   .pd-fig.zutu { max-width: 540px; }
   /* 七境组图详情：与素串详情同一套版式 */
-  .realm-detail { margin-top: clamp(28px, 4.5vw, 46px); scroll-margin-top: 92px; }
-  #realm-grid .realm-detail { grid-column: 1 / -1; margin-top: 4px; }
-  .realm-detail[hidden] { display: none; }
+  /* ===== 七境详情 · 全屏覆盖层（与测香／选物购香同一套覆盖层语言） =====
+     点任一境卡，详情以独立全屏视图打开：自带顶栏与独立滚动，主页在身后
+     既看不见也滚不动；视图内只有这一境的产品——组图（有才显示）、玄岫
+     专属模特图、境名题头、成分／香韵／契合人群、购买行，最后一件就是
+     「回到七境」。其他境卡、线香与主页任何板块都不进这个视图。
+     z-index 295：高于悬浮购买键（290），低于测香（300）与购买路引（320），
+     在详情里点「加入购物车」，购买路引照常盖在最上层打开。 */
+  .rd-overlay {
+    position: fixed; inset: 0; width: 100%; z-index: 295;
+    background: var(--bg);
+    display: none; flex-direction: column;
+    overflow: hidden;
+  }
+  .rd-overlay * { max-width: 100%; min-width: 0; }
+  .rd-overlay.open { display: flex; }
+  .rd-top {
+    flex: none; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 10px clamp(18px, 5vw, 40px); min-width: 0;
+    border-bottom: 1px solid var(--line);
+    background: rgba(247,242,233,0.97);
+  }
+  .rd-top-name { flex: none; font-size: 13px; font-weight: 500; letter-spacing: .3em; color: var(--brown-deep); white-space: nowrap; }
+  .rd-top-close { border: none; min-height: 44px; padding: 8px 2px; color: var(--brown); }
+  .rd-scroll { flex: 1 1 auto; width: 100%; min-width: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .rd-view { width: 100%; max-width: 720px; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: clamp(18px, 3.5vw, 32px) clamp(18px, 5vw, 32px) clamp(46px, 7vw, 64px); }
+  .rd-view .pd-end { display: block; margin-left: auto; margin-right: auto; }
   .realm-card { cursor: pointer; }
   .realm-body { position: relative; }
   .realm-look {
-    position: absolute; top: 8px; right: 0; white-space: nowrap;
+    display: block; text-align: right; white-space: nowrap;
     font-size: 11.5px; letter-spacing: .12em; color: var(--brown);
   }
   .realm-look .rl-dia { font-size: 9px; margin-right: 5px; vertical-align: 1px; }
-  #realm-grid .realm-card .name { text-align: left; font-size: 23px; letter-spacing: .22em; }
+  #realm-grid .realm-card .name { text-align: left; font-size: 23px; letter-spacing: .22em; display: flex; align-items: baseline; }
+  #realm-grid .realm-card .name .card-price { margin-left: auto; }
   #realm-grid .realm-card .name .name-immortal { font-size: 14px; letter-spacing: .14em; color: var(--brown); font-weight: 400; }
   #realm-grid .realm-card .name .name-sep {
     display: inline-block; width: 1px; height: 16px; margin: 0 13px 0 8px;
@@ -342,6 +366,7 @@
   }
   #realm-grid .realm-card .realm-body { margin-top: 12px; }
   #realm-grid .realm-card .bio { color: var(--ink-soft); margin-top: 8px; }
+  @media (min-width: 960px) { #realm-grid .realm-card .bio { min-height: calc(13.5px * 1.8 * 2); } }
   .realm-tag { font-size: 13px; letter-spacing: .1em; color: #57493A; margin-top: 8px; }
   .rd-text { max-width: 560px; margin: 18px auto 0; }
   .realm-detail .pd-head { margin-top: 20px; }
@@ -357,6 +382,7 @@
   .meta-row { display: flex; gap: 8px; align-items: baseline; }
   .m-label { font-size: 12px; color: var(--muted); white-space: nowrap; flex: none; }
   .m-val { color: var(--ink-soft); }
+  .nw { white-space: nowrap; }
   .card .persona { font-size: 13.5px; color: var(--ink-soft); }
   .card .ingredients { font-size: 12px; color: var(--muted); line-height: 1.7; }
   /* 素串八卡信息层级强化（仅 .grid-plain 作用域，线香卡不套用）：四行标签
@@ -365,11 +391,34 @@
      值文字保持常规字重、颜色由 --ink-soft 加深一档为 #57493A（暖深灰褐），
      每行「标签＋值」读成一个清楚的信息单元；品名仍是第一眼锚点，不动。 */
   .grid-plain .card .meta { font-size: 13px; }
-  .grid-plain .meta-row { gap: 6px; }
-  .grid-plain .m-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
+  /* 修正（截图实测根因）：旧版每行是 flex「标示＋值」两栏，值折行后
+     续行与值首行同左缘（悬挂缩进）——标示栏宽约 37px，续行整体右缩、
+     浮在卡片中段、不靠左。改整行块级流排：标示与值同行起排，折行
+     回到卡片内容左缘通排，续行与标示、与卡片左缘对齐；词组仍由
+     segWrap 的 .nw 保证只在标点后断行。 */
+  .grid-plain .meta-row { display: block; }
+  .grid-plain .m-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; margin-right: 8px; }
   .grid-plain .m-val { color: #57493A; }
-  .grid-plain .m-val, #incense .m-val { text-wrap: balance; }
+  /* 断行只落在词组边界：.m-val 内的词组已由 segWrap 包成 .nw 不断行单元，
+     这里不再用 text-wrap: balance —— 它会为凑齐行长在词组内部找断点，
+     正是「书香」被拆成「书／香与木香交织」的根源。 */
   .grid-plain .card .buy-label { font-size: 13px; font-weight: 600; color: var(--brown-deep); letter-spacing: .1em; }
+  /* 素串卡信息行等高：香韵／成分两行按各带最长一款的行数预留统一
+     min-height，宜行本就单行齐整。行高 = 13px × 1.7 = 22.1px。块级
+     通排后值占整行宽，行数只减不增，预留按通排行数复核：桌面
+     （≥960）香韵、成分各 2 行；平板 660–959 香韵 1 行（560–659 卡
+     窄、最长三款仍折 2 行，沿用 2 行预留）；手机（≤559）香韵 3 行、
+     成分 6 行（均为上限预留）。预留后八卡每行同高、meta 块同高，
+     珠径行（margin-top:auto 沉底）随之同高对齐。 */
+  .grid-plain .meta-row[data-k="香韵"] { min-height: calc(13px * 1.7 * 2); }
+  .grid-plain .meta-row[data-k="成分"] { min-height: calc(13px * 1.7 * 2); }
+  @media (min-width: 660px) and (max-width: 959px) {
+    .grid-plain .meta-row[data-k="香韵"] { min-height: calc(13px * 1.7); }
+  }
+  @media (max-width: 559px) {
+    .grid-plain .meta-row[data-k="香韵"] { min-height: calc(13px * 1.7 * 3 + 1px); }
+    .grid-plain .meta-row[data-k="成分"] { min-height: calc(13px * 1.7 * 6); }
+  }
   /* ：主页素串卡片的珠径选择改无框式 —— 一行纯文字链接「8mm ｜ 10mm ｜ 12mm」，
      三个尺寸以细竖线「｜」分隔（分隔符用次级色），整行左对齐；无边框、无底色、无圆角、
      无阴影。整组文字下方一条 2px 横线，横贯整组文字的宽度（不撑满卡片整行），
@@ -379,11 +428,26 @@
      ：横线由深褐改哑光旧金 var(--gold-matte)（#B3A284，与七境卡片框同色），
      粗细与长度不变；尺寸行最前面加「珠径」小标示（.buy-label，次级色小字、字距拉开，
      纯文字不可点），整行形如「珠径 8mm ｜ 10mm ｜ 12mm」，横线随之横贯含标示的整组宽度。 */
+  /* 修正（截图＋审计图双证根因）：旧版组为 inline-flex 按内容定宽、
+     键 flex:0 0 auto 拒收缩，整行本征宽约 240px（键字号实际被
+     .card button.buy-btn 的 font:inherit 抬到 16px），而四列卡内容
+     宽在任何桌面宽度下都 ≤200px——12mm 必然溢出卡外，被下一张卡
+     底色盖住只剩「1」。改为组宽 = 卡片内容宽（块级 flex、定宽），
+     标示 flex:none、三键 flex:1 1 0 三等分（min-width:0 允许收缩、
+     white-space:nowrap 保「12mm」不断行），列宽只由组宽决定、与
+     字体度量脱钩，任何宽度下不溢出（与旧版 inline-flex 收缩定宽时
+     flex 等分塌成 0 宽的失败模式不同：定宽容器里等分是确定值）。
+     分隔符改绝对定位钉在等分边界上、不占布局宽；金线随组宽横贯
+     整行，与手机版 width:100% 的处理一致。 */
   .card .buy-group {
-    display: inline-flex; align-items: center; justify-self: start; max-width: 100%;
+    display: flex; align-items: center; width: 100%; max-width: 100%;
     margin-top: 2px; margin-bottom: 7px;
     border-bottom: 2px solid var(--gold-matte);
   }
+  .card-price { font-size: 15px; font-weight: 600; color: var(--brown-deep); letter-spacing: .03em; white-space: nowrap; }
+  .card-price small { font-size: 11px; font-weight: 400; color: var(--muted); letter-spacing: .08em; margin-left: 2px; }
+  .price-tag-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+  .price-tag-row .cat-tag { align-self: auto; }
   /* 素串卡文字齐整化：珠径行以 margin-top:auto 钉在卡片底部——卡片本体是纵向 flex、
      网格行内各卡等高，成分行折行与否不再影响珠径行基线，八卡珠径行同高对齐。 */
   .grid-plain .card .buy-group { margin-top: auto; }
@@ -394,28 +458,55 @@
     user-select: none;
   }
   .card .buy-btn {
-    flex: 0 0 auto; min-width: 0;
-    display: inline-flex; align-items: center;
+    flex: 1 1 0; min-width: 0; position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
     padding: 10px 2px 9px; border: 0; border-radius: 0;
     background: transparent; color: var(--brown-deep);
-    font-size: 14px; letter-spacing: .06em; text-decoration: none;
+    font-size: 14px; letter-spacing: .03em; text-decoration: none; white-space: nowrap;
     transition: color .25s;
   }
   .card .buy-btn + .buy-btn::before {
     content: "｜"; color: var(--muted); font-size: 11px; letter-spacing: 0;
-    margin: 0 9px; pointer-events: none;
+    position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
   }
   .card .buy-btn:hover { color: var(--brown-soft); }
   .card .buy-btn:active { color: var(--brown); text-decoration: underline; text-underline-offset: 4px; }
-  @media (max-width: 380px) {
-    .card .buy-btn { font-size: 13.5px; padding: 10px 1px 9px; }
-    .card .buy-btn + .buy-btn::before { margin: 0 7px; }
+  /* 四列窄带（960–1150px）：卡内容宽最窄约 175px，等分后每键约
+     45px；键字号收到 13px、字距 .02em，「12mm」约 39px，留足余量。 */
+  @media (min-width: 960px) and (max-width: 1150px) {
+    .grid-plain .card .buy-btn { font-size: 13px; letter-spacing: .02em; }
   }
+  /* 手机端珠径行（360px 真机定稿）：此前几版都在沙箱探针下测得好好的、
+     到真机（360 CSS px、加载正式 Noto Serif SC）仍错位。本轮在 360px /
+     DPR 3 的真实渲染里逐版实测，根源钉死——
+     ① 旧的 @media (max-width:380px) 竞争规则只在 ≤380px 才生效：探针在
+     390px 测时根本进不去这条，真机 360px 恰好进去；该规则已整条删除。
+     ② flex 等分（flex:1 1 0）在真机引擎里实测三键宽全为 0：标示占满
+     一行后，三键被挤在同行末端、自由空间为零——flex-basis:0 的等分
+     在这条路上不可靠，grid 版同理已弃。本版改用最古老稳妥的
+     inline-block 三等分：组改块级、宽 = 卡片内容宽（width:100%），
+     标示 display:block 独占首行，三键 inline-block 各 33.333%（键由
+     JS 以 join('') 无空白相连，不存在 inline 间隙），文字居中、无分隔
+     符；列宽只由组宽决定，与字体度量彻底脱钩。360px 实测（卡片内容
+     宽 110px）：三键 36.66 / 36.66 / 36.66，组右缘不出卡片。 */
   @media (max-width: 559px) {
-    .grid-plain .card .buy-group { flex-wrap: wrap; }
-    .grid-plain .card .buy-label { flex: 0 0 100%; margin-right: 0; padding: 8px 0 0; font-size: 10.5px; letter-spacing: .14em; }
-    .grid-plain .card .buy-btn { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; justify-content: center; font-size: 11px; padding: 4px 0 9px; }
+    .grid-plain .card .buy-group {
+      display: block;
+      width: 100%; max-width: 100%;
+    }
+    .grid-plain .card .buy-label { display: block; width: 100%; margin-right: 0; padding: 8px 0 0; font-size: 10.5px; letter-spacing: .14em; }
+    .grid-plain .card .buy-btn {
+      display: inline-block; width: 33.333%; max-width: 33.333%;
+      text-align: center; vertical-align: top; white-space: nowrap;
+      font-size: 11px; letter-spacing: 0; padding: 4px 0 9px;
+    }
     .grid-plain .card .buy-btn + .buy-btn::before { content: none; }
+    /* 价格行右侧分类签（如「清 · 茶香」）整签不折行：390px 下原字距
+       .22em＋左右 padding 12px 使签宽约 86px，与「¥188 起」合计超出
+       卡内容宽约 5px，「茶香」被拆成两行——收字距与内距后整签约
+       73px，合计约 133px，放得下且词组不断。 */
+    .grid-plain .card .cat-tag { white-space: nowrap; letter-spacing: .14em; padding-left: 9px; padding-right: 9px; }
   }
 
   .series-banner { margin-bottom: 26px; }
@@ -730,7 +821,12 @@
   }
   @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 32px 0; margin-top: 28px; } }
   @media (max-width: 640px) { footer { padding-bottom: 96px; } }
-  /* ===== 联系弹窗（页脚微信咨询 / 邮箱咨询 / 洽谈合作共用） ===== */
+  .footer-col h4 { font-size: 15px; letter-spacing: .32em; color: #F5EFE3; font-weight: 600; display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(241,234,224,0.14); }
+  .footer-col h4::before { content: ''; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); display: block; flex: none; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(241,234,224,0.62); padding: 5px 0; line-height: 1.7; min-height: 30px; }
+  .footer-col a:hover { color: #D8C3A5; }
+  .footer-note { color: rgba(241,234,224,0.55); font-size: 12.5px; margin-top: 26px; line-height: 1.9; }
+  .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(241,234,224,0.16); font-size: 12px; color: rgba(241,234,224,0.5); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   .cm-overlay { position: fixed; inset: 0; z-index: 330; background: rgba(43, 36, 28, .45); display: none; align-items: center; justify-content: center; padding: 20px; }
   .cm-overlay.open { display: flex; }
   .cm-card { position: relative; background: #FFFDF8; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 50px rgba(43, 36, 28, .18); padding: 26px 24px 20px; width: 320px; max-width: calc(100vw - 40px); text-align: center; }
@@ -743,13 +839,6 @@
   .cm-mail span { font-size: 13.5px; color: var(--ink); letter-spacing: .02em; }
   .cm-copy { flex: none; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; font-size: 12.5px; color: var(--brown); cursor: pointer; letter-spacing: .06em; }
   .cm-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
-
-  .footer-col h4 { font-size: 15px; letter-spacing: .32em; color: #F5EFE3; font-weight: 600; display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(241,234,224,0.14); }
-  .footer-col h4::before { content: ''; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); display: block; flex: none; }
-  .footer-col a { display: block; font-size: 13px; color: rgba(241,234,224,0.62); padding: 5px 0; line-height: 1.7; min-height: 30px; }
-  .footer-col a:hover { color: #D8C3A5; }
-  .footer-note { color: rgba(241,234,224,0.55); font-size: 12.5px; margin-top: 26px; line-height: 1.9; }
-  .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(241,234,224,0.16); font-size: 12px; color: rgba(241,234,224,0.5); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 
 
   /* ===== 识香并入认识仙：小节分隔 ===== */
@@ -984,10 +1073,36 @@
     .bl-txt h4 { display: inline-block; margin-bottom: 2px; }
   }
 
-  /* ===== ：香文化合集 —— 目录点开才看，正文默认收起 ===== */
-  .daily .article { display: none; margin-top: 18px; border: 1px solid var(--line); border-radius: 4px; }
-  .daily .article.open { display: block; }
-  .daily .article .wrap { padding-top: clamp(38px, 5vw, 54px); padding-bottom: clamp(38px, 5vw, 54px); }
+  /* ===== 香文化合集 —— 目录点开才看，正文默认收起 =====
+     点开一篇即进入全屏阅读视图（与七境详情同一套覆盖层语言）：文章自身
+     成一层固定覆盖，自带顶栏与独立滚动，主页锁在身后既看不见也滚不动；
+     视图内只有这一篇——题头、配图、正文，最后一件是文末「收起本篇」，
+     关掉回到仙日常目录原来位置，愿景／佩戴／页脚都不进这个视图。 */
+  .daily .article { display: none; }
+  .daily .article.open {
+    display: flex; flex-direction: column;
+    position: fixed; inset: 0; width: 100%; z-index: 296;
+    background: var(--paper); overflow: hidden;
+    border: none; margin: 0;
+  }
+  .art-topbar {
+    flex: none; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 10px clamp(18px, 5vw, 40px); min-width: 0;
+    border-bottom: 1px solid var(--line);
+    background: rgba(247,242,233,0.97);
+  }
+  .art-top-name { flex: none; font-size: 13px; font-weight: 500; letter-spacing: .3em; color: var(--brown-deep); white-space: nowrap; }
+  .art-top-close {
+    border: none; background: none; cursor: pointer; font-family: inherit;
+    min-height: 44px; padding: 8px 2px; color: var(--brown);
+    font-size: 13px; letter-spacing: .16em;
+  }
+  .art-top-close:hover { color: var(--brown-deep); }
+  .daily .article.open .wrap {
+    flex: 1 1 auto; width: 100%; min-width: 0;
+    overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
+    padding-top: clamp(38px, 5vw, 54px); padding-bottom: clamp(38px, 5vw, 54px);
+  }
   .cat-list .cat-arrow { transition: transform .25s; }
   .cat-list li.open .cat-title { color: var(--brown-deep); }
   .cat-list li.open .cat-arrow { transform: rotate(90deg); }
@@ -1008,9 +1123,19 @@
      在部分 webview 里会当作固定高度生效，宽度随容器收窄、高度钉死，图被纵向拉长。 */
   .grid-plain .card { cursor: pointer; }
   .grid-plain .card:focus-visible { outline: 1.5px solid var(--brown); outline-offset: 3px; }
-  .plain-detail { margin-top: clamp(28px, 4.5vw, 46px); scroll-margin-top: 92px; }
-  .grid-plain .plain-detail { grid-column: 1 / -1; margin-top: 4px; }
+  /* 素串详情改为全屏覆盖层（与七境详情同一套语言）：主页锁在身后，
+     视图内只有这一款，滑到底就是「回到素串」，其后没有任何主页内容。
+     只换容器——上手图、小字标、诗行、珠径一行与两个收起键一字未动。 */
+  .plain-detail {
+    position: fixed; inset: 0; width: 100%; z-index: 295;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
   .plain-detail[hidden] { display: none; }
+  .pd-scroll { flex: 1 1 auto; width: 100%; min-width: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .pd-view { width: 100%; max-width: 720px; min-width: 0; box-sizing: border-box; margin: 0 auto; padding: clamp(18px, 3.5vw, 32px) clamp(18px, 5vw, 32px) clamp(46px, 7vw, 64px); }
+  .pd-view .pd-end { display: block; margin-left: auto; margin-right: auto; }
   .pd-topbar { max-width: 600px; margin: 0 auto; display: flex; justify-content: flex-end; }
   .pd-head { max-width: 600px; margin: 2px auto 0; display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; }
   .pd-name { font-size: 17px; letter-spacing: .14em; color: var(--ink); }
@@ -1075,7 +1200,7 @@
      （--gold-matte），框内「开始测香」收成一枚小号深褐实心按钮（只有按钮
      实心、面积小），标题与小字回到深褐／墨色文字正常排；咨询框维持纸白
      细框＋纯文字行动行，没有旧金边、没有实心按钮。整框仍可点、点开测香
-     （来源 bespoke），次通道整框仍是 mailto 链接。 */
+     （来源 bespoke），次通道已改为深褐咨询卡（客服直达＋邮箱复制，见 .bc-consult）。 */
   .bespoke-channels { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 26px; }
   @media (min-width: 560px) { .bespoke-channels { grid-template-columns: 1fr 1fr; } }
   /* ：双通道框同样只降高度 —— 上下内边距 18/16px 收到 12/11px，
@@ -1112,6 +1237,20 @@
   .bc-sub .bc-tag { color: var(--brown); }
   .bc-sub p { color: var(--ink-soft); }
   .bc-sub .bc-act { color: var(--brown-deep); }
+  /* 私订咨询卡（通道 · 贰）：与页脚同一块深褐色（--footer-bg），紧凑小卡，
+     只一行标示＋一行双行动，不加任何段落——客服咨询开企业微信二维码弹窗
+     直达客服，邮箱咨询点按复制邮箱（与页脚同一行为）。全节只此一个咨询入口。 */
+  .bc-consult { background: var(--footer-bg); border: 1px solid var(--footer-bg); color: #F7F2E9; justify-content: center; }
+  .bc-consult .bc-tag { color: rgba(247,242,233,0.62); }
+  .bc-consult-row { display: flex; gap: 10px; margin-top: 6px; }
+  .bc-consult-row button {
+    flex: 1 1 0; min-width: 0; min-height: 44px; padding: 9px 0;
+    background: transparent; border: 1px solid rgba(247,242,233,0.42); border-radius: 2px;
+    color: #F7F2E9; font-family: inherit; font-size: 13.5px; letter-spacing: .14em; cursor: pointer;
+    transition: background .25s, border-color .25s;
+  }
+  .bc-consult-row button:hover { border-color: rgba(247,242,233,0.75); }
+  .bc-consult-row button:active { background: rgba(247,242,233,0.14); }
 
   /* ===== 选物购香 · 购买路引（一期） ===== */
   .buy-ic { width: 15px; height: 15px; flex: none; }
@@ -1534,9 +1673,6 @@
 <div class="ornament" aria-hidden="true"><i></i></div>
 
 <!-- ===== 认识仙 · 香与石 ===== -->
-
-
-<!-- ===== 品牌故事 ===== -->
 <section class="concept" id="concept">
   <div class="wrap">
     <div class="eyebrow">认识仙</div>
@@ -1556,7 +1692,11 @@
       <figcaption>不必寻山问道，腕间自有清仙</figcaption>
     </figure>
   </div>
-</section><section class="story" id="story">
+</section>
+
+
+<!-- ===== 品牌故事 ===== -->
+<section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
       <figure class="story-fig">
@@ -1580,6 +1720,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ===== 三大匠心 ===== -->
 <section class="craft" id="craft">
@@ -1629,6 +1770,7 @@
   </div>
 </section>
 
+
 <!-- ===== 01 素串 ===== -->
 <section class="layer" id="plain">
   <div class="wrap">
@@ -1640,26 +1782,13 @@
     </div>
     <div class="grid grid-plain" id="plain-grid"></div>
     <p class="plain-note"><span class="pn-label">关于色差</span>　天然草木为材，天气与批次不同，珠色略有差异——一串一色，皆是手作。</p>
-    <!-- 素串详情：点卡片在此原页展开 —— 眉题（品名＋分类）＋无锁版上手图（自然比例完整呈现，无羽化）＋图下小字标＋诗行文案 -->
-    <div class="plain-detail" id="plain-detail" hidden>
-      <div class="pd-topbar"><button class="art-close art-close-top pd-close-btn" type="button">收起 ↑</button></div>
-      <div class="pd-head"><span class="pd-name" id="pd-name"></span><span class="pd-cat" id="pd-cat"></span></div>
-      <figure class="pd-fig"><img id="pd-img" alt="" width="1296" height="1616"></figure>
-      <div class="pd-mark" aria-hidden="true">
-        <img src="images/nav-glyph-brown.png" alt="">
-        <div class="pd-mark-word">XIAN</div>
-        <div class="pd-mark-line">不必寻山问道，腕间自有清仙</div>
-      </div>
-      <div class="pd-poem" id="pd-poem"></div>
-      <p class="pd-size-line">珠径 8 · 10 · 12mm 可选 — 12mm 按单制作，下单后现做 · 男士亦可佩戴</p>
-      <button class="art-close pd-close-btn pd-end" type="button">回到素串 ↑</button>
-    </div>
     <div class="cx-strip">
       <p>八款都看过了，还没拿定主意？测完，<span class="nobr">落一张你的香签。</span></p>
       <button class="btn solid" type="button" data-cexiang="plain">测香</button>
     </div>
   </div>
 </section>
+
 
 <!-- ===== 02 设计款 · 七境 ===== -->
 <section class="layer" id="series">
@@ -1672,7 +1801,6 @@
     <div class="series-origin">
       <div class="origin-text">
         <div class="ot-single">
-          <div class="ot-tag">设计灵感</div>
           <p class="ot-line lead">人有两面：一面朝向世人，一面<span class="nobr">朝向自己</span>。</p>
           <p class="ot-line">仙，是朝向世人的那面，立在光里，<span class="nobr">带香而行</span>；</p>
           <p class="ot-line">兽，是朝向自己的那面，隐在雾里，<span class="nobr">安静守护</span>。</p>
@@ -1701,14 +1829,6 @@
       </div>
     </div>
     <div class="grid" id="realm-grid"></div>
-    <div class="realm-detail" id="realm-detail" hidden>
-      <div class="pd-topbar"><button class="art-close art-close-top rd-close-btn" type="button">收起 ↑</button></div>
-      <figure class="pd-fig zutu" id="rd-fig"><img id="rd-img" alt="" width="1000" height="1919"></figure>
-      <div class="pd-head"><span class="pd-name" id="rd-name"></span><span class="pd-cat" id="rd-cat"></span></div>
-      <div class="realm-body rd-text" id="rd-text"></div>
-      <div class="rd-buy"><span class="rd-price">¥498<i>全国统一售价 · 包邮</i></span><button class="btn solid" id="rd-add" type="button">加入购物车</button></div>
-      <button class="art-close pd-close-btn pd-end rd-close-btn" type="button">回到七境 ↑</button>
-    </div>
   </div>
 </section>
 
@@ -1726,42 +1846,43 @@
         <div class="incense-photo"><img src="images/incense-coffee.webp" alt="浓情咖啡香氛围图：深色木托盘上堆着油亮的咖啡豆，身后漾开一片暖金色的光晕" loading="lazy"></div>
         <div class="name">浓情咖啡香</div>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">咖啡醇香起头，木气收尾，先醒后沉</span></div>
-          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 案头独处</span></div>
-          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">咖啡豆 · 檀香 · 沉香</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val"><span class="nw">咖啡醇香起头，</span><span class="nw">木气收尾，</span><span class="nw">先醒后沉</span></span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val"><span class="nw">晨间 ·</span><span class="nw"> 书房 ·</span><span class="nw"> 案头独处</span></span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val"><span class="nw">咖啡豆 ·</span><span class="nw"> 檀香 ·</span><span class="nw"> 沉香</span></span></div>
         </div>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-rose-tea.webp" alt="玫瑰红茶氛围图：深红玫瑰与红茶叶相伴，身后漾开一片暖红色的光晕" loading="lazy"></div>
         <div class="name">玫瑰红茶</div>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">玫瑰暖香先行，红茶醇润，檀香托底</span></div>
-          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">午后 · 茶席 · 独处</span></div>
-          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">红玫瑰、武夷红茶、檀香、粘粉</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val"><span class="nw">玫瑰暖香先行，</span><span class="nw">红茶醇润，</span><span class="nw">檀香托底</span></span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val"><span class="nw">午后 ·</span><span class="nw"> 茶席 ·</span><span class="nw"> 独处</span></span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val"><span class="nw">红玫瑰、</span><span class="nw">武夷红茶、</span><span class="nw">檀香、</span><span class="nw">粘粉</span></span></div>
         </div>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-pomelo.webp" alt="柚见龙井春氛围图：柚子瓣与龙井嫩芽相伴，身后漾开一片春绿色的光晕" loading="lazy"></div>
         <div class="name">柚见龙井春</div>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">柚香清亮扑面，龙井茶气明净</span></div>
-          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">晨间 · 书房 · 日常</span></div>
-          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">柚子叶、柚子皮、龙井绿茶、沉香、丁香、白芷、粘粉</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val"><span class="nw">柚香清亮扑面，</span><span class="nw">龙井茶气明净</span></span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val"><span class="nw">晨间 ·</span><span class="nw"> 书房 ·</span><span class="nw"> 日常</span></span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val"><span class="nw">柚子叶、</span><span class="nw">柚子皮、</span><span class="nw">龙井绿茶、</span><span class="nw">沉香、</span><span class="nw">丁香、</span><span class="nw">白芷、</span><span class="nw">粘粉</span></span></div>
         </div>
       </div>
       <div class="card">
         <div class="incense-photo"><img src="images/incense-pear.webp" alt="鹅梨王氛围图：带水珠的雪梨近景，身后漾开一片暖金青色的光晕" loading="lazy"></div>
         <div class="name">鹅梨王</div>
         <div class="meta">
-          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val">梨香清甜，沉檀温厚，龙脑一丝凉</span></div>
-          <div class="meta-row"><span class="m-label">宜</span><span class="m-val">夜晚 · 书房 · 独处</span></div>
-          <div class="meta-row"><span class="m-label">成分</span><span class="m-val">榅桲、沉香、檀香、龙脑、苏合、甘草、粘粉</span></div>
+          <div class="meta-row"><span class="m-label">香韵</span><span class="m-val"><span class="nw">梨香清甜，</span><span class="nw">沉檀温厚，</span><span class="nw">龙脑一丝凉</span></span></div>
+          <div class="meta-row"><span class="m-label">宜</span><span class="m-val"><span class="nw">夜晚 ·</span><span class="nw"> 书房 ·</span><span class="nw"> 独处</span></span></div>
+          <div class="meta-row"><span class="m-label">成分</span><span class="m-val"><span class="nw">榅桲、</span><span class="nw">沉香、</span><span class="nw">檀香、</span><span class="nw">龙脑、</span><span class="nw">苏合、</span><span class="nw">甘草、</span><span class="nw">粘粉</span></span></div>
         </div>
       </div>
     </div>
     <p class="incense-more">持续上新，敬请期待</p>
   </div>
 </section>
+
 
 <!-- ===== 04 心愿盲盒 ===== -->
 <section class="layer" id="blindbox">
@@ -1791,6 +1912,7 @@
   </div>
 </section>
 
+
 <!-- ===== 05 私订 ===== -->
 <section class="layer" id="bespoke">
   <div class="wrap">
@@ -1813,12 +1935,13 @@
             <span class="bc-desc">测完落一张香签，<span class="nobr">带着它来聊，定制更准。</span></span>
             <span class="bc-act">测香 →</span>
           </button>
-          <a class="bc-box bc-sub" href="mailto:58623184@qq.com">
-            <span class="bc-tag">通道 · 贰</span>
-            <span class="bc-title">直接咨询</span>
-            <p>先聊你的状态与日常偏好：喜欢什么气味、常戴什么<span class="nobr">场合、腕围几何。</span></p>
-            <span class="bc-act">写邮件咨询 →</span>
-          </a>
+          <div class="bc-box bc-consult">
+            <span class="bc-tag">通道 · 贰 · 直接咨询</span>
+            <div class="bc-consult-row">
+              <button type="button" id="bc-wx">客服咨询</button>
+              <button type="button" id="bc-mail">邮箱咨询</button>
+            </div>
+          </div>
         </div>
       </div>
       <figure class="bespoke-fig">
@@ -1828,6 +1951,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
 <section class="hexiang-sec" id="hexiang">
@@ -1924,6 +2048,7 @@
   </div>
 </section>
 
+
 <!-- ===== 选购答疑 ===== -->
 <section class="guide" id="guide">
   <div class="wrap">
@@ -1940,6 +2065,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- ===== 仙日常 ===== -->
 <section class="daily" id="daily">
@@ -2187,6 +2313,7 @@
   </div>
 </section>
 
+
 <!-- ===== 品牌愿景 ===== -->
 <section class="vision" id="vision">
   <div class="wrap">
@@ -2199,6 +2326,7 @@
     </figure>
   </div>
 </section>
+
 
 <!-- ===== 佩戴保养 ===== -->
 <section class="care" id="care">
@@ -2231,14 +2359,13 @@
         <a href="#series">设计款 · 七境</a>
         <a href="#blindbox">心愿盲盒</a>
         <a href="#bespoke">私订</a>
+        <a href="javascript:void(0)" id="ft-orders">我的订单</a>
       </div>
       <div class="footer-col">
         <h4>品牌</h4>
         <a href="#story">品牌故事</a>
         <a href="#craft">三大匠心</a>
         <a href="#concept">认识仙</a>
-        <a href="#hexiang">识香</a>
-        <a href="#daily">仙日常</a>
       </div>
       <div class="footer-col">
         <h4>联系</h4>
@@ -2257,6 +2384,60 @@
     </div>
   </div>
 </footer>
+
+<!-- ===== 联系弹窗：页脚微信咨询 / 邮箱咨询 / 洽谈合作共用 ===== -->
+<div class="cm-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-label="联系" aria-hidden="true">
+  <div class="cm-card">
+    <button class="cm-x" id="cm-close" type="button" aria-label="关闭">×</button>
+    <div class="cm-title" id="cm-title">微信咨询</div>
+    <img src="images/kefu-qr.png" alt="企业微信二维码">
+    <div class="cm-cap">企业微信 · 扫码添加</div>
+    <div class="cm-mail" id="cm-mail-row">
+      <span>邮箱　58623184@qq.com</span>
+      <button class="cm-copy" id="cm-copy" type="button">复制邮箱</button>
+    </div>
+    <p class="cm-note">复制后，去你的邮箱里粘贴发送。</p>
+  </div>
+</div>
+
+
+<!-- ===== 素串详情 · 全屏覆盖层：点卡片在此打开，只显示这一款，关掉回到素串网格原位；
+     内里与原页展开版一字未动 —— 眉题（品名＋分类）＋无锁版上手图（自然比例完整呈现，无羽化）＋图下小字标＋诗行文案＋珠径一行＋收起键 ===== -->
+<div class="plain-detail" id="plain-detail" hidden role="dialog" aria-modal="true" aria-label="素串 · 产品详情" aria-hidden="true">
+  <div class="pd-scroll" id="pd-scroll">
+    <div class="pd-view">
+      <div class="pd-topbar"><button class="art-close art-close-top pd-close-btn" type="button">收起 ↑</button></div>
+      <div class="pd-head"><span class="pd-name" id="pd-name"></span><span class="pd-cat" id="pd-cat"></span></div>
+      <figure class="pd-fig"><img id="pd-img" alt="" width="1296" height="1616"></figure>
+      <div class="pd-mark" aria-hidden="true">
+        <img src="images/nav-glyph-brown.png" alt="">
+        <div class="pd-mark-word">XIAN</div>
+        <div class="pd-mark-line">不必寻山问道，腕间自有清仙</div>
+      </div>
+      <div class="pd-poem" id="pd-poem"></div>
+      <p class="pd-size-line">珠径 8 · 10 · 12mm 可选 — 12mm 按单制作，下单后现做 · 男士亦可佩戴</p>
+      <button class="art-close pd-close-btn pd-end" type="button">回到素串 ↑</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 七境详情 · 全屏覆盖层：点境卡在此打开，只显示这一境的产品，关掉回到七境网格原位 ===== -->
+<div class="realm-detail rd-overlay" id="realm-detail" role="dialog" aria-modal="true" aria-label="七境 · 产品详情" aria-hidden="true">
+  <div class="rd-top">
+    <span class="rd-top-name">设计款 · 七境</span>
+    <button class="art-close rd-top-close rd-close-btn" type="button">回到七境 ↑</button>
+  </div>
+  <div class="rd-scroll" id="rd-scroll">
+    <div class="rd-view">
+      <figure class="pd-fig zutu" id="rd-fig"><img id="rd-img" alt="" width="1000" height="1919"></figure>
+      <figure class="pd-fig zutu" id="rd-fig-hall" style="display:none"><img id="rd-img-hall" alt="玄岫氛围图：白色建筑空间里一束天光斜落，黑衣人影立在光中" width="1000" height="1333" loading="lazy"></figure>
+      <div class="pd-head"><span class="pd-name" id="rd-name"></span><span class="pd-cat" id="rd-cat"></span></div>
+      <div class="realm-body rd-text" id="rd-text"></div>
+      <div class="rd-buy"><span class="rd-price">¥498<i>全国统一售价 · 包邮</i></span><button class="btn solid" id="rd-add" type="button">加入购物车</button></div>
+      <button class="art-close pd-close-btn pd-end rd-close-btn" type="button">回到七境 ↑</button>
+    </div>
+  </div>
+</div>
 
 <!-- ===== ：测香 · 全屏覆盖层（开场 → 16 题 → 香签），四个入口共用，来源决定香签出口 ===== -->
 <div class="cx-overlay" id="cexiang" role="dialog" aria-modal="true" aria-label="测香 · 香气偏好测试" aria-hidden="true">
@@ -2327,32 +2508,22 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
   }
-  // ===== 页脚联系弹窗（微信咨询 / 邮箱咨询 / 洽谈合作） =====
   var cmModal = document.getElementById('contact-modal');
   var cmTitle = document.getElementById('cm-title');
   var cmMailRow = document.getElementById('cm-mail-row');
-  function cmOpen(title, focusMail) {
-    cmTitle.textContent = title;
-    cmMailRow.classList.toggle('hl', !!focusMail);
-    cmModal.classList.add('open');
-    cmModal.setAttribute('aria-hidden', 'false');
-  }
-  function cmClose() {
-    cmModal.classList.remove('open');
-    cmModal.setAttribute('aria-hidden', 'true');
-  }
+  function cmOpen(title, focusMail) { cmTitle.textContent = title; cmMailRow.classList.toggle('hl', !!focusMail); cmModal.classList.add('open'); cmModal.setAttribute('aria-hidden', 'false'); }
+  function cmClose() { cmModal.classList.remove('open'); cmModal.setAttribute('aria-hidden', 'true'); }
   document.getElementById('ft-wx').addEventListener('click', function () { cmOpen('微信咨询', false); });
   document.getElementById('ft-coop').addEventListener('click', function () { cmOpen('洽谈合作', false); });
   document.getElementById('ft-mail').addEventListener('click', function () { cmOpen('邮箱咨询', true); });
   document.getElementById('cm-close').addEventListener('click', cmClose);
   cmModal.addEventListener('click', function (e) { if (e.target === cmModal) cmClose(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && cmModal.classList.contains('open')) cmClose(); });
-  document.getElementById('cm-copy').addEventListener('click', function () {
-    var addr = '58623184@qq.com';
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(addr).then(function () { showToast('邮箱已复制：' + addr); }, function () { showToast('邮箱：' + addr); });
-    } else { showToast('邮箱：' + addr); }
-  });
+  function cmCopyEmail() { var addr = '58623184@qq.com'; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(addr).then(function () { showToast('邮箱已复制：' + addr); }, function () { showToast('邮箱：' + addr); }); } else { showToast('邮箱：' + addr); } }
+  document.getElementById('cm-copy').addEventListener('click', cmCopyEmail);
+  // 私订咨询卡：客服咨询开同一个企业微信二维码弹窗直达客服；邮箱咨询点按复制（与页脚同一行为）
+  document.getElementById('bc-wx').addEventListener('click', function () { cmOpen('客服咨询', false); });
+  document.getElementById('bc-mail').addEventListener('click', cmCopyEmail);
   document.querySelectorAll('[data-toast]').forEach(function (el) {
     el.addEventListener('click', function () { showToast(el.getAttribute('data-toast')); });
   });
@@ -2453,17 +2624,26 @@
   ];
   var SCENT_COLOR = { '黑龙涎': '#3A2E26', '白龙涎': '#C9BBA6', '木樨香': '#C79A4B', '山泉白茶': '#8FA98F', '帐中香': '#7A6A96', '梦灵香': '#A8A29A', '花蕊夫人': '#B4656A' };
   var REALMS = [
-    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#B49B72', bio: '桂花开满庭院的仙，见谁都留一盏茶。', mood: '甘甜温润，自带人间烟火气。', fit: '想要消除社交冷漠感，希望散发温暖亲和力、拉近人际距离的人。', ing: '桂花、檀香、沉香、安息香、丁香等。', img: 'images/realm-guiting.webp', alt: '桂庭意境图：雾白底色上，一头白鹿的鹿角化作开满金桂的枝桠，姜黄衣裙的桂仙立于下方，举起一串正发着光的合香珠与黄水晶串，长发拉成一线、散作金桂' },
+    { name: '桂庭', immortal: '桂仙', scent: '木樨香', crystal: '黄水晶', cc: '#B49B72', bio: '桂花开满庭院的仙，见谁都留一盏茶，茶温，香也暖。', mood: '甘甜温润，自带人间烟火气。', fit: '想要消除社交冷漠感，希望散发温暖亲和力、拉近人际距离的人。', ing: '桂花、檀香、沉香、安息香、丁香等。', img: 'images/realm-guiting.webp', alt: '桂庭意境图：雾白底色上，一头白鹿的鹿角化作开满金桂的枝桠，姜黄衣裙的桂仙立于下方，举起一串正发着光的合香珠与黄水晶串，长发拉成一线、散作金桂' },
     { name: '玄岫', immortal: '岩仙', scent: '黑龙涎', crystal: '灰月光 · 白水晶', cc: '#4C463F', bio: '居于深岩之下的仙，不急不躁，身形如山壁。', mood: '沉静厚重，自带不容置疑的定力。', fit: '面对繁杂工作易受干扰，渴望迅速稳住阵脚、屏蔽外界嘈杂的人。', ing: '龙涎香、檀香、沉香、乳香、甘松、丁香等。', img: 'images/realm-xuanxiu.webp', alt: '玄岫意境图：岩上静立的玄衣仙子手垂一串黑香珠间着灰月光与白水晶的珠串，一条苍龙自云端盘旋而下，龙首短钝圆润、闭目安然，与她相对' },
     { name: '月涧', immortal: '月仙', scent: '白龙涎', crystal: '月光石', cc: '#9FB0B3', bio: '住在月色里的仙，来去自在，不要求你回应。', mood: '清透浅净，维持刚刚好的边界感。', fit: '偏爱清冷伪体香，希望在社交中保持舒适界限与独处空间的人。', ing: '龙涎香、檀香、沉香等，辅以浅色香材轻盈调和。', img: 'images/realm-yuejian.webp', alt: '月涧意境图：满月之下，一只巨鹤展翅俯首，立在涧水里的银蓝衣仙子举起一串月光石珠子相迎，水花与碎光在她脚边散开' },
     { name: '山晓', immortal: '茶仙', scent: '山泉白茶', crystal: '绿幽灵', cc: '#86967E', bio: '晨雾里煮茶的仙，山刚醒，空气是青的。', mood: '清冽干净，让头脑瞬间恢复清明的冷感香。', fit: '午后易犯困或工作繁杂时，需要驱散闷倦、保持头脑清明专注的人。', ing: '檀香、艾草、安吉白茶、栗花、香茅。', img: 'images/realm-shanxiao.webp', alt: '山晓意境图：一只白狐的头与长尾在雾中化作一道旋流，青衣茶仙站在茶垄上仰头望它，手里垂着一串绿幽灵珠串' },
     { name: '幽帷', immortal: '书仙', scent: '帐中香', crystal: '紫水晶', cc: '#8E8694', bio: '守着一屋书卷的仙，帘子半垂，只待相投的人。', mood: '幽室暖香，书香与木香交织的静谧感。', fit: '喜欢独处阅读，渴望在喧嚣中抽离、寻求内心静谧与深度思考的人。', ing: '檀香、沉香、藿香、白芷、辛夷、石菖蒲等。', img: 'images/realm-youwei.webp', alt: '幽帷意境图：一只巨蝶的翅膀占满半幅画面，翅面是淡淡的山水楼阁，灰蓝紫衣的书仙在右下角托起一颗紫水晶，身旁只飘着两三片纸屑' },
-    { name: '枕云', immortal: '云仙', scent: '梦灵香', crystal: '白幽灵', cc: '#E7DECB', bio: '卧在云上的仙，教你把今天先搁下。', mood: '草木暖柔，如坠云端般的深度松弛感。', fit: '容易精神紧绷、思绪过多，渴望在夜里卸下防备、获得身心松弛的人。', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等。', img: 'images/realm-zhenyun.webp', alt: '枕云意境图：满月之下，一只巨兔的正脸从云里探出，长耳横贯画面；云仙半卧在云堆上，一只手枕在头下，身旁放着一串白水晶珠子' },
-    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E3C6BE', bio: '春日桃花开透的仙，出场自带光。', mood: '玫瑰藏红，华贵且微醺的迷人气场。', fit: '想要在约会或重要场合点亮气场，散发自信明媚与浪漫魅力的人。', ing: '玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等。', img: 'images/realm-fangchen.webp', alt: '芳尘意境图：一只白孔雀在桃粉雾气里回首，羽翎散作轻烟，桃粉衣裙的桃仙在下方张开手臂，手上垂着一串粉晶珠串，下方漫着一层桃粉雾' }
+    { name: '枕云', immortal: '云仙', scent: '梦灵香', crystal: '白幽灵', cc: '#E7DECB', bio: '卧在云上的仙，教你把今天先搁下，醒来再说。', mood: '草木暖柔，如坠云端般的深度松弛感。', fit: '容易精神紧绷、思绪过多，渴望在夜里卸下防备、获得身心松弛的人。', ing: '薰衣草、沉香、檀香、茯神、远志、安息香等。', img: 'images/realm-zhenyun.webp', alt: '枕云意境图：满月之下，一只巨兔的正脸从云里探出，长耳横贯画面；云仙半卧在云堆上，一只手枕在头下，身旁放着一串白水晶珠子' },
+    { name: '芳尘', immortal: '桃仙', scent: '花蕊夫人', crystal: '粉晶', cc: '#E3C6BE', bio: '春日桃花开透的仙，出场自带光，明媚得理直气壮。', mood: '玫瑰藏红，华贵且微醺的迷人气场。', fit: '想要在约会或重要场合点亮气场，散发自信明媚与浪漫魅力的人。', ing: '玫瑰、藏红花、母丁香、安息香、乳香、沉香、紫檀等。', img: 'images/realm-fangchen.webp', alt: '芳尘意境图：一只白孔雀在桃粉雾气里回首，羽翎散作轻烟，桃粉衣裙的桃仙在下方张开手臂，手上垂着一串粉晶珠串，下方漫着一层桃粉雾' }
   ];
 
+  function segWrap(val) {
+    var out = '', cur = '';
+    for (var i = 0; i < val.length; i++) {
+      cur += val[i];
+      if ('，、·'.indexOf(val[i]) >= 0) { out += '<span class="nw">' + cur + '</span>'; cur = ''; }
+    }
+    if (cur) out += '<span class="nw">' + cur + '</span>';
+    return out;
+  }
   function metaRow(label, val) {
-    return '<div class="meta-row"><span class="m-label">' + label + '</span><span class="m-val">' + val + '</span></div>';
+    return '<div class="meta-row" data-k="' + label + '"><span class="m-label">' + label + '</span><span class="m-val">' + segWrap(val) + '</span></div>';
   }
   // ===== ：卡片珠径按键组 —— 点任一珠径即把该款该珠径加入购物车，并汇入「选物购香」路引第三步计价。 =====
   function buyGroup(p) {
@@ -2480,7 +2660,7 @@
     card.innerHTML =
       '<div class="strand"><img src="' + p.flat + '" alt="「' + p.name + '」平铺海报图：暖米白底上，一串' + p.flatTone + '合香珠成圈平铺，顶部是 EASTERN SPIRIT 刊头与仙字小印，底部写有品名" loading="lazy" width="1408" height="1760"><span class="card-arrow" aria-hidden="true">→</span></div>' +
       '<div class="name">' + p.name + '</div>' +
-      '<span class="cat-tag">' + p.cat + '</span>' +
+      '<div class="price-tag-row"><span class="card-price">¥188 <small>起</small></span><span class="cat-tag">' + p.cat + '</span></div>' +
       '<div class="meta">' + metaRow('香韵', p.mood) + metaRow('宜', p.scene) + metaRow('成分', p.ing) + '</div>' +
       buyGroup(p);
     // 点珠径按键＝加购：阻止冒泡，不触发卡片的「点击打开详情」
@@ -2494,7 +2674,7 @@
     plainGrid.appendChild(card);
   });
 
-  // ===== 素串详情：点开卡片看上手图与诗行文案（原页展开，同时只开一款；文字与断行均为定版紧凑诗行版） =====
+  // ===== 素串详情：点开卡片打开全屏覆盖层看上手图与诗行文案（同时只开一款；文字与断行均为定版紧凑诗行版，内容一字未动，只换容器） =====
   var PLAIN_DETAIL = {
     '帐中香': { img: 'images/plain-zhangzhongxiang-hand.webp', poem: [
       ['帐中香是旧时书房里的香。', '檀香沉香打底，藿香白芷在后，', '气息是暖的，往下沉。'],
@@ -2564,24 +2744,30 @@
     }).join('');
     plainDetail.setAttribute('aria-label', p.name + ' · 上手图与文案');
   }
+  var pdScroll = document.getElementById('pd-scroll');
+  var pdReturnY = 0;
   function openPlain(p, card) {
     fillPlainDetail(p);
-    if (card) { plainGrid.insertBefore(plainDetail, card.nextSibling); }
     openPlainName = p.name;
     lastPlainCard = card;
+    // 打开全屏视图：记下主页滚动位置，锁住主页滚动，视图自身从顶开始
+    pdReturnY = window.scrollY || window.pageYOffset || 0;
     plainDetail.hidden = false;
+    plainDetail.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (pdScroll) { pdScroll.scrollTop = 0; pdScroll.scrollLeft = 0; }
     syncPlainCards();
-    plainDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   function closePlain() {
     if (!openPlainName) { return; }
     openPlainName = null;
     plainDetail.hidden = true;
+    plainDetail.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
     syncPlainCards();
-    if (lastPlainCard) {
-      lastPlainCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      lastPlainCard.focus({ preventScroll: true });
-    }
+    // 回到素串网格的原来位置
+    window.scrollTo(0, pdReturnY);
+    if (lastPlainCard) { lastPlainCard.focus({ preventScroll: true }); }
   }
   function togglePlain(p, card) {
     if (openPlainName === p.name) { closePlain(); } else { openPlain(p, card); }
@@ -2604,9 +2790,16 @@
     b.addEventListener('click', closePlain);
   });
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') { closePlain(); }
+    if (ev.key !== 'Escape' || !openPlainName) { return; }
+    // 购买路引／测香盖在详情之上时，Esc 先关最上层，不连带关掉详情
+    var bfEl = document.getElementById('buy-flow');
+    if (bfEl && bfEl.classList.contains('open')) { return; }
+    var cxEl = document.getElementById('cexiang');
+    if (cxEl && cxEl.classList.contains('open')) { return; }
+    closePlain();
   });
   var REALM_ZUTU = { '玄岫': 'images/detail-yanxian-zutu.webp' };
+  var REALM_HALL = { '玄岫': 'images/detail-yanxian-light.webp' };
   var realmGrid = document.getElementById('realm-grid');
   REALMS.forEach(function (r) {
     var card = document.createElement('div');
@@ -2614,10 +2807,10 @@
     card.innerHTML =
       '<figure class="realm-art"><img src="' + r.img + '" alt="' + r.alt + '" loading="lazy"></figure>' +
       '<div class="realm-body">' +
-      '<div class="name">' + r.name + '<span class="name-sep" aria-hidden="true"></span><span class="name-immortal">' + r.immortal + '</span></div>' +
       '<span class="realm-look" aria-hidden="true"><span class="rl-dia">◆</span>入境见物</span>' +
-      '<p class="bio">' + r.bio + '</p>' +
-      '<p class="realm-tag">' + r.scent + ' · ' + r.crystal + '</p>' +
+      '<div class="name">' + r.name + '<span class="name-sep" aria-hidden="true"></span><span class="name-immortal">' + r.immortal + '</span><span class="card-price">¥498</span></div>' +
+      '<p class="bio">' + segWrap(r.bio) + '</p>' +
+      '<p class="realm-tag">' + segWrap(r.scent + ' · ' + r.crystal) + '</p>' +
       '</div>';
     card.setAttribute('role', 'button');
     card.setAttribute('tabindex', '0');
@@ -2629,14 +2822,18 @@
     });
     realmGrid.appendChild(card);
   });
-  // ===== 七境组图详情：点开卡片原位展开组图（目前只有玄岫·岩仙有组图） =====
+  // ===== 七境详情：点开卡片打开全屏覆盖层，只看这一境的产品（组图目前只有玄岫·岩仙有） =====
   var realmDetail = document.getElementById('realm-detail');
+  var rdScroll = document.getElementById('rd-scroll');
+  var rdReturnY = 0;
   var rdImg = document.getElementById('rd-img');
   var rdName = document.getElementById('rd-name');
   var rdCat = document.getElementById('rd-cat');
   var openRealmName = null;
   var lastRealmCard = null;
   var rdFig = document.getElementById('rd-fig');
+  var rdFigHall = document.getElementById('rd-fig-hall');
+  var rdImgHall = document.getElementById('rd-img-hall');
   var rdText = document.getElementById('rd-text');
   function openRealm(r, card) {
     rdName.innerHTML = r.name + '<span class="name-sep" aria-hidden="true"></span><span class="name-immortal">' + r.immortal + '</span>';
@@ -2649,6 +2846,13 @@
       rdFig.style.display = 'none';
       rdImg.removeAttribute('src');
     }
+    if (REALM_HALL[r.name]) {
+      rdFigHall.style.display = '';
+      rdImgHall.src = REALM_HALL[r.name];
+    } else {
+      rdFigHall.style.display = 'none';
+      rdImgHall.removeAttribute('src');
+    }
     rdText.innerHTML =
       '<p class="ring"><span class="rg-label">成分</span> ' + r.ing + '</p>' +
       '<p class="rline"><span class="rl-label">香韵</span> ' + r.mood + '</p>' +
@@ -2656,22 +2860,26 @@
     realmGrid.querySelectorAll('.realm-card').forEach(function (c) {
       c.setAttribute('aria-expanded', 'false');
     });
-    if (card) { realmGrid.insertBefore(realmDetail, card.nextSibling); }
     openRealmName = r.name;
     lastRealmCard = card;
-    realmDetail.hidden = false;
     if (card) { card.setAttribute('aria-expanded', 'true'); }
-    realmDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // 打开全屏视图：记下主页滚动位置，锁住主页滚动，视图自身从顶开始
+    rdReturnY = window.scrollY || window.pageYOffset || 0;
+    realmDetail.classList.add('open');
+    realmDetail.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (rdScroll) { rdScroll.scrollTop = 0; rdScroll.scrollLeft = 0; }
   }
   function closeRealm() {
     if (!openRealmName) { return; }
     openRealmName = null;
-    realmDetail.hidden = true;
-    if (lastRealmCard) {
-      lastRealmCard.setAttribute('aria-expanded', 'false');
-      lastRealmCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      lastRealmCard.focus({ preventScroll: true });
-    }
+    realmDetail.classList.remove('open');
+    realmDetail.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastRealmCard) { lastRealmCard.setAttribute('aria-expanded', 'false'); }
+    // 回到七境网格的原来位置，七卡一张不少
+    window.scrollTo(0, rdReturnY);
+    if (lastRealmCard) { lastRealmCard.focus({ preventScroll: true }); }
   }
   function toggleRealm(r, card) {
     if (openRealmName === r.name) { closeRealm(); } else { openRealm(r, card); }
@@ -2680,42 +2888,75 @@
     b.addEventListener('click', closeRealm);
   });
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') { closeRealm(); }
+    if (ev.key !== 'Escape') { return; }
+    if (!realmDetail.classList.contains('open')) { return; }
+    // 购买路引／测香盖在详情之上时，Esc 先关最上层，不连带关掉详情
+    var bfEl = document.getElementById('buy-flow');
+    if (bfEl && bfEl.classList.contains('open')) { return; }
+    var cxEl = document.getElementById('cexiang');
+    if (cxEl && cxEl.classList.contains('open')) { return; }
+    closeRealm();
   });
 
   // （：盲盒旧 12 题已整套移除，替换为全站共用的「测香」，见页末脚本。）
 
-  // ===== 仙日常 · 香文化合集：目录点开才展开，同时只开一篇，带收起入口 =====
+  // ===== 仙日常 · 香文化合集：目录点开进入全屏阅读视图，同时只开一篇——
+  // 视图内只有这一篇，顶栏与文末各有一个「收起本篇」，关掉回到目录原位 =====
   var catLinks = document.querySelectorAll('.cat-list a[data-article]');
   var openArticleId = null;
+  var artReturnY = 0;
+  var lastCatLink = null;
   function setArticle(id, open) {
     var art = document.getElementById(id);
     if (!art) { return; }
+    if (open && !openArticleId) { artReturnY = window.scrollY || window.pageYOffset || 0; }
     art.classList.toggle('open', open);
+    art.setAttribute('aria-hidden', open ? 'false' : 'true');
     catLinks.forEach(function (a) {
       if (a.getAttribute('data-article') === id) {
         a.setAttribute('aria-expanded', open ? 'true' : 'false');
         a.parentElement.classList.toggle('open', open);
       }
     });
-    if (open) { openArticleId = id; }
-    else if (openArticleId === id) { openArticleId = null; }
+    if (open) {
+      openArticleId = id;
+      // 打开全屏视图：锁住主页滚动，文章自身从顶开始
+      document.body.style.overflow = 'hidden';
+      var w = art.querySelector('.wrap');
+      if (w) { w.scrollTop = 0; w.scrollLeft = 0; }
+    }
+    else if (openArticleId === id) {
+      openArticleId = null;
+      document.body.style.overflow = '';
+    }
   }
   function closeToCatalog(id) {
     setArticle(id, false);
-    document.getElementById('daily-catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // 回到仙日常目录的原来位置（自锚点直入、原位在页顶时退回目录本身）
+    if (artReturnY > 0) { window.scrollTo(0, artReturnY); }
+    else { document.getElementById('daily-catalog').scrollIntoView({ block: 'start' }); }
+    if (lastCatLink) { lastCatLink.focus({ preventScroll: true }); }
   }
   catLinks.forEach(function (a) {
     var art = document.getElementById(a.getAttribute('data-article'));
     if (art) {
-      var wrap = art.querySelector('.wrap');
-      // 展开区顶部与文末各加一个「收起」入口（只加操作件，文章正文与配图一字未动）
+      art.setAttribute('aria-hidden', 'true');
+      // 全屏视图顶栏（只加操作件，文章正文与配图一字未动）：左题右键，点键收起本篇
+      var topBar = document.createElement('div');
+      topBar.className = 'art-topbar';
+      var topName = document.createElement('span');
+      topName.className = 'art-top-name';
+      topName.textContent = '仙日常 · 香文化';
+      topBar.appendChild(topName);
       var topBtn = document.createElement('button');
       topBtn.type = 'button';
-      topBtn.className = 'art-close art-close-top';
-      topBtn.textContent = '收起 ↑';
+      topBtn.className = 'art-top-close';
+      topBtn.textContent = '收起本篇 ↑';
       topBtn.addEventListener('click', function () { closeToCatalog(art.id); });
-      wrap.insertBefore(topBtn, wrap.firstChild);
+      topBar.appendChild(topBtn);
+      art.insertBefore(topBar, art.firstChild);
+      // 文末「收起本篇」是视图内最后一件
+      var wrap = art.querySelector('.wrap');
       var endBtn = document.createElement('button');
       endBtn.type = 'button';
       endBtn.className = 'art-close';
@@ -2733,39 +2974,34 @@
     a.addEventListener('click', function (ev) {
       ev.preventDefault();
       var id = a.getAttribute('data-article');
-      if (openArticleId === id) { setArticle(id, false); return; }
+      lastCatLink = a;
+      if (openArticleId === id) { closeToCatalog(id); return; }
       if (openArticleId) { setArticle(openArticleId, false); }
       setArticle(id, true);
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-  // 带着某篇的锚点打开页面时（如从别处链入 #daily-N），直接展开那一篇
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape' || !openArticleId) { return; }
+    // 购买路引／测香盖在文章之上时，Esc 先关最上层，不连带关掉文章
+    var bfEl = document.getElementById('buy-flow');
+    if (bfEl && bfEl.classList.contains('open')) { return; }
+    var cxEl = document.getElementById('cexiang');
+    if (cxEl && cxEl.classList.contains('open')) { return; }
+    closeToCatalog(openArticleId);
+  });
+  // 带着某篇的锚点打开页面时（如从别处链入 #daily-N），直接以全屏视图打开那一篇
   if (location.hash) {
     var hid = location.hash.slice(1);
     var target = document.getElementById(hid);
     if (target && target.classList.contains('article')) {
       setArticle(hid, true);
-      setTimeout(function () { target.scrollIntoView({ block: 'start' }); }, 80);
     }
   }
 </script>
 <!-- ===== 选物购香 · 购买路引（一期） ===== -->
 <button id="bf-fab" type="button" aria-label="选物购香 · 进入购买"><svg class="buy-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 8h13.6l-1.1 11.2a1.6 1.6 0 0 1-1.6 1.5H7.9a1.6 1.6 0 0 1-1.6-1.5L5.2 8z"/><path d="M8.6 10.2V6.7a3.4 3.4 0 0 1 6.8 0v3.5"/></svg>选物购香<span id="bf-fab-n" hidden></span></button>
 
-<div class="cm-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-label="联系" aria-hidden="true">
-    <div class="cm-card">
-      <button class="cm-x" id="cm-close" type="button" aria-label="关闭">×</button>
-      <div class="cm-title" id="cm-title">微信咨询</div>
-      <img src="images/kefu-qr.png" alt="企业微信二维码">
-      <div class="cm-cap">企业微信 · 扫码添加</div>
-      <div class="cm-mail" id="cm-mail-row">
-        <span>邮箱　58623184@qq.com</span>
-        <button class="cm-copy" id="cm-copy" type="button">复制邮箱</button>
-      </div>
-      <p class="cm-note">复制后，去你的邮箱里粘贴发送。</p>
-    </div>
-  </div>
-  <div class="bf-overlay" id="buy-flow" role="dialog" aria-modal="true" aria-label="选物购香 · 购买路引" aria-hidden="true">
+<div class="bf-overlay" id="buy-flow" role="dialog" aria-modal="true" aria-label="选物购香 · 购买路引" aria-hidden="true">
   <div class="bf-top">
     <span class="bf-top-title">选物购香</span>
     <ol class="bf-steps" id="bf-steps">
@@ -2780,7 +3016,8 @@
       <button class="btn solid bf-wide" id="bf-to-test" type="button">开始测香</button>
       <button class="btn bf-wide" id="bf-skip" type="button">已想好，直接选</button>
       <p class="bf-cart-note" id="bf-cart-note" hidden></p>
-      <p class="bf-lookup-line"><button type="button" class="bf-lookup-link" id="bf-to-lookup">已有订单？查订单 →</button></p>
+      <p class="bf-lookup-line"><button type="button" class="bf-lookup-link" id="bf-to-lookup">我的订单 · 查订单 →</button></p>
+      <p class="bf-cart-note" id="bf-ord-note" hidden></p>
     </section>
     <section class="bf-view" id="bf-v2" hidden>
       <div id="bf-sign"></div>
@@ -2804,21 +3041,13 @@
       <form id="bf-form" novalidate>
         <label class="bf-field"><span>姓名</span><input id="bf-f-name" type="text" autocomplete="name" placeholder="收件人姓名"></label>
         <label class="bf-field"><span>电话</span><input id="bf-f-phone" type="tel" autocomplete="tel" placeholder="11 位手机号"></label>
+        <label class="bf-field"><span>邮箱</span><input id="bf-f-email" type="email" autocomplete="email" placeholder="常用邮箱"></label>
         <label class="bf-field"><span>收货地址</span><textarea id="bf-f-addr" rows="3" autocomplete="street-address" placeholder="省 / 市 / 区＋详细地址"></textarea></label>
         <label class="bf-field"><span>腕围</span><input id="bf-f-wrist" type="text" placeholder="如 15cm（贴手量一圈，按单现穿用）"></label>
         <label class="bf-field"><span>备注</span><input id="bf-f-note" type="text" placeholder="可不填"></label>
+        <p class="bf-p" id="bf-prefill-note" hidden>已按你存好的资料带入，有变化直接改。</p>
         <p class="bf-err" id="bf-err" hidden></p>
-        <div class="bf-member" id="bf-member">
-          <div class="bf-member-t">成为香友</div>
-          <ul class="bf-member-list">
-            <li><b>下次免填</b>地址、腕围替你存好，购买更加便捷</li>
-            <li><b>每月摇奖</b>每月 8 日晚 8 点开奖，注册香友自动入围，赠新品小样或线香一份</li>
-            <li><b>新品优先</b>新境、限量款，先给香友开放</li>
-          </ul>
-          <button class="btn solid bf-member-btn" id="bf-join" type="button">成为香友</button>
-          <p class="bf-member-done" id="bf-join-done" hidden></p>
-          <p class="bf-member-fine">电话就是香友号，不设密码。不成为香友，也照样下单。</p>
-        </div>
+        <p class="bf-form-note">下单即成为香友：资料替你存好，下次免填；每月摇奖、新品优先。</p>
         <div class="bf-navrow">
           <button class="btn bf-back" data-back="3" type="button">← 改订单</button>
           <button class="btn solid" type="submit">提交订单 →</button>
@@ -2830,8 +3059,8 @@
       <div id="bf-done"></div>
     </section>
     <section class="bf-view" id="bf-v6" hidden>
-      <h3 class="bf-h">查订单</h3>
-      <p class="bf-p">输入下单时的手机号，查你在这台设备上提交过的订单。</p>
+      <h3 class="bf-h">我的订单</h3>
+      <p class="bf-p">输入下单时的手机号，就能看到你的订单。</p>
       <div class="bf-lookup-row">
         <input id="bf-q-phone" type="tel" inputmode="numeric" placeholder="下单手机号" autocomplete="tel">
         <button class="btn solid" id="bf-q-btn" type="button">查询</button>
@@ -3211,11 +3440,11 @@
         '想按这张签聊一聊私订，谢谢。'
       ].join('\n');
       cxCloseTest();
-      var cxMail = document.createElement('a');
-      cxMail.href = 'mailto:58623184@qq.com?subject=' + encodeURIComponent('私订咨询 · 我的本命香是「' + main.name + '」') + '&body=' + encodeURIComponent(body);
-      document.body.appendChild(cxMail);
-      cxMail.click();
-      cxMail.remove();
+      var mailLink = document.createElement('a');
+      mailLink.href = 'mailto:58623184@qq.com?subject=' + encodeURIComponent('私订咨询 · 我的本命香是「' + main.name + '」') + '&body=' + encodeURIComponent(body);
+      document.body.appendChild(mailLink);
+      mailLink.click();
+      mailLink.remove();
       return;
     }
     cxCloseTest();
@@ -3333,7 +3562,11 @@
     bfOverlay.classList.remove('open');
     bfOverlay.setAttribute('aria-hidden', 'true');
     bfFab.style.display = '';
-    document.body.style.overflow = '';
+    // 若购买是从某个全屏子视图（七境详情／素串详情／香文化文章）里打开的，关掉购买后仍回到该视图：主页继续锁定
+    var subViewOpen = (realmDetail && realmDetail.classList.contains('open')) ||
+      (typeof plainDetail !== 'undefined' && plainDetail && !plainDetail.hidden) ||
+      (typeof openArticleId !== 'undefined' && !!openArticleId);
+    document.body.style.overflow = subViewOpen ? 'hidden' : '';
   }
   function bfGo(n) {
     [1, 2, 3, 4, 5, 6].forEach(function (i) {
@@ -3348,7 +3581,8 @@
     if (n === 1) { bfRenderStep1(); }
     if (n === 2) { bfRenderShelf(); }
     if (n === 3) { bfRenderCart(); }
-    if (n === 4) { bfPrefillForm(); bfRenderMember(); }
+    if (n === 4) { bfPrefillForm(); }
+    if (n === 6) { bfPrepLookup(); }
     bfScroll.scrollTop = 0;
   }
   function bfRenderStep1() {
@@ -3359,6 +3593,14 @@
       note.innerHTML = '购物车里已有 ' + n + ' 件 · <a href="#" id="bf-note-go">去计价 →</a>';
       document.getElementById('bf-note-go').addEventListener('click', function (ev) { ev.preventDefault(); bfGo(3); });
     } else { note.hidden = true; }
+    var onote = document.getElementById('bf-ord-note');
+    var oc = 0;
+    try { oc = JSON.parse(localStorage.getItem('xian_orders') || '[]').length; } catch (e) {}
+    if (oc > 0) {
+      onote.hidden = false;
+      onote.innerHTML = '你有 ' + oc + ' 笔订单 · <a href="#" id="bf-ord-go">查看 →</a>';
+      document.getElementById('bf-ord-go').addEventListener('click', function (ev) { ev.preventDefault(); bfGo(6); });
+    } else { onote.hidden = true; }
   }
 
   // ----- 第二步 · 香签结果即货架 -----
@@ -3573,6 +3815,7 @@
     ev.preventDefault();
     var name = document.getElementById('bf-f-name').value.trim();
     var phone = document.getElementById('bf-f-phone').value.trim();
+    var email = document.getElementById('bf-f-email').value.trim();
     var addr = document.getElementById('bf-f-addr').value.trim();
     var wrist = document.getElementById('bf-f-wrist').value.trim();
     var note = document.getElementById('bf-f-note').value.trim();
@@ -3580,6 +3823,7 @@
     var msg = '';
     if (!name) { msg = '请填收件人姓名。'; }
     else if (!/^1\d{10}$/.test(phone)) { msg = '请填 11 位手机号——客服确认订单时要用。'; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg = '请填常用邮箱。'; }
     else if (!addr) { msg = '请填收货地址。'; }
     else if (!wrist) { msg = '请填腕围——串是按你的腕围现穿的。'; }
     if (msg) { err.hidden = false; err.textContent = msg; return; }
@@ -3591,19 +3835,28 @@
     try { agent = JSON.parse(localStorage.getItem('xian_agent') || 'null'); } catch (e) {}
     var order = {
       no: no, ts: Date.now(), items: bfCart.slice(), total: bfTotal(),
-      name: name, phone: phone, addr: addr, wrist: wrist, note: note,
+      name: name, phone: phone, email: email, addr: addr, wrist: wrist, note: note,
       agent: agent ? agent.code : null, status: '待确认'
     };
     bfLastSaveOk = true;
+    bfAutoMember = false;
     try {
       var orders = JSON.parse(localStorage.getItem('xian_orders') || '[]');
       orders.push(order);
       localStorage.setItem('xian_orders', JSON.stringify(orders));
     } catch (e) { bfLastSaveOk = false; }
     if (bfMember && bfMember.phone === order.phone) {
-      bfMember.name = order.name; bfMember.addr = order.addr; bfMember.wrist = order.wrist;
+      bfMember.name = order.name; bfMember.addr = order.addr; bfMember.wrist = order.wrist; bfMember.email = order.email;
       if (bfMember.orders.indexOf(order.no) === -1) { bfMember.orders.push(order.no); }
       bfSaveMember();
+    } else if (!bfMember) {
+      bfMember = {
+        phone: order.phone, name: order.name, addr: order.addr, wrist: order.wrist, email: order.email,
+        sign: cxResult ? { main: cxResult.main.name, pct: cxResult.mainPct, second: cxResult.second.name, bead: cxResult.bead } : null,
+        orders: [order.no], coupons: [], joinedTs: Date.now()
+      };
+      bfSaveMember();
+      bfAutoMember = true;
     }
     bfCart = [];
     bfSave();
@@ -3614,6 +3867,7 @@
     var lines = ['订单号：' + o.no, '应付：¥' + o.total + '（包邮）'];
     o.items.forEach(function (it) { lines.push('· ' + it.name + '（' + it.spec + '）× ' + it.qty + ' — ¥' + (it.price * it.qty)); });
     lines.push('收件：' + o.name + ' ' + o.phone);
+    if (o.email) { lines.push('邮箱：' + o.email); }
     lines.push('地址：' + o.addr);
     lines.push('腕围：' + o.wrist);
     if (o.note) { lines.push('备注：' + o.note); }
@@ -3622,7 +3876,11 @@
   function bfRenderDone(o) {
     var sum = bfOrderText(o).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     var echo = '';
-    if (bfMember && bfMember.phone === o.phone) {
+    if (bfAutoMember) {
+      echo = '<div class="bf-member-echo"><div class="bf-sign-t">感谢购买，欢迎成为香友</div>' +
+        '<p class="bf-sign-line">香友号 ' + bfMaskPhone(o.phone) + ' · 你的资料已存好</p>' +
+        '<div class="bf-gift"><div class="bf-gift-t">香友礼遇</div><ul class="bf-gift-list"><li>下次免填——地址、腕围替你存好，购买更加便捷</li><li>每月摇奖——每月 8 日晚 8 点开奖，自动入围，赠新品小样或线香一份</li><li>新品优先——新境、限量款，先给香友开放</li></ul></div></div>';
+    } else if (bfMember && bfMember.phone === o.phone) {
       echo = '<div class="bf-member-echo"><div class="bf-sign-t">香友</div>' +
         '<p class="bf-sign-line">这一单已记在你的名下 · 香友号 ' + bfMaskPhone(o.phone) + '</p>' +
         '<div class="bf-gift"><div class="bf-gift-t">香友礼遇 · 已记在你名下</div><ul class="bf-gift-list"><li>每月 8 日晚 8 点摇奖，赠新品小样或线香一份</li><li>新品、限量款优先开放</li><li>下次购买更加便捷，凭电话认你</li></ul></div></div>';
@@ -3635,21 +3893,33 @@
       '<div class="bf-qr"><div class="bf-qr-card"><img src="images/kefu-qr.png" alt="客服企业微信二维码"><div class="bf-qr-t">客服二维码</div><div class="bf-qr-s">企业微信 · 扫码添加</div></div></div>' +
       '<ol class="bf-pay-steps"><li>扫码加客服</li><li>报订单号</li><li>确认后在微信内付款</li></ol>' +
       '<p class="bf-pay-note">客服确认腕围和细节后发货，发货会通知你。</p>' +
-      echo +
       '<div class="bf-sum-t">订单信息</div><pre class="bf-order-sum">' + sum + '</pre>' +
-      '<div class="bf-navrow"><button class="btn" id="bf-copy" type="button">复制订单信息</button><button class="btn solid" id="bf-finish" type="button">完成</button></div>';
+      '<div class="bf-navrow"><button class="btn" id="bf-copy" type="button">复制订单信息</button><button class="btn" id="bf-myorders" type="button">查看我的订单</button><button class="btn solid" id="bf-finish" type="button">完成</button></div>' +
+      echo;
     document.getElementById('bf-finish').addEventListener('click', bfClose);
+    document.getElementById('bf-myorders').addEventListener('click', function () { bfGo(6); });
     document.getElementById('bf-copy').addEventListener('click', function () {
       var btn = this;
       var txt = bfOrderText(o);
       function ok() { btn.textContent = '已复制 ✓'; setTimeout(function () { btn.textContent = '复制订单信息'; }, 1500); }
-      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(ok, ok); }
-      else {
-        var ta = document.createElement('textarea');
-        ta.value = txt; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        ta.remove(); ok();
+      function fail() {
+        var pre = document.querySelector('#bf-done .bf-order-sum');
+        if (pre) { var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+        btn.textContent = '长按上方订单信息复制';
+        setTimeout(function () { btn.textContent = '复制订单信息'; }, 2500);
       }
+      function legacy() {
+        var ta = document.createElement('textarea');
+        ta.value = txt; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, txt.length);
+        var done = false;
+        try { done = document.execCommand('copy'); } catch (e) {}
+        ta.remove();
+        if (done) { ok(); } else { fail(); }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(ok, legacy); }
+      else { legacy(); }
     });
   }
 
@@ -3682,54 +3952,51 @@
   var bfMember = null;
   try { bfMember = JSON.parse(localStorage.getItem('xian_member') || 'null'); } catch (e) {}
   var bfLastSaveOk = true;
+  var bfAutoMember = false;
   function bfSaveMember() { try { localStorage.setItem('xian_member', JSON.stringify(bfMember)); } catch (e) {} }
   function bfMaskPhone(p) { return p && p.length === 11 ? p.slice(0, 3) + '****' + p.slice(7) : p; }
-  function bfRenderMember() {
-    var done = document.getElementById('bf-join-done');
-    var btn = document.getElementById('bf-join');
-    if (bfMember && bfMember.phone) {
-      btn.hidden = true;
-      done.hidden = false;
-      done.textContent = '已是香友 · ' + bfMaskPhone(bfMember.phone) + '，礼遇都记在你名下了';
-    } else {
-      btn.hidden = false;
-      done.hidden = true;
-    }
-  }
   function bfPrefillForm() {
-    if (!bfMember) { return; }
-    var map = { 'bf-f-name': bfMember.name, 'bf-f-phone': bfMember.phone, 'bf-f-addr': bfMember.addr, 'bf-f-wrist': bfMember.wrist };
-    Object.keys(map).forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el && !el.value && map[id]) { el.value = map[id]; }
-    });
-  }
-  document.getElementById('bf-join').addEventListener('click', function () {
-    var name = document.getElementById('bf-f-name').value.trim();
-    var phone = document.getElementById('bf-f-phone').value.trim();
-    var addr = document.getElementById('bf-f-addr').value.trim();
-    var wrist = document.getElementById('bf-f-wrist').value.trim();
-    var err = document.getElementById('bf-err');
-    if (!name || !/^1\d{10}$/.test(phone)) {
-      err.hidden = false;
-      err.textContent = '先把姓名和 11 位电话填好，再点成为香友——用的就是你刚填的，不用重填。';
-      return;
+    var filled = false;
+    function fill(map) {
+      Object.keys(map).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && !el.value && map[id]) { el.value = map[id]; filled = true; }
+      });
     }
-    err.hidden = true;
-    var same = bfMember && bfMember.phone === phone;
-    bfMember = {
-      phone: phone, name: name, addr: addr, wrist: wrist,
-      sign: cxResult ? { main: cxResult.main.name, pct: cxResult.mainPct, second: cxResult.second.name, bead: cxResult.bead } : (same ? bfMember.sign : null),
-      orders: same ? bfMember.orders : [],
-      coupons: same ? bfMember.coupons : [],
-      joinedTs: same && bfMember.joinedTs ? bfMember.joinedTs : Date.now()
-    };
-    bfSaveMember();
-    bfRenderMember();
-  });
+    if (bfMember) { fill({ 'bf-f-name': bfMember.name, 'bf-f-phone': bfMember.phone, 'bf-f-email': bfMember.email, 'bf-f-addr': bfMember.addr, 'bf-f-wrist': bfMember.wrist }); }
+    var need = ['bf-f-name', 'bf-f-email', 'bf-f-addr', 'bf-f-wrist'].some(function (id) { var el = document.getElementById(id); return el && !el.value; });
+    if (need) {
+      try {
+        var os = JSON.parse(localStorage.getItem('xian_orders') || '[]');
+        var ph = (bfMember && bfMember.phone) || document.getElementById('bf-f-phone').value.trim();
+        for (var i = os.length - 1; i >= 0; i--) {
+          if (!ph || os[i].phone === ph) {
+            fill({ 'bf-f-name': os[i].name, 'bf-f-phone': os[i].phone, 'bf-f-email': os[i].email, 'bf-f-addr': os[i].addr, 'bf-f-wrist': os[i].wrist });
+            break;
+          }
+        }
+      } catch (e) {}
+    }
+    var pnote = document.getElementById('bf-prefill-note');
+    if (pnote) { pnote.hidden = !filled; }
+  }
   document.getElementById('cx-bb-btn').addEventListener('click', function () { cxCloseTest(); bfOpen(2); });
 
   // ----- 查订单：按手机号查本机提交过的订单 -----
+  function bfKnownPhone() {
+    if (bfMember && bfMember.phone) { return bfMember.phone; }
+    try {
+      var os = JSON.parse(localStorage.getItem('xian_orders') || '[]');
+      if (os.length && os[os.length - 1].phone) { return os[os.length - 1].phone; }
+    } catch (e) {}
+    return '';
+  }
+  function bfPrepLookup() {
+    var inp = document.getElementById('bf-q-phone');
+    var kp = bfKnownPhone();
+    if (kp && !inp.value) { inp.value = kp; }
+    if (/^1\d{10}$/.test(inp.value.trim())) { bfRenderLookup(); }
+  }
   function bfRenderLookup() {
     var phone = document.getElementById('bf-q-phone').value.trim();
     var err = document.getElementById('bf-q-err');
@@ -3745,7 +4012,7 @@
     try { orders = JSON.parse(localStorage.getItem('xian_orders') || '[]'); } catch (e) {}
     var mine = orders.filter(function (o) { return o.phone === phone; }).reverse();
     if (!mine.length) {
-      list.innerHTML = '<p class="bf-q-empty">这个手机号还没有订单记录。<br>订单只保存在下单的那台设备、那个浏览器里；换了设备或浏览器，把订单号报给客服就能查。</p>';
+      list.innerHTML = '<p class="bf-q-empty">这个手机号还没有订单记录——确认一下下单时填的手机号。<br>如果是在别的手机上下的单，把订单号发给客服，也能帮你查到。</p>';
       return;
     }
     list.innerHTML = mine.map(function (o) {
@@ -3761,6 +4028,7 @@
     }).join('');
   }
   document.getElementById('bf-to-lookup').addEventListener('click', function () { bfGo(6); });
+  document.getElementById('ft-orders').addEventListener('click', function () { bfOpen(6); });
   document.getElementById('bf-q-btn').addEventListener('click', bfRenderLookup);
   document.getElementById('bf-q-back').addEventListener('click', function () { bfGo(1); });
   document.getElementById('bf-q-phone').addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { bfRenderLookup(); } });
