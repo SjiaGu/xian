@@ -290,7 +290,7 @@
   @media (max-width: 959px) { .grid .card:last-child { grid-column: 1 / -1; } }
   /* 素串 8 款专用：桌面四列两行，整齐对称收尾，不再有最后一块掉下去 */
   .grid-plain .card:last-child { grid-column: auto; }
-  @media (min-width: 1024px) { .grid-plain { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; } .grid-plain .card { padding: 24px 16px 20px; } }
+  @media (min-width: 960px) { .grid-plain { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; } .grid-plain .card { padding: 24px 16px 20px; } }
   /* 七境卡片：去掉说明书式的参数表，只留一颗临光的晶球与诗意短句 */
   .realm-orb {
     width: 68px; height: 68px; border-radius: 50%; margin: 10px auto 4px; flex: none;
@@ -413,8 +413,8 @@
   @media (max-width: 559px) {
     .grid-plain .card .buy-group { flex-wrap: wrap; }
     .grid-plain .card .buy-label { flex: 0 0 100%; margin-right: 0; padding: 8px 0 0; font-size: 10.5px; letter-spacing: .14em; }
-    .grid-plain .card .buy-btn { flex: 1; font-size: 11px; padding: 4px 0 9px; }
-    .grid-plain .card .buy-btn + .buy-btn::before { margin: 0 2px; font-size: 10px; }
+    .grid-plain .card .buy-btn { flex: 0 0 33.333%; width: 33.333%; max-width: 33.333%; justify-content: center; font-size: 11px; padding: 4px 0 9px; }
+    .grid-plain .card .buy-btn + .buy-btn::before { content: none; }
   }
 
   .series-banner { margin-bottom: 26px; }
@@ -728,6 +728,7 @@
     .footer-col + .footer-col { border-left: 1px solid rgba(241,234,224,0.10); padding-left: 42px; }
   }
   @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 32px 0; margin-top: 28px; } }
+  @media (max-width: 640px) { footer { padding-bottom: 96px; } }
   .footer-col h4 { font-size: 15px; letter-spacing: .32em; color: #F5EFE3; font-weight: 600; display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(241,234,224,0.14); }
   .footer-col h4::before { content: ''; width: 7px; height: 7px; background: var(--brass); transform: rotate(45deg); display: block; flex: none; }
   .footer-col a { display: block; font-size: 13px; color: rgba(241,234,224,0.62); padding: 5px 0; line-height: 1.7; min-height: 30px; }
