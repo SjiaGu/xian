@@ -261,6 +261,7 @@
 
   /* ===== 产品层 ===== */
   .layer + .layer { border-top: 1px solid var(--line); }
+  .layer .wrap { padding-top: clamp(38px, 5vw, 54px); padding-bottom: clamp(38px, 5vw, 54px); }
   .layer-head { margin-bottom: clamp(26px, 4vw, 40px); }
   .layer-num { color: var(--brown); font-size: 12px; letter-spacing: .3em; margin-bottom: 12px; }
   .layer-head h2 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 500; letter-spacing: .08em; }
@@ -701,7 +702,7 @@
 
   /* ===== 愿景（浅色，不再与页尾割裂） ===== */
   .vision { background: var(--bg-soft); border-top: 1px solid var(--line); }
-  .vision .wrap { text-align: center; padding-top: clamp(56px, 8vw, 88px); padding-bottom: clamp(56px, 8vw, 88px); }
+  .vision .wrap { text-align: center; padding-top: clamp(48px, 6vw, 64px); padding-bottom: clamp(48px, 6vw, 64px); }
   .vision .v-mark { color: var(--brown); font-size: 20px; letter-spacing: .4em; margin-bottom: 20px; }
   .vision h2 { font-size: clamp(22px,3vw,30px); font-weight: 500; letter-spacing: .12em; margin-bottom: 18px; }
   .vision p { color: var(--ink-soft); max-width: 560px; margin: 0 auto 12px; font-size: 15px; }
@@ -1536,7 +1537,26 @@
 
 
 <!-- ===== 品牌故事 ===== -->
-<section class="story" id="story">
+<section class="concept" id="concept">
+  <div class="wrap">
+    <div class="eyebrow">认识仙</div>
+    <h2 class="screen-title">香修于内，石养于外</h2>
+    <div class="duo-grid">
+      <div class="duo-card">
+        <div class="duo-tag">闻 · 合香珠</div>
+        <p>沉香、檀香、龙涎等天然香材，古法手作成珠。不点不焚，贴着腕间，自带安静呼吸的草木气。</p>
+      </div>
+      <div class="duo-card">
+        <div class="duo-tag">观 · 天然石</div>
+        <p>甄选各类天然晶石。深香配沉石，浅香配净石。晶石的天然纹理与香方的草木节律，在一串中相互呼应，形成独特的腕间气韵。</p>
+      </div>
+    </div>
+    <figure class="concept-fig">
+      <img src="images/site-tea-mountain.webp" alt="清晨的茶山云海：云海漫过一层层茶山，白裙女子立在山脊的岩石上，长发与裙摆被风吹起，腕间戴着米白合香珠与白水晶相间的串" style="object-position:72% center" loading="lazy">
+      <figcaption>不必寻山问道，腕间自有清仙</figcaption>
+    </figure>
+  </div>
+</section><section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
       <figure class="story-fig">
@@ -1559,25 +1579,6 @@
       </div>
     </div>
   </div>
-</section><section class="concept" id="concept">
-  <div class="wrap">
-    <div class="eyebrow">认识仙</div>
-    <h2 class="screen-title">香修于内，石养于外</h2>
-    <div class="duo-grid">
-      <div class="duo-card">
-        <div class="duo-tag">闻 · 合香珠</div>
-        <p>沉香、檀香、龙涎等天然香材，古法手作成珠。不点不焚，贴着腕间，自带安静呼吸的草木气。</p>
-      </div>
-      <div class="duo-card">
-        <div class="duo-tag">观 · 天然石</div>
-        <p>甄选各类天然晶石。深香配沉石，浅香配净石。晶石的天然纹理与香方的草木节律，在一串中相互呼应，形成独特的腕间气韵。</p>
-      </div>
-    </div>
-    <figure class="concept-fig">
-      <img src="images/site-tea-mountain.webp" alt="清晨的茶山云海：云海漫过一层层茶山，白裙女子立在山脊的岩石上，长发与裙摆被风吹起，腕间戴着米白合香珠与白水晶相间的串" style="object-position:72% center" loading="lazy">
-      <figcaption>不必寻山问道，腕间自有清仙</figcaption>
-    </figure>
-  </div>
 </section>
 
 <!-- ===== 三大匠心 ===== -->
@@ -1597,101 +1598,6 @@
       <div class="craft-card"><div class="cc-num">匠心 · 壹</div><h3>循古法合香，还原草木本真</h3><p>香材历经传统古法炮制、调和，手工成珠与自然阴干；不沿工业流水线量产，保留东方草木天然、<span class="nobr">有层次的香韵。</span></p></div>
       <div class="craft-card"><div class="cc-num">匠心 · 贰</div><h3>温和亲肤，纯净植物本源</h3><p>贴身之物，先求稳妥。精选天然香材与植物纤维，搭配天然原石晶石，日常贴肤佩戴。</p></div>
       <div class="craft-card"><div class="cc-num">匠心 · 叁</div><h3>手工打磨，温润如肌肤相亲</h3><p>从原石的天然肌理，到香珠的圆润弧度，皆由匠人手工细细打磨；触感温润细腻，<span class="nobr">日常佩戴轻盈自在。</span></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
-<section class="hexiang-sec" id="hexiang">
-  <div class="wrap">
-    <div class="eyebrow">认识仙 · 识香</div>
-    <h2 class="sec-title">一颗珠子，装着一千多年的香事</h2>
-    <p class="sec-sub">合香珠不是新物。把香做成珠、佩在身上，中国人做了上千年。先认识它，再挑你的串。</p>
-    <div class="hx-smell">
-      <p>五感之中，唯嗅觉不经丘脑中继——气味信号自嗅球直达杏仁核与海马体，情绪与记忆的中枢。</p>
-      <p class="smell-last">人对香，先有感觉，后有判断。</p>
-    </div>
-    <figure class="hx-fig">
-      <img src="images/site-heritage-window.webp" alt="亮调窗台：晨光透过纱帘，一串深褐色合香圆珠挨着一本线装书躺在窗台上，旁置一小碟金桂花，一缕轻烟在光里缓缓升起" style="object-position:center 80%" loading="lazy">
-      <figcaption>窗台晨光里，一串珠子、一本旧书、一碟桂花 —— 一千多年的香事，先从安静说起</figcaption>
-    </figure>
-
-    <div class="hx-block">
-      <h3 class="hx-h">先说清：合香珠到底是什么</h3>
-      <div class="craft-grid" style="margin-top:22px">
-        <div class="craft-card"><h3>古法配伍</h3><p>沉香、檀香，佐以花、叶与草木，按一张方子配在一起，研粉、黏合、成珠。几味彼此让位、彼此成全 —— 所以它耐闻，有前有后，有层次。</p></div>
-        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，<span class="nobr">走上人的手腕。</span></p></div>
-        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，<span class="nobr">和一点旧时光的体面。</span></p></div>
-      </div>
-    </div>
-
-    <div class="hx-block">
-      <h3 class="hx-h">它从哪里来</h3>
-      <div class="tl">
-        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里<span class="nobr">最早的模样之一。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是<span class="nobr">从这张老方子里来的。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的<span class="nobr">正是这条老路。</span></p></div></div>
-        <div class="tl-row"><div class="tl-era">明清至今</div><div class="tl-body"><h4>入日常，入非遗</h4><p>香珠成串佩戴、把玩，清宫造办处曾在端午前后赶制香珠，供佩戴与赏赐。如今，合香珠传统制作技艺已在多地列入非物质文化遗产名录。</p></div></div>
-      </div>
-    </div>
-
-    <div class="hx-block">
-      <h3 class="hx-h">一颗珠子是怎么做出来的</h3>
-      <p class="hx-lead">老流程传下来，大致九步。除了打粉，其余几乎全靠一双手——这也是它量产不了、<span class="nobr">快不了的原因</span>。</p>
-      <div class="beadline">
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-1.webp" alt="一只浅色小碟，盛着沉香小块、檀香条与几枚花苞" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">壹</div><h4>选材炮制</h4><p>香材先一一拣选、炮制，去燥气、留本香。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-2.webp" alt="一只白瓷研钵，钵里是研细的香粉，钵杵斜搁在钵沿" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">贰</div><h4>阴干打粉</h4><p>阴干后研成细粉，粉的粗细，决定珠子的质地。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-3.webp" alt="一只素陶碗，碗里一团和好的香泥" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">叁</div><h4>配伍黏合</h4><p>按方配伍，以植物黏粉相合，和成香泥。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-4.webp" alt="一团香泥裹在素布里静置，旁边轻靠着一把小木槌" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">肆</div><h4>捶打醒制</h4><p>反复捶打、静置醒制，让几味香真正融到一起。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-5.webp" alt="女子的双手在指间搓一颗深褐圆珠，旁边放着三颗已成型的圆珠" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">伍</div><h4>手作成珠</h4><p>一颗一颗搓圆、修形。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-6.webp" alt="一颗深褐圆珠搁在小木块上，一根细针正穿过珠心" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">陆</div><h4>穿孔</h4><p>趁珠体未干，以细针逐颗穿孔。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-7.webp" alt="一只浅竹盘上整齐放着一排深褐圆珠" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">柒</div><h4>阴干定型</h4><p>放在阴凉通风处，慢慢阴干定型。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-8.webp" alt="一颗打磨好的深褐圆珠，单独搁在一块素色软布上，珠面温润" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">捌</div><h4>打磨抛光</h4><p>细细打磨抛光，珠面温润。</p></div>
-        </div>
-        <div class="bl-step">
-          <figure class="bl-fig"><img src="images/craft-sym-9.webp" alt="一圈穿好的深褐色哑光合香珠手串，平放在素净的底面上" loading="lazy"></figure>
-          <span class="bl-node" aria-hidden="true"></span>
-          <div class="bl-txt"><div class="st-num">玖</div><h4>穿绳成串</h4><p>穿绳成串，才到你手里。</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hx-block hx-stance">
-      <h3 class="hx-h">最后，说一句香的来处</h3>
-      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，<span class="nobr">剩下的是空的。</span></p>
-      <p>仙只做前一种。每一款的香材都列得出来，方子讲得清楚，不添加香精，不靠染色做样子。也因此先说好：<b>我们的香偏淡，那不是做得不到位，是草木本来的音量。</b>你若喜欢浓烈张扬的香，我们大约不合拍；你若喜欢近身、安静、耐闻的，这条路，古人替我们走了一千多年了。</p>
-      <p class="hx-note">这一节是香文化常识，只为帮你认识合香珠；香是气息与陪伴，不作功效之说。</p>
     </div>
   </div>
 </section>
@@ -1919,6 +1825,101 @@
         <img src="images/bespoke-still.webp" alt="女子腕间戴着一串配好的深褐合香珠与月光石手串，案上放着空白纸、毛笔与盛着晶石和香珠的小碟" loading="lazy">
         <figcaption>先写下你的偏好，再为你配这一串</figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 识香 · 合香珠科普（：自认识仙移出独立成节，置于产品各区之后、品牌故事之前） ===== -->
+<section class="hexiang-sec" id="hexiang">
+  <div class="wrap">
+    <div class="eyebrow">认识仙 · 识香</div>
+    <h2 class="sec-title">一颗珠子，装着一千多年的香事</h2>
+    <p class="sec-sub">合香珠不是新物。把香做成珠、佩在身上，中国人做了上千年。先认识它，再挑你的串。</p>
+    <div class="hx-smell">
+      <p>五感之中，唯嗅觉不经丘脑中继——气味信号自嗅球直达杏仁核与海马体，情绪与记忆的中枢。</p>
+      <p class="smell-last">人对香，先有感觉，后有判断。</p>
+    </div>
+    <figure class="hx-fig">
+      <img src="images/site-heritage-window.webp" alt="亮调窗台：晨光透过纱帘，一串深褐色合香圆珠挨着一本线装书躺在窗台上，旁置一小碟金桂花，一缕轻烟在光里缓缓升起" style="object-position:center 80%" loading="lazy">
+      <figcaption>窗台晨光里，一串珠子、一本旧书、一碟桂花 —— 一千多年的香事，先从安静说起</figcaption>
+    </figure>
+
+    <div class="hx-block">
+      <h3 class="hx-h">先说清：合香珠到底是什么</h3>
+      <div class="craft-grid" style="margin-top:22px">
+        <div class="craft-card"><h3>古法配伍</h3><p>沉香、檀香，佐以花、叶与草木，按一张方子配在一起，研粉、黏合、成珠。几味彼此让位、彼此成全 —— 所以它耐闻，有前有后，有层次。</p></div>
+        <div class="craft-card"><h3>冷凝留香</h3><p>香品里，它属于「冷凝香」：不点燃、不熏焚，香就凝在珠体里，靠腕间的体温与日常摩挲，一点一点缓缓散开。正因为不用点火，它才能离开香炉，<span class="nobr">走上人的手腕。</span></p></div>
+        <div class="craft-card"><h3>贴身陪伴</h3><p>古人佩香，香囊、香丸、香珠不离身，取的是气息相伴。到了今天也一样：不是摆着看的陈设，也不是治病的药，是一串贴身的气息，<span class="nobr">和一点旧时光的体面。</span></p></div>
+      </div>
+    </div>
+
+    <div class="hx-block">
+      <h3 class="hx-h">它从哪里来</h3>
+      <div class="tl">
+        <div class="tl-row"><div class="tl-era">唐以前</div><div class="tl-body"><h4>见于典籍</h4><p>北周道家典籍《三洞珠囊》里记着一句：「以杂香捣之，丸如梧桐子，青绳穿之。」—— 香珠留在文字里<span class="nobr">最早的模样之一。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>成方，成谱</h4><p>宋代香事鼎盛，《陈氏香谱》专列香珠，说「香珠之法，其来尚矣」，还记下以桂花为君的木樨香珠方 —— 仙的「木樨香」，名字正是<span class="nobr">从这张老方子里来的。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">宋</div><div class="tl-body"><h4>香与珠，原本同串</h4><p>范成大《桂海虞衡志》记南中妇人：把泥香捏成小珠，与琉璃珠相间，用彩丝贯穿起来戴。香珠与透亮的珠子同在一串 —— 仙把晶石配进香珠，走的<span class="nobr">正是这条老路。</span></p></div></div>
+        <div class="tl-row"><div class="tl-era">明清至今</div><div class="tl-body"><h4>入日常，入非遗</h4><p>香珠成串佩戴、把玩，清宫造办处曾在端午前后赶制香珠，供佩戴与赏赐。如今，合香珠传统制作技艺已在多地列入非物质文化遗产名录。</p></div></div>
+      </div>
+    </div>
+
+    <div class="hx-block">
+      <h3 class="hx-h">一颗珠子是怎么做出来的</h3>
+      <p class="hx-lead">老流程传下来，大致九步。除了打粉，其余几乎全靠一双手——这也是它量产不了、<span class="nobr">快不了的原因</span>。</p>
+      <div class="beadline">
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-1.webp" alt="一只浅色小碟，盛着沉香小块、檀香条与几枚花苞" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">壹</div><h4>选材炮制</h4><p>香材先一一拣选、炮制，去燥气、留本香。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-2.webp" alt="一只白瓷研钵，钵里是研细的香粉，钵杵斜搁在钵沿" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">贰</div><h4>阴干打粉</h4><p>阴干后研成细粉，粉的粗细，决定珠子的质地。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-3.webp" alt="一只素陶碗，碗里一团和好的香泥" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">叁</div><h4>配伍黏合</h4><p>按方配伍，以植物黏粉相合，和成香泥。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-4.webp" alt="一团香泥裹在素布里静置，旁边轻靠着一把小木槌" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">肆</div><h4>捶打醒制</h4><p>反复捶打、静置醒制，让几味香真正融到一起。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-5.webp" alt="女子的双手在指间搓一颗深褐圆珠，旁边放着三颗已成型的圆珠" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">伍</div><h4>手作成珠</h4><p>一颗一颗搓圆、修形。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-6.webp" alt="一颗深褐圆珠搁在小木块上，一根细针正穿过珠心" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">陆</div><h4>穿孔</h4><p>趁珠体未干，以细针逐颗穿孔。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-7.webp" alt="一只浅竹盘上整齐放着一排深褐圆珠" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">柒</div><h4>阴干定型</h4><p>放在阴凉通风处，慢慢阴干定型。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-8.webp" alt="一颗打磨好的深褐圆珠，单独搁在一块素色软布上，珠面温润" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">捌</div><h4>打磨抛光</h4><p>细细打磨抛光，珠面温润。</p></div>
+        </div>
+        <div class="bl-step">
+          <figure class="bl-fig"><img src="images/craft-sym-9.webp" alt="一圈穿好的深褐色哑光合香珠手串，平放在素净的底面上" loading="lazy"></figure>
+          <span class="bl-node" aria-hidden="true"></span>
+          <div class="bl-txt"><div class="st-num">玖</div><h4>穿绳成串</h4><p>穿绳成串，才到你手里。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hx-block hx-stance">
+      <h3 class="hx-h">最后，说一句香的来处</h3>
+      <p>如今市面上的香珠，样子都差不多，差别藏在香从哪里来。一种香，是从香材本身来的：气息长在珠子里，淡，有层次，贴近了才闻得真切。另一种，是把香精附在珠子表面：初闻浓烈扑鼻，散得也快，<span class="nobr">剩下的是空的。</span></p>
+      <p>仙只做前一种。每一款的香材都列得出来，方子讲得清楚，不添加香精，不靠染色做样子。也因此先说好：<b>我们的香偏淡，那不是做得不到位，是草木本来的音量。</b>你若喜欢浓烈张扬的香，我们大约不合拍；你若喜欢近身、安静、耐闻的，这条路，古人替我们走了一千多年了。</p>
+      <p class="hx-note">这一节是香文化常识，只为帮你认识合香珠；香是气息与陪伴，不作功效之说。</p>
     </div>
   </div>
 </section>
@@ -2233,11 +2234,11 @@
       </div>
       <div class="footer-col">
         <h4>品牌</h4>
+        <a href="#story">品牌故事</a>
+        <a href="#craft">三大匠心</a>
         <a href="#concept">认识仙</a>
         <a href="#hexiang">识香</a>
-        <a href="#story">品牌故事</a>
         <a href="#daily">仙日常</a>
-        <a href="#craft">三大匠心</a>
       </div>
       <div class="footer-col">
         <h4>联系</h4>
