@@ -415,9 +415,14 @@
   @media (min-width: 660px) and (max-width: 959px) {
     .grid-plain .meta-row[data-k="香韵"] { min-height: calc(13px * 1.7); }
   }
+  /* 2026-11-21 晚修正（Scarlett 真机截图指出）：手机端原预留（香韵 3 行／
+     成分 6 行）是按沙箱探针的字体度量定的，真机（360px、正式字体）实际
+     香韵 2 行、成分 2–3 行，预留多出约 110px 死白，卡片被撑得过长、
+     珠径行沉到很下面。手机端撤除行数预留：卡高随内容自然生长，同排
+     两卡仍由网格等高＋珠径行 margin-top:auto 沉底对齐。桌面预留不动。 */
   @media (max-width: 559px) {
-    .grid-plain .meta-row[data-k="香韵"] { min-height: calc(13px * 1.7 * 3 + 1px); }
-    .grid-plain .meta-row[data-k="成分"] { min-height: calc(13px * 1.7 * 6); }
+    .grid-plain .meta-row[data-k="香韵"] { min-height: 0; }
+    .grid-plain .meta-row[data-k="成分"] { min-height: 0; }
   }
   /* ：主页素串卡片的珠径选择改无框式 —— 一行纯文字链接「8mm ｜ 10mm ｜ 12mm」，
      三个尺寸以细竖线「｜」分隔（分隔符用次级色），整行左对齐；无边框、无底色、无圆角、
